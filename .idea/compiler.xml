@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="17">
-      <module name="Clastic_Reengineering.feature.home" target="18" />
+    <bytecodeTargetLevel target="18">
       <module name="Clastic_Reengineering.feature.login" target="18" />
       <module name="Clastic_Reengineering.feature.register" target="18" />
     </bytecodeTargetLevel>

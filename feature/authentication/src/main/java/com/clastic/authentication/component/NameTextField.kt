@@ -1,4 +1,4 @@
-package com.clastic.ui.authentication
+package com.clastic.authentication.component
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -7,98 +7,86 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Icon
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.clastic.ui.R
+import com.clastic.authentication.R
 import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanTextField
 
 @Composable
-fun PasswordTextField(
-    password: String,
+fun NameTextField(
+    name: String,
     isEnabled: Boolean,
-    placeholderId: Int,
     onInputChanged: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val focusManager =  LocalFocusManager.current
+    val focusManager = LocalFocusManager.current
 
     Column(modifier = modifier) {
         Text(
-            text = stringResource(R.string.password),
+            text = stringResource(R.string.name),
             color = CyanTextField,
             fontWeight = FontWeight.Black,
             modifier = Modifier.padding(start = 10.dp)
         )
         OutlinedTextField(
-            value = password,
-            onValueChange = onInputChanged,
+            value = name,
             enabled = isEnabled,
+            onValueChange = onInputChanged,
             leadingIcon = {
                 Icon(
-                    imageVector = Icons.Default.Lock,
+                    imageVector = Icons.Default.Person,
                     contentDescription = null,
-                    tint = Color.Black
+                    tint = CyanTextField
                 )
             },
             shape = RoundedCornerShape(19.dp),
             colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = CyanTextField,
-                unfocusedBorderColor = CyanTextField,
-                errorBorderColor = Color.Red
+                unfocusedBorderColor = CyanTextField
             ),
-            maxLines = 1,
-            singleLine = true,
             keyboardOptions = KeyboardOptions(
-                keyboardType = KeyboardType.Password,
-                imeAction = ImeAction.Done
+                capitalization = KeyboardCapitalization.Words,
+                imeAction = ImeAction.Next
             ),
             keyboardActions = KeyboardActions(
-                onNext = { focusManager.clearFocus() }
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }
             ),
             placeholder = {
                 Text(
-                    stringResource(placeholderId),
+                    text = stringResource(R.string.enter_your_name),
                     color = Color.Gray
                 )
             },
-            visualTransformation = VisualTransformation.None,
-            modifier = Modifier.fillMaxWidth()
-        )
-
-        Text(
-            text = stringResource(R.string.wrong_password_format),
-            color = Color.Red,
-            style = MaterialTheme.typography.caption,
-            modifier = Modifier.padding(start = 10.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 12.dp)
         )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun PasswordTextFieldPreview() {
+fun NameTextFieldPreview() {
     ClasticTheme {
-        PasswordTextField(
-            password = "invalid input",
+        NameTextField(
+            name = "",
             isEnabled = true,
-            placeholderId = R.string.enter_password,
-            onInputChanged = {},
+            onInputChanged = {}
         )
     }
 }
