@@ -47,8 +47,7 @@ fun EmailTextField(
             text = stringResource(R.string.email),
             color = CyanTextField,
             fontWeight = FontWeight.Black,
-            modifier = Modifier
-                .padding(start = 10.dp)
+            modifier = Modifier.padding(start = 10.dp)
         )
         OutlinedTextField(
             value = email,

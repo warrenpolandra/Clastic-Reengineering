@@ -17,6 +17,9 @@ dependencies {
     // Hilt
     hilt()
 
+    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
+
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation(platform("androidx.compose:compose-bom:2024.02.02"))
 

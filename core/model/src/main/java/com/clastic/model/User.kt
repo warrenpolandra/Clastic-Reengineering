@@ -10,6 +10,7 @@ data class User(
     val points: Int,
     val userPhoto: String?,
     val level: Int,
+    val exp: Int,
     val createdAt: String,
     val role: String
 )

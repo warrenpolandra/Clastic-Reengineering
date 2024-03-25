@@ -47,11 +47,10 @@ fun PasswordTextField(
 ) {
     val focusManager =  LocalFocusManager.current
     var passwordVisible by remember { mutableStateOf(false) }
-    // TODO(Password Criteria Here)
-    //val isEmptyPassword = remember(password) { password.isBlank() }
+    val isPasswordLengthCorrect = remember(password) { password.length >= 6 }
+    val isEmptyPassword = remember(password) { password.isBlank() }
     //val isValidPassword = remember(password) { password }
-    //val isError = isValidPassword && !isEmptyPassword
-    val isError = false
+    val isError = !isEmptyPassword && !isPasswordLengthCorrect
 
     Column(modifier = modifier) {
         Text(
@@ -109,9 +108,9 @@ fun PasswordTextField(
             },
             modifier = Modifier.fillMaxWidth()
         )
-        if (isError) {
+        if (!isEmptyPassword && !isPasswordLengthCorrect) {
             Text(
-                text = stringResource(R.string.invalid_password),
+                text = stringResource(R.string.invalid_password_length),
                 color = Color.Red,
                 style = MaterialTheme.typography.caption,
                 modifier = Modifier.padding(start = 10.dp)
