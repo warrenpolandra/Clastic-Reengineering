@@ -1,8 +1,9 @@
 package com.clastic.model.authentication
 
-import com.clastic.model.User
+import androidx.annotation.Keep
 
+@Keep
 class AuthenticationResult(
-    val data: User?,
+    val data: UserData?,
     val errorMessage: String?
 )

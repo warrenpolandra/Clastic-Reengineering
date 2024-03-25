@@ -1,4 +1,5 @@
 plugins {
+    id("com.google.gms.google-services")
     `android-library`
     `kotlin-android`
 }
@@ -10,6 +11,12 @@ android {
 }
 
 dependencies {
+
+    implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
+
+    implementation(project(":core:model"))
+
     // Hilt
     hilt()
 

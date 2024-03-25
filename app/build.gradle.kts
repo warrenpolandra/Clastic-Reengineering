@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("dagger.hilt.android.plugin")
     kotlin("kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -60,9 +61,13 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":feature:authentication"))
     implementation(project(":feature:splashscreen"))
+    implementation(project(":feature:home"))
 
     // Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")
+
+    // Firebase
+    implementation("com.google.firebase:firebase-auth:22.3.1")
 
     // Hilt
     hilt()

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "525541985584",
+    "project_id": "clastic-rebuild",
+    "storage_bucket": "clastic-rebuild.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:525541985584:android:b1c171af326fd447cfccf5",
+        "android_client_info": {
+          "package_name": "com.clastic.reengineering"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "525541985584-m9h6ulpuonb1rngsq7edr1rv7p3rkrsb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.clastic.reengineering",
+            "certificate_hash": "35c177816c69c66fe7311c0561e210ecaa5e31fb"
+          }
+        },
+        {
+          "client_id": "525541985584-dqlkcv6pdm0m382b5vrdmqsnrm03i2ag.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCzm-WoZymF2f7cRLL1c9ZERMkAtiQs8rc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "525541985584-dqlkcv6pdm0m382b5vrdmqsnrm03i2ag.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

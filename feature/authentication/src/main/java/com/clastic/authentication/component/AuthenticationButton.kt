@@ -1,4 +1,4 @@
-package com.clastic.ui.authentication
+package com.clastic.authentication.component
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -14,7 +14,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.clastic.ui.R
+import com.clastic.authentication.R
 import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimary
 
