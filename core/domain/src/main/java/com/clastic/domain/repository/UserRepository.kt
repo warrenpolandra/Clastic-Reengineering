@@ -2,6 +2,7 @@ package com.clastic.domain.repository
 
 import android.content.Intent
 import android.content.IntentSender
+import com.clastic.model.authentication.AuthUser
 import com.clastic.model.authentication.AuthenticationResult
 
 interface UserRepository {
@@ -19,4 +20,21 @@ interface UserRepository {
         onSignOutSuccess: () -> Unit,
         onSignOutFailed: (Exception) -> Unit
     )
+
+    fun registerWithEmail(
+        name: String,
+        email: String,
+        password: String,
+        onResultSuccess: (AuthenticationResult) -> Unit,
+        onResultFailed: (String) -> Unit
+    )
+
+    fun loginWithEmail(
+        email: String,
+        password: String,
+        onResultSuccess: (AuthenticationResult) -> Unit,
+        onResultFailed: (String) -> Unit
+    )
+
+    fun getLoggedInUser(): AuthUser?
 }

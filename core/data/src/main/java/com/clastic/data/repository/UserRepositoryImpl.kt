@@ -7,7 +7,8 @@ import com.clastic.data.R
 import com.clastic.data.Utils
 import com.clastic.domain.repository.UserRepository
 import com.clastic.model.authentication.AuthenticationResult
-import com.clastic.model.authentication.UserData
+import com.clastic.model.User
+import com.clastic.model.authentication.AuthUser
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.BeginSignInRequest.GoogleIdTokenRequestOptions
 import com.google.android.gms.auth.api.identity.Identity
@@ -65,7 +66,7 @@ class UserRepositoryImpl @Inject constructor(
                         } else {
                             createRegisterResultSuccess(
                                 user = user,
-                                name = user?.email ?: "",
+                                name = user?.displayName ?: user?.email ?: "user",
                                 onResultSuccess = onSignInResult,
                                 onResultFailed = onFetchFailed
                             )
@@ -97,6 +98,57 @@ class UserRepositoryImpl @Inject constructor(
             }
     }
 
+    override fun registerWithEmail(
+        name: String,
+        email: String,
+        password: String,
+        onResultSuccess: (AuthenticationResult) -> Unit,
+        onResultFailed: (String) -> Unit
+    ) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnSuccessListener { task ->
+                createRegisterResultSuccess(
+                    user = task.user,
+                    name = name,
+                    onResultSuccess = onResultSuccess,
+                    onResultFailed = onResultFailed
+                )
+            }
+            .addOnFailureListener { e ->
+                onResultFailed(e.message ?: "")
+            }
+    }
+
+    override fun loginWithEmail(
+        email: String,
+        password: String,
+        onResultSuccess: (AuthenticationResult) -> Unit,
+        onResultFailed: (String) -> Unit
+    ) {
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnSuccessListener { task ->
+                createLoginResultSuccess(
+                    user = task.user,
+                    onResultSuccess = onResultSuccess,
+                    onResultFailed = onResultFailed
+                )
+            }
+            .addOnFailureListener { e ->
+                onResultFailed(e.message ?: "")
+            }
+    }
+
+    override fun getLoggedInUser(): AuthUser? {
+        return auth.currentUser?.run {
+            AuthUser(
+                userId = uid,
+                username = displayName,
+                userImage = photoUrl?.toString(),
+                token = getIdToken(false).toString()
+            )
+        }
+    }
+
     private fun buildSignInRequest(): BeginSignInRequest {
         return BeginSignInRequest.Builder()
             .setGoogleIdTokenRequestOptions(
@@ -123,7 +175,7 @@ class UserRepositoryImpl @Inject constructor(
                     if (document.exists()) {
                         val result = AuthenticationResult(
                             data = user.run {
-                                UserData(
+                                User(
                                     userId = uid,
                                     username = document.getString("username"),
                                     email = email ?: "",
@@ -131,7 +183,7 @@ class UserRepositoryImpl @Inject constructor(
                                     userPhoto = document.getString("userPhoto"),
                                     level = document.getLong("level")?.toInt() ?: 0,
                                     exp = document.getLong("exp")?.toInt() ?: 0,
-                                    createdAt = document.getString("createdAt") ?: "-",
+                                    createdAt = document.getTimestamp("createdAt").toString(),
                                     role = document.getString("role") ?: "user"
                                 )
                             },
@@ -170,7 +222,7 @@ class UserRepositoryImpl @Inject constructor(
                     onResultSuccess(
                         AuthenticationResult(
                             data = user.run {
-                                UserData(
+                                User(
                                     userId = uid,
                                     username = name,
                                     email = email!!,

@@ -56,6 +56,36 @@ class LoginViewModel @Inject constructor(
         )
     }
 
+    fun loginWithEmail(
+        onResultSuccess: () -> Unit,
+        onResultFailed: (String) -> Unit
+    ) {
+        if (validateRegisterForm()) {
+            _isLoading.value = true
+            userRepository.loginWithEmail(
+                email = _emailInput.value,
+                password = _passInput.value,
+                onResultSuccess = { result ->
+                    _isLoading.value = false
+                    _authState.update { it.copy(
+                        isAuthSuccessful = result.data != null,
+                        authError = result.errorMessage
+                    )}
+                    onResultSuccess()
+                },
+                onResultFailed = { error ->
+                    onResultFailed(error)
+                    _isLoading.value = false
+                }
+            )
+        } else {
+            onResultFailed("Please fill in the form")
+        }
+    }
+
+    private fun validateRegisterForm() =
+        _emailInput.value.isNotEmpty() && _passInput.value.isNotEmpty()
+
     private fun onSignInResult(
         result: AuthenticationResult,
         onSignInSuccess: () -> Unit,

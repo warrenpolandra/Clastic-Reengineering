@@ -61,6 +61,37 @@ class RegisterViewModel @Inject constructor(
         )
     }
 
+    fun registerWithEmail(
+        onResultSuccess: () -> Unit,
+        onResultFailed: (String) -> Unit
+    ) {
+        if (validateRegisterForm()) {
+            _isLoading.value = true
+            userRepository.registerWithEmail(
+                name = _nameInput.value,
+                email = _emailInput.value,
+                password = _passInput.value,
+                onResultSuccess = { result ->
+                    _isLoading.value = false
+                    _authState.update { it.copy(
+                        isAuthSuccessful = result.data != null,
+                        authError = result.errorMessage
+                    )}
+                    onResultSuccess()
+                },
+                onResultFailed = { error ->
+                    _isLoading.value = false
+                    onResultFailed(error)
+                }
+            )
+        } else {
+            onResultFailed("Please fill in the field")
+        }
+    }
+
+    private fun validateRegisterForm() =
+        _nameInput.value.isNotEmpty() && _emailInput.value.isNotEmpty() && _passInput.value.isNotEmpty()
+
     private fun onSignInResult(
         result: AuthenticationResult,
         onSignInSuccess: () -> Unit,
