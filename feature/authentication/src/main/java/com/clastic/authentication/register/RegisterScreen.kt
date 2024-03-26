@@ -63,12 +63,12 @@ fun RegisterScreen(
                 viewModel.getGoogleRegisterResultFromIntent(
                     intent = result.data ?: return@rememberLauncherForActivityResult,
                     onSignInSuccess = {
-                        showToast(context, "Login Success!")
+                        showToast(context, context.getString(R.string.register_success))
                         viewModel.resetAuthState()
                         navigateToHome()
                     },
                     onSignInFailed = { error ->
-                        showToast(context, "Login Error: $error")
+                        showToast(context, context.getString(R.string.register_error, error.toString()))
                     }
                 )
             }
@@ -93,6 +93,18 @@ fun RegisterScreen(
                 )
             }
         },
+        onEmailRegisterClick = {
+            viewModel.registerWithEmail(
+                onResultSuccess = {
+                    showToast(context, context.getString(R.string.register_success))
+                    viewModel.resetAuthState()
+                    navigateToHome()
+                },
+                onResultFailed = { error ->
+                    showToast(context, context.getString(R.string.register_error, error))
+                }
+            )
+        },
         navigateToLogin = navigateToLogin,
         modifier = modifier
     )
@@ -108,6 +120,7 @@ fun RegisterScreenContent(
     onEmailChange: (String) -> Unit,
     onPassChange: (String) -> Unit,
     onGoogleRegisterClick: () -> Unit,
+    onEmailRegisterClick: () -> Unit,
     navigateToLogin: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -172,7 +185,7 @@ fun RegisterScreenContent(
                 AuthenticationButton(
                     stringId = R.string.register,
                     isEnabled = !isLoading,
-                    onClick = { /*TODO*/ },
+                    onClick = onEmailRegisterClick,
                     modifier = Modifier.padding(bottom = 24.dp)
                 )
                 Text(
@@ -216,6 +229,7 @@ fun RegisterScreenPreview() {
             onEmailChange = {},
             onPassChange = {},
             onGoogleRegisterClick = {},
+            onEmailRegisterClick = {},
             navigateToLogin = {}
         )
     }

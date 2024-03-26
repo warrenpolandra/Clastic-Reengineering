@@ -61,12 +61,12 @@ fun LoginScreen(
                 viewModel.getGoogleSignInResultFromIntent(
                     intent = result.data ?: return@rememberLauncherForActivityResult,
                     onSignInSuccess = {
-                        showToast(context, "Login Success!")
+                        showToast(context, context.getString(R.string.login_success))
                         viewModel.resetAuthState()
                         navigateToHome()
                     },
                     onSignInFailed = { error ->
-                        showToast(context, "Login Error: $error")
+                        showToast(context, context.getString(R.string.login_error, error.toString()))
                     }
                 )
             }
@@ -89,6 +89,17 @@ fun LoginScreen(
                 )
             }
         },
+        onEmailLoginClick = {
+            viewModel.loginWithEmail(
+                onResultSuccess = {
+                    showToast(context, context.getString(R.string.login_success))
+                    navigateToHome()
+                },
+                onResultFailed = { error ->
+                    showToast(context, context.getString(R.string.login_error, error))
+                }
+            )
+        },
         navigateToRegister = navigateToRegister,
         modifier = modifier
     )
@@ -102,6 +113,7 @@ fun LoginScreenContent(
     onEmailChange: (String) -> Unit,
     onPassChange: (String) -> Unit,
     onGoogleSignInClick: () -> Unit,
+    onEmailLoginClick: () -> Unit,
     navigateToRegister: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -160,7 +172,7 @@ fun LoginScreenContent(
                 AuthenticationButton(
                     stringId = R.string.login,
                     isEnabled = !isLoading,
-                    onClick = { /*TODO*/ },
+                    onClick = onEmailLoginClick,
                     modifier = Modifier.padding(bottom = 24.dp)
                 )
                 Text(
@@ -206,6 +218,7 @@ fun LoginScreenPreview() {
             onEmailChange = {},
             onPassChange = {},
             onGoogleSignInClick = {},
+            onEmailLoginClick = {},
             navigateToRegister = {}
         )
     }

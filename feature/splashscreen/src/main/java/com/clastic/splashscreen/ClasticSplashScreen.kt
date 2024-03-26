@@ -13,12 +13,14 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.viewinterop.AndroidView
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
 fun ClasticSplashScreen(
     navigateToHome: () -> Unit,
     navigateToLogin: () -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: SplashScreenViewModel = hiltViewModel<SplashScreenViewModel>()
 ) {
     var splashVisible by rememberSaveable { mutableStateOf(true) }
     if (splashVisible) {
@@ -35,8 +37,11 @@ fun ClasticSplashScreen(
                         android.os.Handler(Looper.getMainLooper()).postDelayed({
                             mediaPlayer.stop()
                             splashVisible = false
-
-                            navigateToLogin()
+                            if (viewModel.isUserLoggedIn()) {
+                                navigateToHome()
+                            } else {
+                                navigateToLogin()
+                            }
                         }, 2000)
                     }
                 }
