@@ -1,4 +1,4 @@
-package com.clastic.home.component
+package com.clastic.reengineering.navigation
 
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -9,18 +9,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
-import com.clastic.home.R
+import androidx.navigation.NavController
 import com.clastic.model.BottomBarItem
+import com.clastic.ui.R
 import com.clastic.ui.theme.CyanPrimary
 
 @Composable
 fun BottomBar(
     currentMenu: String,
-    navigateToHome: () -> Unit,
-    navigateToArticle: () -> Unit,
-    navigateToStore: () -> Unit,
-    navigateToMission: () -> Unit,
-    navigateToProfile: () -> Unit,
+    navController: NavController,
     modifier: Modifier = Modifier
 ) {
     BottomNavigation(
@@ -31,23 +28,23 @@ fun BottomBar(
         val navigationItems = listOf(
             BottomBarItem(
                 title = "Home",
-                icon = ImageVector.vectorResource(id = R.drawable.ic_home)
+                icon = ImageVector.vectorResource(R.drawable.ic_home)
             ),
             BottomBarItem(
                 title = "Article",
-                icon = ImageVector.vectorResource(id = R.drawable.ic_article)
+                icon = ImageVector.vectorResource(R.drawable.ic_article)
             ),
             BottomBarItem(
                 title = "Point Shop",
-                icon = ImageVector.vectorResource(id = R.drawable.ic_shopping_cart)
+                icon = ImageVector.vectorResource(R.drawable.ic_shopping_cart)
             ),
             BottomBarItem(
                 title = "Mission",
-                icon = ImageVector.vectorResource(id = R.drawable.ic_campaign)
+                icon = ImageVector.vectorResource(R.drawable.ic_campaign)
             ),
             BottomBarItem(
                 title = "Profile",
-                icon = ImageVector.vectorResource(id = R.drawable.ic_person)
+                icon = ImageVector.vectorResource(R.drawable.ic_person)
             ),
         )
         navigationItems.map {
@@ -56,11 +53,26 @@ fun BottomBar(
                 onClick = {
                     if (it.title != currentMenu) {
                         when (it.title) {
-                            "Home" -> navigateToHome()
-                            "Article" -> navigateToArticle()
-                            "Store" -> navigateToStore()
-                            "Mission" -> navigateToMission()
-                            "Profile" -> navigateToProfile()
+                            "Home" -> {
+                                navController.popBackStack()
+                                navController.navigate(Screen.Home.route)
+                            }
+                            "Article" -> {
+                                navController.popBackStack()
+                                navController.navigate(Screen.Article.route)
+                            }
+                            "Store" -> {
+                                navController.popBackStack()
+                                navController.navigate(Screen.Store.route)
+                            }
+                            "Mission" -> {
+                                navController.popBackStack()
+                                navController.navigate(Screen.Mission.route)
+                            }
+                            "Profile" -> {
+                                navController.popBackStack()
+                                navController.navigate(Screen.Mission.route)
+                            }
                         }
                     }
                 }, icon = {

@@ -1,4 +1,5 @@
 plugins {
+    id("com.google.gms.google-services")
     `android-library`
     `kotlin-android`
 }
@@ -6,10 +7,11 @@ plugins {
 apply<MainGradlePlugin>()
 
 android {
-    namespace = "com.clastic.home"
+    namespace = "com.clastic.article"
 }
 
 dependencies {
+
     // Hilt
     hilt()
 
@@ -17,10 +19,12 @@ dependencies {
     compose()
 
     // Module implementation
-    implementation(project(":core:ui"))
     implementation(project(":core:model"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:ui"))
 
-    implementation("androidx.compose.material:material-icons-extended:1.6.4")
+    // Coil
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

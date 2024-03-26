@@ -29,7 +29,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.toColorInt
-import com.clastic.model.Impact
 import com.clastic.model.Mission
 import com.clastic.ui.theme.ClasticTheme
 

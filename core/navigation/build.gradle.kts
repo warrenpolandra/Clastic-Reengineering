@@ -6,10 +6,11 @@ plugins {
 apply<MainGradlePlugin>()
 
 android {
-    namespace = "com.clastic.home"
+    namespace = "com.clastic.navigation"
 }
 
 dependencies {
+
     // Hilt
     hilt()
 
@@ -19,8 +20,9 @@ dependencies {
     // Module implementation
     implementation(project(":core:ui"))
     implementation(project(":core:model"))
-
-    implementation("androidx.compose.material:material-icons-extended:1.6.4")
+    implementation(project(":feature:authentication"))
+    implementation(project(":feature:splashscreen"))
+    implementation(project(":feature:home"))
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

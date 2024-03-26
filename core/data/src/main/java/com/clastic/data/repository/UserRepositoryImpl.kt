@@ -131,7 +131,7 @@ class UserRepositoryImpl @Inject constructor(
                                     userPhoto = document.getString("userPhoto"),
                                     level = document.getLong("level")?.toInt() ?: 0,
                                     exp = document.getLong("exp")?.toInt() ?: 0,
-                                    createdAt = document.getString("createdAt") ?: "-",
+                                    createdAt = document.getTimestamp("createdAt").toString() ?: "-",
                                     role = document.getString("role") ?: "user"
                                 )
                             },

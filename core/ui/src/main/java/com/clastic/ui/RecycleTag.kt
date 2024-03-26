@@ -17,11 +17,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimary
 
 @Composable
-fun RecycleTag(modifier: Modifier, tag: String) {
+fun RecycleTag(
+    tag: List<String>,
+    modifier: Modifier = Modifier
+) {
     Box(modifier = modifier) {
         Box(
             modifier = Modifier
@@ -39,12 +44,20 @@ fun RecycleTag(modifier: Modifier, tag: String) {
                 )
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
-                    text = tag,
+                    text = tag.toString(),
                     modifier = Modifier,
                     fontWeight = FontWeight.Bold,
                     color = CyanPrimary
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun RecycleTagPreview() {
+    ClasticTheme {
+        RecycleTag(tag = listOf("PET", "HDPE", "PP"))
     }
 }
