@@ -5,18 +5,19 @@ import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
-import com.clastic.model.BottomBarItem
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.clastic.ui.R
 import com.clastic.ui.theme.CyanPrimary
 
 @Composable
 fun BottomBar(
-    currentMenu: String,
     navController: NavController,
     modifier: Modifier = Modifier
 ) {
@@ -25,62 +26,54 @@ fun BottomBar(
         contentColor = CyanPrimary,
         backgroundColor = Color.White
     ) {
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
+        val currentRoute = navBackStackEntry?.destination?.route
+
         val navigationItems = listOf(
             BottomBarItem(
                 title = "Home",
-                icon = ImageVector.vectorResource(R.drawable.ic_home)
+                icon = ImageVector.vectorResource(R.drawable.ic_home),
+                screen = Screen.Home
             ),
             BottomBarItem(
                 title = "Article",
-                icon = ImageVector.vectorResource(R.drawable.ic_article)
+                icon = ImageVector.vectorResource(R.drawable.ic_article),
+                screen = Screen.Article
             ),
             BottomBarItem(
                 title = "Point Shop",
-                icon = ImageVector.vectorResource(R.drawable.ic_shopping_cart)
+                icon = ImageVector.vectorResource(R.drawable.ic_shopping_cart),
+                screen = Screen.Store
             ),
             BottomBarItem(
                 title = "Mission",
-                icon = ImageVector.vectorResource(R.drawable.ic_campaign)
+                icon = ImageVector.vectorResource(R.drawable.ic_campaign),
+                screen = Screen.Mission
             ),
             BottomBarItem(
                 title = "Profile",
-                icon = ImageVector.vectorResource(R.drawable.ic_person)
-            ),
+                icon = ImageVector.vectorResource(R.drawable.ic_person),
+                screen = Screen.Profile
+            )
         )
-        navigationItems.map {
+        navigationItems.map { item ->
             BottomNavigationItem(
-                selected = it.title == currentMenu,
+                selected = currentRoute == item.screen.route,
                 onClick = {
-                    if (it.title != currentMenu) {
-                        when (it.title) {
-                            "Home" -> {
-                                navController.popBackStack()
-                                navController.navigate(Screen.Home.route)
-                            }
-                            "Article" -> {
-                                navController.popBackStack()
-                                navController.navigate(Screen.Article.route)
-                            }
-                            "Store" -> {
-                                navController.popBackStack()
-                                navController.navigate(Screen.Store.route)
-                            }
-                            "Mission" -> {
-                                navController.popBackStack()
-                                navController.navigate(Screen.Mission.route)
-                            }
-                            "Profile" -> {
-                                navController.popBackStack()
-                                navController.navigate(Screen.Mission.route)
-                            }
+                    navController.navigate(item.screen.route) {
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
                         }
+                        restoreState = true
+                        launchSingleTop = true
                     }
-                }, icon = {
+                },
+                icon = {
                     Icon(
-                        imageVector = it.icon, contentDescription = it.title
+                        imageVector = item.icon, contentDescription = item.title
                     )
                 },
-                label = { Text(text = it.title) }
+                label = { Text(text = item.title) }
             )
         }
     }

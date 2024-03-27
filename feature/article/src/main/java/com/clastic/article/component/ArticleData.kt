@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.clastic.article.R
 import com.clastic.model.Article
 import com.clastic.ui.theme.ClasticTheme
+import com.clastic.ui.theme.CyanPrimary
 import com.clastic.ui.typhography.TextWithShadow
 import com.clastic.ui.typhography.TitleWithShadow
 
@@ -28,9 +29,8 @@ fun ArticleData(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_clock),
-                tint = Color.White,
+                tint = CyanPrimary,
                 contentDescription = null,
-                modifier = Modifier.shadow(elevation = 3.dp),
             )
             TextWithShadow(
                 text = article.createdAt,
@@ -39,8 +39,7 @@ fun ArticleData(
             Icon(
                 painter = painterResource(id = R.drawable.ic_person_white),
                 contentDescription = null,
-                tint = Color.White,
-                modifier = Modifier.shadow(elevation = 3.dp),
+                tint = CyanPrimary
             )
             TextWithShadow(
                 text = article.author,

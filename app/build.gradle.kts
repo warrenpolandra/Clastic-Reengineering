@@ -60,10 +60,10 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:ui"))
     implementation(project(":core:model"))
-    implementation(project(":core:navigation"))
     implementation(project(":feature:authentication"))
     implementation(project(":feature:splashscreen"))
     implementation(project(":feature:home"))
+    implementation(project(":feature:article"))
 
     // Firebase
     implementation("com.google.firebase:firebase-auth:22.3.1")

@@ -19,9 +19,10 @@ dependencies {
 
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
+    implementation(project(":core:ui"))
 
     implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2024.02.02"))
+    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
