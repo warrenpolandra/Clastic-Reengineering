@@ -56,6 +56,7 @@ android {
 }
 
 dependencies {
+    // Module implementation
     implementation(project(":core:data"))
     implementation(project(":core:domain"))
     implementation(project(":core:ui"))
@@ -64,6 +65,7 @@ dependencies {
     implementation(project(":feature:splashscreen"))
     implementation(project(":feature:home"))
     implementation(project(":feature:article"))
+    implementation(project(":feature:mission"))
 
     // Firebase
     implementation("com.google.firebase:firebase-auth:22.3.1")
