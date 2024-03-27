@@ -4,7 +4,6 @@ import androidx.annotation.Keep
 
 @Keep
 data class Impact(
-    val key: String,
-    val value: String,
-    val image: Int
+    val description: String,
+    val imageUrl: String
 )

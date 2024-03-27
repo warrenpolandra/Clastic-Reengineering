@@ -22,6 +22,7 @@ import com.clastic.article.list.ListArticleScreen
 import com.clastic.authentication.login.LoginScreen
 import com.clastic.authentication.register.RegisterScreen
 import com.clastic.home.HomeScreen
+import com.clastic.mission.ListMissionScreen
 import com.clastic.splashscreen.ClasticSplashScreen
 import java.net.URLDecoder
 
@@ -109,6 +110,10 @@ fun MainNavigation(
                     navBackStackEntry.arguments?.getString("articleUrl"), "UTF-8"
                 )
                 ArticleDetailScreen(contentUrl = articleUrl)
+            }
+            composable(Screen.Mission.route) {
+                bottomBarVisible = true
+                ListMissionScreen(onMissionClick = {/*TODO*/})
             }
         }
     }

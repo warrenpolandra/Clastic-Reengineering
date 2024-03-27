@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -24,13 +25,18 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.graphics.toColorInt
+import coil.compose.AsyncImage
+import com.clastic.model.Impact
 import com.clastic.model.Mission
 import com.clastic.ui.theme.ClasticTheme
+import com.clastic.ui.theme.CyanPrimary
+import com.google.firebase.Timestamp
+import java.util.concurrent.TimeUnit
 
 @Composable
 fun MissionCard(
@@ -42,7 +48,7 @@ fun MissionCard(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(20.dp))
-            .clickable { onMissionCLick(mission.title) },
+            .clickable { onMissionCLick(mission.id) },
         elevation = 10.dp
     ) {
         Box(
@@ -56,9 +62,9 @@ fun MissionCard(
                         .fillMaxWidth()
                         .height(180.dp)
                 ) {
-                    Image(
-                        painter = painterResource(mission.image),
-                        contentDescription = null,
+                    AsyncImage(
+                        model = mission.imageUrl,
+                        contentDescription = mission.title,
                         contentScale = ContentScale.Crop,
                         colorFilter = ColorFilter.colorMatrix(
                             ColorMatrix().apply {
@@ -69,7 +75,8 @@ fun MissionCard(
                                     1f
                                 )
                             }
-                        )
+                        ),
+                        modifier = Modifier.fillMaxSize()
                     )
                     Box(
                         contentAlignment = Alignment.BottomStart,
@@ -91,11 +98,12 @@ fun MissionCard(
                             .padding(14.dp), contentAlignment = Alignment.TopStart
                     ) {
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            RecycleTag(modifier = Modifier, tag = mission.tag)
+                            RecycleTag(modifier = Modifier, tag = mission.tags)
                             PointTag(modifier = Modifier, point = mission.reward)
                             Spacer(modifier = Modifier.weight(1f))
                             Text(
-                                text = "20 Days Left",
+                                // TODO: Create Utility module
+                                text = stringResource(R.string.mission_days_left, TimeUnit.SECONDS.toDays(mission.endDate.seconds - Timestamp.now().seconds)),
                                 style = MaterialTheme.typography.subtitle1.copy(
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold
@@ -109,7 +117,7 @@ fun MissionCard(
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(color = Color("#0097B2".toColorInt())),
+                        .background(CyanPrimary),
                 ) {
                     Box(
                         modifier = modifier
@@ -118,7 +126,7 @@ fun MissionCard(
                         contentAlignment = Alignment.CenterStart
                     ) {
                         Text(
-                            text = "Jalankan Misi",
+                            text = stringResource(R.string.do_mission),
                             textAlign = TextAlign.Start,
                             style = MaterialTheme.typography.h5.copy(
                                 color = Color.White
@@ -140,10 +148,43 @@ fun MissionCard(
     }
 }
 
-@Preview(showBackground = true)
+@Preview(showBackground = false)
 @Composable
 fun MissionCardPreview() {
-    ClasticTheme {
-
+    ClasticTheme{
+        MissionCard(
+            mission = Mission(
+                id = "JBADLKBDLKABDA",
+                title = "Plastic bags diet!",
+                description = "Welcome to this mission! In this mission, you have to stop using plastic bags because of its pollution, harmful, high carbon, and other negative impacts!",
+                objectives = listOf(
+                    "Use reusable bags when buying foods, items, etc.",
+                    "Recycle your plastic bags collection if any at home."
+                ),
+                imageUrl = "https://firebasestorage.googleapis.com/v0/b/clastic-rebuild.appspot.com/o/Mission%2FMission%201%2Fcover.jpg?alt=media&token=d0497786-92b1-4043-8220-72c0a60e3d97",
+                tags = listOf("HDPEM"),
+                reward = 200,
+                impacts = listOf(
+                    Impact(
+                        description = "Baking 11 frozen pizzas",
+                        imageUrl = "https://firebasestorage.googleapis.com/v0/b/clastic-rebuild.appspot.com/o/Mission%2FMission%201%2Fimpact%201.jpg?alt=media&token=154ca51f-1c52-45e5-af25-d63441222730"
+                    ),
+                    Impact(
+                        description = "Charging 1.947 AA batteries",
+                        imageUrl = "https://firebasestorage.googleapis.com/v0/b/clastic-rebuild.appspot.com/o/Mission%2FMission%201%2Fimpact%202.jpg?alt=media&token=1861864c-2bb9-4d38-b38d-1b2fab9cf2f8"
+                    ),
+                    Impact(
+                        description = "Watching 62 hours of TV",
+                        imageUrl = "https://firebasestorage.googleapis.com/v0/b/clastic-rebuild.appspot.com/o/Mission%2FMission%201%2Fimpact%203.jpg?alt=media&token=569bbad3-8002-4877-af98-927d46f457ec"
+                    ),
+                    Impact(
+                        description = "Keeping your refrigerator cold for 4 days",
+                        imageUrl = "https://firebasestorage.googleapis.com/v0/b/clastic-rebuild.appspot.com/o/Mission%2FMission%201%2Fimpact%204.jpg?alt=media&token=98e8f4d3-334e-40db-9fa2-31eb387e4c19"
+                    )
+                ),
+                endDate = Timestamp(1724771457, 0)
+            ),
+            onMissionCLick = {}
+        )
     }
 }

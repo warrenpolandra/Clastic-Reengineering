@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="do_mission">Do this mission</string>
+    <string name="mission_days_left">%s Days Left</string>
+</resources>
