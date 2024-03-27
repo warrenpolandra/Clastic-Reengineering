@@ -15,7 +15,7 @@ dependencies {
     implementation(project(":core:model"))
 
     implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2024.02.02"))
+    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
 
     // Hilt
     hilt()
@@ -23,7 +23,7 @@ dependencies {
     // Compose UI
     compose()
 
-    implementation("androidx.compose.material:material-icons-extended:1.6.3")
+    implementation("androidx.compose.material:material-icons-extended:1.6.4")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

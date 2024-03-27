@@ -56,7 +56,7 @@ class UserRepositoryImpl @Inject constructor(
                     .document(user?.email ?: "")
                     .get()
                     .addOnCompleteListener { task ->
-                       val documentSnapshot = task.result
+                        val documentSnapshot = task.result
                         if (documentSnapshot != null && documentSnapshot.exists()) {
                             createLoginResultSuccess(
                                 user = user,
@@ -74,13 +74,13 @@ class UserRepositoryImpl @Inject constructor(
                     }
             }
             .addOnFailureListener { e ->
-            e.printStackTrace()
-            val result = AuthenticationResult(
-                data = null,
-                errorMessage = e.message
-            )
-            onSignInResult(result)
-        }
+                e.printStackTrace()
+                val result = AuthenticationResult(
+                    data = null,
+                    errorMessage = e.message
+                )
+                onSignInResult(result)
+            }
     }
 
     override fun userSignOut(
