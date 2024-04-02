@@ -13,6 +13,7 @@ dependencies {
 
     implementation(project(":core:data"))
     implementation(project(":core:model"))
+    implementation(project(":core:utils"))
 
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation(platform("androidx.compose:compose-bom:2024.03.00"))

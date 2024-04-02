@@ -1,4 +1,4 @@
-package com.clastic.mission
+package com.clastic.mission.list
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box

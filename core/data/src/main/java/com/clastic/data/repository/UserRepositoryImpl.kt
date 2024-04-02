@@ -4,11 +4,11 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import com.clastic.data.R
-import com.clastic.data.Utils
 import com.clastic.domain.repository.UserRepository
 import com.clastic.model.authentication.AuthenticationResult
 import com.clastic.model.User
 import com.clastic.model.authentication.AuthUser
+import com.clastic.utils.TimeUtil
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.BeginSignInRequest.GoogleIdTokenRequestOptions
 import com.google.android.gms.auth.api.identity.Identity
@@ -183,7 +183,7 @@ class UserRepositoryImpl @Inject constructor(
                                     userPhoto = document.getString("userPhoto"),
                                     level = document.getLong("level")?.toInt() ?: 0,
                                     exp = document.getLong("exp")?.toInt() ?: 0,
-                                    createdAt = document.getTimestamp("createdAt").toString(),
+                                    createdAt = document.getTimestamp("createdAt")?.seconds ?: 0,
                                     role = document.getString("role") ?: "user"
                                 )
                             },
@@ -210,7 +210,7 @@ class UserRepositoryImpl @Inject constructor(
                 "points" to 0,
                 // Todo: change Any to Prize
                 "prizes" to emptyList<Map<Long, Any>>(),
-                "createdAt" to Utils.getTimestamp(),
+                "createdAt" to TimeUtil.getTimestamp(),
                 "level" to 1,
                 "exp" to 0,
                 "role" to "user"
@@ -228,7 +228,7 @@ class UserRepositoryImpl @Inject constructor(
                                     email = email!!,
                                     userPhoto = photoUrl?.toString(),
                                     points = 0,
-                                    createdAt = Utils.getTimestamp().toString(),
+                                    createdAt = TimeUtil.getCurrentTimeSeconds(),
                                     level = 1,
                                     exp = 0,
                                     role = "user"

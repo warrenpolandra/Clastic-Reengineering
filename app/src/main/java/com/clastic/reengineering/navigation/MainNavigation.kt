@@ -22,7 +22,8 @@ import com.clastic.article.list.ListArticleScreen
 import com.clastic.authentication.login.LoginScreen
 import com.clastic.authentication.register.RegisterScreen
 import com.clastic.home.HomeScreen
-import com.clastic.mission.ListMissionScreen
+import com.clastic.mission.detail.MissionDetailScreen
+import com.clastic.mission.list.ListMissionScreen
 import com.clastic.splashscreen.ClasticSplashScreen
 import java.net.URLDecoder
 
@@ -113,7 +114,16 @@ fun MainNavigation(
             }
             composable(Screen.Mission.route) {
                 bottomBarVisible = true
-                ListMissionScreen(onMissionClick = {/*TODO*/})
+                ListMissionScreen(onMissionClick = { missionId ->
+                    navHostController.navigate(Screen.MissionDetail.createRoute(missionId))
+                })
+            }
+            composable(
+                route = Screen.MissionDetail.route,
+                arguments = listOf(navArgument("missionId") { type = NavType.StringType})
+            ) { navBackStackEntry ->
+                bottomBarVisible = false
+                MissionDetailScreen(missionId = navBackStackEntry.arguments?.getString("missionId") ?: "")
             }
         }
     }
