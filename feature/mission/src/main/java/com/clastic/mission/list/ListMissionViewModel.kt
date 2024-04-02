@@ -1,4 +1,4 @@
-package com.clastic.mission
+package com.clastic.mission.list
 
 import androidx.lifecycle.ViewModel
 import com.clastic.domain.repository.MissionRepository

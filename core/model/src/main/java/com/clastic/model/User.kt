@@ -11,6 +11,6 @@ data class User(
     val userPhoto: String?,
     val level: Int,
     val exp: Int,
-    val createdAt: String,
+    val createdAt: Long,
     val role: String
 )

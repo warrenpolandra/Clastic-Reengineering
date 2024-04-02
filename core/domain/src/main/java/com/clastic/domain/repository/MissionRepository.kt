@@ -7,4 +7,10 @@ interface MissionRepository {
         onFetchSuccess: (List<Mission>) -> Unit,
         onFetchFailed: (String) -> Unit
     )
+
+    fun fetchMissionById(
+        missionId: String,
+        onFetchSuccess: (Mission) -> Unit,
+        onFetchFailed: (String) -> Unit
+    )
 }

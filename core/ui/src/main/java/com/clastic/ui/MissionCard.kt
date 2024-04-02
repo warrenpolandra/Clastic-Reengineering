@@ -35,8 +35,7 @@ import com.clastic.model.Impact
 import com.clastic.model.Mission
 import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimary
-import com.google.firebase.Timestamp
-import java.util.concurrent.TimeUnit
+import com.clastic.utils.TimeUtil
 
 @Composable
 fun MissionCard(
@@ -102,8 +101,7 @@ fun MissionCard(
                             PointTag(modifier = Modifier, point = mission.reward)
                             Spacer(modifier = Modifier.weight(1f))
                             Text(
-                                // TODO: Create Utility module
-                                text = stringResource(R.string.mission_days_left, TimeUnit.SECONDS.toDays(mission.endDate.seconds - Timestamp.now().seconds)),
+                                text = stringResource(R.string.mission_days_left, TimeUtil.getRemainingDays(mission.endDate)),
                                 style = MaterialTheme.typography.subtitle1.copy(
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold
@@ -166,23 +164,27 @@ fun MissionCardPreview() {
                 reward = 200,
                 impacts = listOf(
                     Impact(
+                        numberValue = 12,
                         description = "Baking 11 frozen pizzas",
                         imageUrl = "https://firebasestorage.googleapis.com/v0/b/clastic-rebuild.appspot.com/o/Mission%2FMission%201%2Fimpact%201.jpg?alt=media&token=154ca51f-1c52-45e5-af25-d63441222730"
                     ),
                     Impact(
+                        numberValue = 12,
                         description = "Charging 1.947 AA batteries",
                         imageUrl = "https://firebasestorage.googleapis.com/v0/b/clastic-rebuild.appspot.com/o/Mission%2FMission%201%2Fimpact%202.jpg?alt=media&token=1861864c-2bb9-4d38-b38d-1b2fab9cf2f8"
                     ),
                     Impact(
+                        numberValue = 144,
                         description = "Watching 62 hours of TV",
                         imageUrl = "https://firebasestorage.googleapis.com/v0/b/clastic-rebuild.appspot.com/o/Mission%2FMission%201%2Fimpact%203.jpg?alt=media&token=569bbad3-8002-4877-af98-927d46f457ec"
                     ),
                     Impact(
+                        numberValue = 166,
                         description = "Keeping your refrigerator cold for 4 days",
                         imageUrl = "https://firebasestorage.googleapis.com/v0/b/clastic-rebuild.appspot.com/o/Mission%2FMission%201%2Fimpact%204.jpg?alt=media&token=98e8f4d3-334e-40db-9fa2-31eb387e4c19"
                     )
                 ),
-                endDate = Timestamp(1724771457, 0)
+                endDate = 1724771457
             ),
             onMissionCLick = {}
         )
