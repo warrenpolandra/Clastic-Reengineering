@@ -13,4 +13,16 @@
     <string name="drop_off_point">Drop Off Point</string>
     <string name="my_qr_code">Kode QR ku</string>
     <string name="plastic_mission">Misi Sampah Plastik</string>
+    <string name="how_to_get_more_points">Cara mendapatkan poin lebih</string>
+    <string name="contributing_to_earth">Berkontribusi Sehatkan Bumi dengan Mendaur Ulang Plastik!</string>
+    <string name="exchange_your_plastic_and_get_benefit">Tukarkan sampah plastikmu dan dapatkan manfaat sebagai berikut:</string>
+    <string name="increase_life_quality">Tingkatkan kualitas hidup</string>
+    <string name="get_more_income">Dapatkan penghasilan tambahan</string>
+    <string name="increase_environment_health">Meningkatkan kesehatan lingkungan</string>
+    <string name="exchange_plastic_steps">Cara Menukarkan Plastikmu</string>
+    <string name="tutorial_step_1">Datangi Drop Point yang ada pada menu:  \uD83D\uDCCC Drop Off dengan membawa sampah plastik yang sudah Kamu pilah</string>
+    <string name="tutorial_step_2">Klik tab 🏠 Home pada laman utama dan lihat section Tukarkan Plastikmu ♻️</string>
+    <string name="tutorial_step_3">Tunjukkan QR Code Kamu kepada Petugas di Drop Point</string>
+    <string name="tutorial_step_4">Tunggu hingga petugas menghitung plasik yang kamu bawa dan pastikan petugas mengisi informasi dengan benar</string>
+    <string name="tutorial_step_5">Tunggu beberapa saat dan Points akan masuk ke akunmu.</string>
 </resources>
