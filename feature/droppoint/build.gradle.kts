@@ -7,11 +7,11 @@ plugins {
 apply<MainGradlePlugin>()
 
 android {
-    namespace = "com.clastic.authentication"
+    namespace = "com.clastic.droppoint"
 }
 
 dependencies {
-    implementation("com.google.firebase:firebase-auth:22.3.1")
+
     // Hilt
     hilt()
 
@@ -19,11 +19,13 @@ dependencies {
     compose()
 
     // Module Implementation
-    implementation(project(":core:model"))
-    implementation(project(":core:domain"))
     implementation(project(":core:ui"))
+    implementation(project(":core:domain"))
+    implementation(project(":core:model"))
 
-    implementation("androidx.compose.material:material-icons-extended:1.6.5")
+    // Google Maps
+    implementation("com.google.maps.android:maps-compose:2.7.2")
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

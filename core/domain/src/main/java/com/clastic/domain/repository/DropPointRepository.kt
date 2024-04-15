@@ -1,0 +1,11 @@
+package com.clastic.domain.repository
+
+import com.clastic.model.DropPoint
+import com.google.android.gms.maps.model.LatLng
+
+interface DropPointRepository {
+    fun getDropPointList(
+        onFetchSuccess: (List<DropPoint>, LatLng) -> Unit,
+        onFetchFailed: (String) -> Unit
+    )
+}
