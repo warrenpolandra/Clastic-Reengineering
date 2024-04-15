@@ -22,6 +22,7 @@ import com.clastic.article.list.ListArticleScreen
 import com.clastic.authentication.login.LoginScreen
 import com.clastic.authentication.register.RegisterScreen
 import com.clastic.home.HomeScreen
+import com.clastic.home.component.TutorialScreen
 import com.clastic.mission.detail.MissionDetailScreen
 import com.clastic.mission.list.ListMissionScreen
 import com.clastic.splashscreen.ClasticSplashScreen
@@ -95,6 +96,10 @@ fun MainNavigation(
                         )
                     },
                 )
+            }
+            composable(Screen.Tutorial.route) {
+                bottomBarVisible = false
+                TutorialScreen()
             }
             composable(Screen.Article.route) {
                 bottomBarVisible = true
