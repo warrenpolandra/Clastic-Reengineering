@@ -241,4 +241,8 @@ class UserRepositoryImpl @Inject constructor(
                 .addOnFailureListener { error -> onResultFailed(error.message ?: "") }
         }
     }
+
+    override fun getUserInfo() {
+        TODO("Not yet implemented")
+    }
 }

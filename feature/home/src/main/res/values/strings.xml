@@ -1,4 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hi_user">Hi, %s</string>
+    <string name="user_points">%s pts</string>
+    <string name="want_more_points">Want to get more points?</string>
+    <string name="types_of_plastic">Types of plastic</string>
+    <string name="get_to_know_types_of_plastic">Let\'s get to know each types of plastic!</string>
+    <string name="exchange_your_plastic">Tukarkan plastikmu♻️</string>
+    <string name="choose_drop_off_point">Pilih Drop Off Point terdekat dan tukarkan plastikmu!</string>
+    <string name="scan_user_qr">Scan user\'s QR code to do transaction</string>
+    <string name="scan_qr_code">Scan QR Code</string>
+    <string name="exchange_your_plastic_to_points">Ayo tukarkan sisa plastikmu menjadi poin!!!</string>
+    <string name="drop_off_point">Drop Off Point</string>
+    <string name="my_qr_code">My QR Code</string>
 </resources>

@@ -37,4 +37,6 @@ interface UserRepository {
     )
 
     fun getLoggedInUser(): AuthUser?
+
+    fun getUserInfo()
 }
