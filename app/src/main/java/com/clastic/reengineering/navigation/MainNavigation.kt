@@ -21,6 +21,7 @@ import com.clastic.article.detail.ArticleDetailScreen
 import com.clastic.article.list.ListArticleScreen
 import com.clastic.authentication.login.LoginScreen
 import com.clastic.authentication.register.RegisterScreen
+import com.clastic.droppoint.DropPointMapScreen
 import com.clastic.home.HomeScreen
 import com.clastic.home.component.TutorialScreen
 import com.clastic.mission.detail.MissionDetailScreen
@@ -101,6 +102,13 @@ fun MainNavigation(
                 bottomBarVisible = false
                 TutorialScreen()
             }
+            composable(Screen.DropPointMap.route) {
+                bottomBarVisible = false
+                DropPointMapScreen(navigateToHome = {
+                    navHostController.popBackStack()
+                    navHostController.navigate(Screen.Home.route)
+                })
+            }
             composable(Screen.Article.route) {
                 bottomBarVisible = true
                 ListArticleScreen(onArticleClick = { articleUrl ->
@@ -115,7 +123,13 @@ fun MainNavigation(
                 val articleUrl = URLDecoder.decode(
                     navBackStackEntry.arguments?.getString("articleUrl"), "UTF-8"
                 )
-                ArticleDetailScreen(contentUrl = articleUrl)
+                ArticleDetailScreen(
+                    contentUrl = articleUrl,
+                    navigateToListArticle = {
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.Article.route)
+                    }
+                )
             }
             composable(Screen.Mission.route) {
                 bottomBarVisible = true
@@ -128,7 +142,13 @@ fun MainNavigation(
                 arguments = listOf(navArgument("missionId") { type = NavType.StringType})
             ) { navBackStackEntry ->
                 bottomBarVisible = false
-                MissionDetailScreen(missionId = navBackStackEntry.arguments?.getString("missionId") ?: "")
+                MissionDetailScreen(
+                    missionId = navBackStackEntry.arguments?.getString("missionId") ?: "",
+                    navigateToMissionList = {
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.Mission.route)
+                    }
+                )
             }
         }
     }

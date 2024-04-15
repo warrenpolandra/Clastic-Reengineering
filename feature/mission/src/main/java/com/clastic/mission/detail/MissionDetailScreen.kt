@@ -18,7 +18,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
-import androidx.compose.material.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -38,14 +37,15 @@ import com.clastic.mission.component.ImpactCard
 import com.clastic.mission.component.MissionBottomBar
 import com.clastic.model.Mission
 import com.clastic.ui.BannerWithGradient
+import com.clastic.ui.ClasticTopAppBar
 import com.clastic.ui.PointTag
 import com.clastic.ui.RecycleTag
 import com.clastic.ui.theme.ClasticTheme
-import com.clastic.ui.theme.CyanPrimaryVariant
 
 @Composable
 fun MissionDetailScreen(
     missionId: String,
+    navigateToMissionList: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MissionDetailViewModel = hiltViewModel<MissionDetailViewModel>()
 ) {
@@ -60,6 +60,7 @@ fun MissionDetailScreen(
 
     MissionDetailScreenContent(
         mission = mission,
+        navigateToMissionList = navigateToMissionList,
         modifier = modifier
     )
 }
@@ -67,19 +68,15 @@ fun MissionDetailScreen(
 @Composable
 fun MissionDetailScreenContent(
     mission: Mission,
+    navigateToMissionList: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
         bottomBar = { MissionBottomBar(onJoinButtonClick = { mission.id }) },
         topBar = {
-            TopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.mission_detail),
-                        color = Color.White
-                    )
-                },
-                backgroundColor = CyanPrimaryVariant
+            ClasticTopAppBar(
+                title = stringResource(R.string.mission_detail),
+                onBackPressed = navigateToMissionList
             )
         }
     ) { innerPadding ->
@@ -225,19 +222,22 @@ fun showToast(context: Context, message: String) {
 @Composable
 fun MissionDetailScreenPreview() {
     ClasticTheme {
-        MissionDetailScreenContent(mission = Mission(
-            id = "",
-            title = "Plastic bags diet",
-            description = "Welcome to this mission! In this mission, you have to stop using plastic bags because of its pollution, harmful, high carbon, and other negative impacts!",
-            objectives = listOf(
-                "Use reusable bags when buying foods, items, etc.",
-                "Recycle your plastic bags collection if any at home."
+        MissionDetailScreenContent(
+            mission = Mission(
+                id = "",
+                title = "Plastic bags diet",
+                description = "Welcome to this mission! In this mission, you have to stop using plastic bags because of its pollution, harmful, high carbon, and other negative impacts!",
+                objectives = listOf(
+                    "Use reusable bags when buying foods, items, etc.",
+                    "Recycle your plastic bags collection if any at home."
+                ),
+                imageUrl = "Plastic bags diet",
+                tags = listOf("HDPEM", "PET"),
+                reward = 300,
+                impacts = emptyList(),
+                endDate = 0L
             ),
-            imageUrl = "Plastic bags diet",
-            tags = listOf("HDPEM", "PET"),
-            reward = 300,
-            impacts = emptyList(),
-            endDate = 0L
-        ))
+            navigateToMissionList = {}
+        )
     }
 }

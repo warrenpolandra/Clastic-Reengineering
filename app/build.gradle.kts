@@ -66,6 +66,7 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:article"))
     implementation(project(":feature:mission"))
+    implementation(project(":feature:droppoint"))
 
     // Firebase
     implementation("com.google.firebase:firebase-auth:22.3.1")
