@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -19,6 +20,7 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -63,9 +65,11 @@ fun HomeScreen(
 ) {
     val user by viewModel.user.collectAsState()
     val listPlasticKnowledge by viewModel.listPlasticKnowledge.collectAsState()
+    val isLoading by viewModel.isLoading.collectAsState()
 
     HomeScreenContent(
         user = user,
+        isLoading = isLoading,
         listPlasticKnowledge = listPlasticKnowledge,
         onPlasticTypeClicked = onPlasticTypeClicked,
         navigateToDropPointMap = navigateToDropPointMap,
@@ -80,6 +84,7 @@ fun HomeScreen(
 @Composable
 fun HomeScreenContent(
     user: User,
+    isLoading: Boolean,
     listPlasticKnowledge: List<PlasticKnowledge>,
     onPlasticTypeClicked: (String) -> Unit,
     navigateToDropPointMap: () -> Unit,
@@ -271,6 +276,18 @@ fun HomeScreenContent(
                 }
             }
         }
+        Box(
+            modifier = Modifier
+                .fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            if (isLoading) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(64.dp)
+                )
+            }
+        }
     }
 }
 
@@ -287,6 +304,7 @@ fun HomeScreenPreview() {
             navigateToQrCodeScanner = {},
             navigateToTutorial = {},
             onMissionClick = {},
+            isLoading = true
         )
     }
 }

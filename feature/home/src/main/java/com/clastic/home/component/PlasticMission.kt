@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.clastic.home.R
@@ -35,8 +36,7 @@ fun PlasticMission(
             horizontalArrangement = Arrangement.spacedBy(2.dp)
         ) {
             Text(
-                // TODO: extract str res
-                text = "Plastic Mission",
+                text = stringResource(R.string.plastic_mission),
                 style = MaterialTheme.typography.h5.copy(Color.Black)
             )
             Icon(
@@ -46,7 +46,7 @@ fun PlasticMission(
             )
         }
         Text(
-            text = "Exchange your plastic waste for points!!!",
+            text = stringResource(R.string.exchange_your_plastic_to_points),
             style = MaterialTheme.typography.subtitle1.copy(Color.Gray)
         )
         // TODO: make missionCard

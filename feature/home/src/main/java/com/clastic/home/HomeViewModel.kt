@@ -21,16 +21,36 @@ class HomeViewModel @Inject constructor(
     private val _listPlasticKnowledge = MutableStateFlow<List<PlasticKnowledge>>(emptyList())
     val listPlasticKnowledge = _listPlasticKnowledge.asStateFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
     init {
+        fetchUserInfo()
         fetchListPlasticKnowledge()
     }
 
     private fun fetchListPlasticKnowledge() {
+        _isLoading.value = true
         plasticKnowledgeRepository.fetchListPlasticKnowledge(
             onFetchSuccess = { listPlasticKnowledge ->
                 _listPlasticKnowledge.value = listPlasticKnowledge
             },
-            onFetchFailed = {/*TODO*/}
+            onFetchFailed = {
+                /*TODO*/
+            }
+        )
+    }
+
+    private fun fetchUserInfo() {
+        userRepository.getUserInfo(
+            onFetchSuccess = { user ->
+                _user.value = user
+                _isLoading.value = false
+            },
+            onFetchFailed = {
+                /*TODO*/
+                _isLoading.value = false
+            }
         )
     }
 }
