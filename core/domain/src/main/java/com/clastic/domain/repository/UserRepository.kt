@@ -2,6 +2,7 @@ package com.clastic.domain.repository
 
 import android.content.Intent
 import android.content.IntentSender
+import com.clastic.model.User
 import com.clastic.model.authentication.AuthUser
 import com.clastic.model.authentication.AuthenticationResult
 
@@ -37,4 +38,9 @@ interface UserRepository {
     )
 
     fun getLoggedInUser(): AuthUser?
+
+    fun getUserInfo(
+        onFetchSuccess: (User) -> Unit,
+        onFetchFailed: (String) -> Unit
+    )
 }

@@ -241,4 +241,32 @@ class UserRepositoryImpl @Inject constructor(
                 .addOnFailureListener { error -> onResultFailed(error.message ?: "") }
         }
     }
+
+    override fun getUserInfo(
+        onFetchSuccess: (User) -> Unit,
+        onFetchFailed: (String) -> Unit
+    ) {
+        db.collection("user")
+            .document(auth.currentUser?.email ?: "")
+            .get()
+            .addOnSuccessListener { document ->
+                if (document.exists()) {
+                    val user = User(
+                        userId = document.getString("userId") ?: "",
+                        username = document.getString("username"),
+                        email = document.getString("email") ?: "",
+                        points = document.getLong("points")?.toInt() ?: 0,
+                        userPhoto = document.getString("userPhoto"),
+                        level = document.getLong("level")?.toInt() ?: 0,
+                        exp = document.getLong("exp")?.toInt() ?: 0,
+                        createdAt = document.getTimestamp("createdAt")?.seconds ?: 0,
+                        role = document.getString("role") ?: "user"
+                    )
+                    onFetchSuccess(user)
+                }
+            }
+            .addOnFailureListener { e ->
+                onFetchFailed(e.message.toString())
+            }
+    }
 }

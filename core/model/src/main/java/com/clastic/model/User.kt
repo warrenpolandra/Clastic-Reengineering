@@ -4,13 +4,13 @@ import androidx.annotation.Keep
 
 @Keep
 data class User(
-    val userId: String,
-    val username: String?,
-    val email: String,
-    val points: Int,
-    val userPhoto: String?,
-    val level: Int,
-    val exp: Int,
-    val createdAt: Long,
-    val role: String
+    val userId: String = "",
+    val username: String? = "",
+    val email: String = "",
+    val points: Int = 0,
+    val userPhoto: String? = "",
+    val level: Int = 0,
+    val exp: Int = 0,
+    val createdAt: Long = 0,
+    val role: String = ""
 )

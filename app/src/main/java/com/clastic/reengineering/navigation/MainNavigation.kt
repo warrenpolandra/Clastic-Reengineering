@@ -84,7 +84,7 @@ fun MainNavigation(
             composable(Screen.Home.route) {
                 bottomBarVisible = true
                 HomeScreen(
-                    onClick = { plasticTag -> },
+                    onPlasticTypeClicked = { plasticTag -> },
                     navigateToDropPointMap = { navHostController.navigate(Screen.DropPointMap.route) },
                     navigateToQrCode = { navHostController.navigate(Screen.QrCode.route) },
                     navigateToQrCodeScanner = { navHostController.navigate(Screen.QrCodeScanner.route) },
