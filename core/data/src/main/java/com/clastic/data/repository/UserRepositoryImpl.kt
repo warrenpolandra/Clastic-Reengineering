@@ -269,4 +269,18 @@ class UserRepositoryImpl @Inject constructor(
                 onFetchFailed(e.message.toString())
             }
     }
+
+    override fun checkUserById(
+        userId: String,
+        onFetchSuccess: (Boolean) -> Unit,
+        onFetchFailed: (String) -> Unit
+    ) {
+        db.collection("user").document(userId).get()
+            .addOnSuccessListener { document ->
+                onFetchSuccess(document.exists())
+            }
+            .addOnFailureListener { error ->
+                onFetchFailed(error.message.toString())
+            }
+    }
 }

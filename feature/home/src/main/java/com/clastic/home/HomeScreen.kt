@@ -208,7 +208,6 @@ fun HomeScreenContent(
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier.verticalScroll(rememberScrollState())
                 ) {
-
                     PlasticExchange(
                         role = user.role,
                         modifier = modifier,

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="scan_qr_code">Pindai kode QR</string>
+    <string name="scan_qr_code_to_start">Pindai kode QR pengguna untuk memulai transaksi</string>
+    <string name="scan_qr_warning">Pastikan kode QR terlihat dengan jelas</string>
+    <string name="user_not_exist">User tidak ditemukan, pastikan kode QR benar</string>
+</resources>
