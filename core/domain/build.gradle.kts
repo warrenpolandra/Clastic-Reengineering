@@ -1,5 +1,4 @@
 plugins {
-    id("com.google.gms.google-services")
     `android-library`
     `kotlin-android`
 }

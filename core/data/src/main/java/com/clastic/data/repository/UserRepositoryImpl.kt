@@ -206,6 +206,7 @@ class UserRepositoryImpl @Inject constructor(
             val newUser = hashMapOf(
                 "userId" to uid,
                 "username" to name,
+                "email" to email,
                 "userPhoto" to photoUrl?.toString(),
                 "points" to 0,
                 // Todo: change Any to Prize
@@ -225,7 +226,7 @@ class UserRepositoryImpl @Inject constructor(
                                 User(
                                     userId = uid,
                                     username = name,
-                                    email = email!!,
+                                    email = email ?: "",
                                     userPhoto = photoUrl?.toString(),
                                     points = 0,
                                     createdAt = TimeUtil.getCurrentTimeSeconds(),
@@ -267,6 +268,20 @@ class UserRepositoryImpl @Inject constructor(
             }
             .addOnFailureListener { e ->
                 onFetchFailed(e.message.toString())
+            }
+    }
+
+    override fun checkUserById(
+        userId: String,
+        onFetchSuccess: (Boolean) -> Unit,
+        onFetchFailed: (String) -> Unit
+    ) {
+        db.collection("user").document(userId).get()
+            .addOnSuccessListener { document ->
+                onFetchSuccess(document.exists())
+            }
+            .addOnFailureListener { error ->
+                onFetchFailed(error.message.toString())
             }
     }
 }

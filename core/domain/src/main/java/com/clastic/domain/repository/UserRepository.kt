@@ -43,4 +43,10 @@ interface UserRepository {
         onFetchSuccess: (User) -> Unit,
         onFetchFailed: (String) -> Unit
     )
+
+    fun checkUserById(
+        userId: String,
+        onFetchSuccess: (Boolean) -> Unit,
+        onFetchFailed: (String) -> Unit
+    )
 }

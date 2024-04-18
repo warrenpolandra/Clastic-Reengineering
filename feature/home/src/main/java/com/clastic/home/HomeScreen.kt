@@ -56,7 +56,7 @@ import com.clastic.ui.theme.CyanPrimaryVariant2
 fun HomeScreen(
     onPlasticTypeClicked: (String) -> Unit,
     navigateToDropPointMap: () -> Unit,
-    navigateToQrCode: () -> Unit,
+    navigateToQrCode: (String) -> Unit,
     navigateToQrCodeScanner: () -> Unit,
     navigateToTutorial: () -> Unit,
     onMissionClick: (String) -> Unit,
@@ -88,7 +88,7 @@ fun HomeScreenContent(
     listPlasticKnowledge: List<PlasticKnowledge>,
     onPlasticTypeClicked: (String) -> Unit,
     navigateToDropPointMap: () -> Unit,
-    navigateToQrCode: () -> Unit,
+    navigateToQrCode: (String) -> Unit,
     navigateToQrCodeScanner: () -> Unit,
     navigateToTutorial: () -> Unit,
     onMissionClick: (String) -> Unit,
@@ -208,11 +208,10 @@ fun HomeScreenContent(
                     verticalArrangement = Arrangement.spacedBy(4.dp),
                     modifier = Modifier.verticalScroll(rememberScrollState())
                 ) {
-
                     PlasticExchange(
                         role = user.role,
                         modifier = modifier,
-                        navigateToQrCode = navigateToQrCode,
+                        navigateToQrCode = { navigateToQrCode(user.email) },
                         navigateToDropPointMap = navigateToDropPointMap,
                         navigateToQrCodeScanner = navigateToQrCodeScanner
                     )

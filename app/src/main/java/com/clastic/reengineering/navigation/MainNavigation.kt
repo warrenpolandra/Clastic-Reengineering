@@ -26,6 +26,8 @@ import com.clastic.home.HomeScreen
 import com.clastic.home.component.TutorialScreen
 import com.clastic.mission.detail.MissionDetailScreen
 import com.clastic.mission.list.ListMissionScreen
+import com.clastic.qrcode.MyQrCodeScreen
+import com.clastic.qrcode.scanner.QrScannerScreen
 import com.clastic.splashscreen.ClasticSplashScreen
 import java.net.URLDecoder
 
@@ -88,7 +90,9 @@ fun MainNavigation(
                 HomeScreen(
                     onPlasticTypeClicked = { plasticTag -> },
                     navigateToDropPointMap = { navHostController.navigate(Screen.DropPointMap.route) },
-                    navigateToQrCode = { navHostController.navigate(Screen.QrCode.route) },
+                    navigateToQrCode = { userId ->
+                        navHostController.navigate(Screen.QrCode.createRoute(userId))
+                    },
                     navigateToQrCodeScanner = { navHostController.navigate(Screen.QrCodeScanner.route) },
                     navigateToTutorial = { navHostController.navigate(Screen.Tutorial.route) },
                     onMissionClick = { missionTitle ->
@@ -108,6 +112,32 @@ fun MainNavigation(
                     navHostController.popBackStack()
                     navHostController.navigate(Screen.Home.route)
                 })
+            }
+            composable(
+                route = Screen.QrCode.route,
+                arguments = listOf(navArgument("userId"){ type = NavType.StringType })
+            ) { navBackStackEntry ->
+                bottomBarVisible = false
+                val userId = navBackStackEntry.arguments?.getString("userId")
+                MyQrCodeScreen(
+                    qrText = userId ?: "",
+                    navigateToHome = {
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.Home.route)
+                    }
+                )
+            }
+            composable(Screen.QrCodeScanner.route) {
+                bottomBarVisible = false
+                QrScannerScreen(
+                    onScannedSuccess = {
+                        // TODO: navigate to Transaction
+                    },
+                    navigateToHome = {
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.Home.route)
+                    }
+                )
             }
             composable(Screen.Article.route) {
                 bottomBarVisible = true
