@@ -16,7 +16,9 @@ sealed class Screen(val route: String) {
     }
     data object Profile: Screen("profile")
     data object DropPointMap: Screen("dropPointMap")
-    data object QrCode: Screen("qrCode")
+    data object QrCode: Screen("qrCode/{userId}") {
+        fun createRoute(userId: String) = "qrCode/$userId"
+    }
     data object QrCodeScanner: Screen("qrCodeScanner")
     data object Tutorial: Screen("tutorial")
 }

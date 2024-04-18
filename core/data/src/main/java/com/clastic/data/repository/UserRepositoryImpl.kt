@@ -206,6 +206,7 @@ class UserRepositoryImpl @Inject constructor(
             val newUser = hashMapOf(
                 "userId" to uid,
                 "username" to name,
+                "email" to email,
                 "userPhoto" to photoUrl?.toString(),
                 "points" to 0,
                 // Todo: change Any to Prize
@@ -225,7 +226,7 @@ class UserRepositoryImpl @Inject constructor(
                                 User(
                                     userId = uid,
                                     username = name,
-                                    email = email!!,
+                                    email = email ?: "",
                                     userPhoto = photoUrl?.toString(),
                                     points = 0,
                                     createdAt = TimeUtil.getCurrentTimeSeconds(),
