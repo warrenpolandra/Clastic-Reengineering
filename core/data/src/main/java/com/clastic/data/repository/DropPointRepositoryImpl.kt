@@ -10,6 +10,7 @@ import javax.inject.Inject
 
 class DropPointRepositoryImpl @Inject constructor(): DropPointRepository {
     private val db = Firebase.firestore
+
     override fun getDropPointList(
         onFetchSuccess: (List<DropPoint>, LatLng) -> Unit,
         onFetchFailed: (String) -> Unit
@@ -37,6 +38,33 @@ class DropPointRepositoryImpl @Inject constructor(): DropPointRepository {
                 }
                 val boundsCenter = getBoundsCenter(positions)
                 onFetchSuccess(dropPointList.sortedBy { it.id }, boundsCenter)
+            }
+            .addOnFailureListener { error ->
+                onFetchFailed(error.message.toString())
+            }
+    }
+
+    override fun getDropPointByOwnerId(
+        ownerId: String,
+        onFetchSuccess: (DropPoint) -> Unit,
+        onFetchFailed: (String) -> Unit
+    ) {
+        db.collection("dropPoint")
+            .whereEqualTo("owner", ownerId)
+            .get()
+            .addOnSuccessListener { snapshot ->
+                if (!snapshot.isEmpty) {
+                    val document = snapshot.documents.first()
+                    val dropPoint =  DropPoint(
+                        id = document.getString("id") ?: "",
+                        lat = document.getGeoPoint("coordinate")?.latitude ?: 0.0,
+                        long = document.getGeoPoint("coordinate")?.longitude ?: 0.0,
+                        name = document.getString("name") ?: "",
+                        address = document.getString("address") ?: "",
+                        ownerEmail = document.getString("owner") ?: ""
+                    )
+                    onFetchSuccess(dropPoint)
+                }
             }
             .addOnFailureListener { error ->
                 onFetchFailed(error.message.toString())

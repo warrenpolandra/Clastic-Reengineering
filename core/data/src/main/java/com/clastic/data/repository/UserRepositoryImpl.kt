@@ -143,6 +143,7 @@ class UserRepositoryImpl @Inject constructor(
             AuthUser(
                 userId = uid,
                 username = displayName,
+                email = email ?: "",
                 userImage = photoUrl?.toString(),
                 token = getIdToken(false).toString()
             )
@@ -273,12 +274,27 @@ class UserRepositoryImpl @Inject constructor(
 
     override fun checkUserById(
         userId: String,
-        onFetchSuccess: (Boolean) -> Unit,
+        onFetchSuccess: (Boolean, user: User?) -> Unit,
         onFetchFailed: (String) -> Unit
     ) {
         db.collection("user").document(userId).get()
             .addOnSuccessListener { document ->
-                onFetchSuccess(document.exists())
+                if (document.exists()) {
+                    val user = User(
+                        userId = document.getString("userId") ?: "",
+                        username = document.getString("username"),
+                        email = document.getString("email") ?: "",
+                        points = document.getLong("points")?.toInt() ?: 0,
+                        userPhoto = document.getString("userPhoto"),
+                        level = document.getLong("level")?.toInt() ?: 0,
+                        exp = document.getLong("exp")?.toInt() ?: 0,
+                        createdAt = document.getTimestamp("createdAt")?.seconds ?: 0,
+                        role = document.getString("role") ?: "user"
+                    )
+                    onFetchSuccess(document.exists(), user)
+                } else {
+                    onFetchSuccess(false, null)
+                }
             }
             .addOnFailureListener { error ->
                 onFetchFailed(error.message.toString())

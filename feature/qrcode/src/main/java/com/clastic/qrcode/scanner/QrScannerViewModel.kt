@@ -20,7 +20,7 @@ class QrScannerViewModel @Inject constructor(
     ) {
         userRepository.checkUserById(
             userId,
-            onFetchSuccess = { isUserExist ->
+            onFetchSuccess = { isUserExist, _ ->
                 _isUserExist.value = isUserExist
                 if (isUserExist) { onUserFound() }
                 _isUserExist.value = null

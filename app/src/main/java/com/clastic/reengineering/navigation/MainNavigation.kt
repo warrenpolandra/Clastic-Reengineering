@@ -29,6 +29,7 @@ import com.clastic.mission.list.ListMissionScreen
 import com.clastic.qrcode.MyQrCodeScreen
 import com.clastic.qrcode.scanner.QrScannerScreen
 import com.clastic.splashscreen.ClasticSplashScreen
+import com.clastic.transaction.plastic.PlasticTransactionScreen
 import java.net.URLDecoder
 
 @Composable
@@ -130,9 +131,23 @@ fun MainNavigation(
             composable(Screen.QrCodeScanner.route) {
                 bottomBarVisible = false
                 QrScannerScreen(
-                    onScannedSuccess = {
-                        // TODO: navigate to Transaction
+                    onScannedSuccess = { userId ->
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.PlasticTransaction.createRoute(userId))
                     },
+                    navigateToHome = {
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.Home.route)
+                    }
+                )
+            }
+            composable(
+                route = Screen.PlasticTransaction.route,
+                arguments = listOf(navArgument("userId") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                val userId = navBackStackEntry.arguments?.getString("userId")
+                PlasticTransactionScreen(
+                    userId = userId ?: "",
                     navigateToHome = {
                         navHostController.popBackStack()
                         navHostController.navigate(Screen.Home.route)

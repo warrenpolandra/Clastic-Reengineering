@@ -8,4 +8,10 @@ interface DropPointRepository {
         onFetchSuccess: (List<DropPoint>, LatLng) -> Unit,
         onFetchFailed: (String) -> Unit
     )
+
+    fun getDropPointByOwnerId(
+        ownerId: String,
+        onFetchSuccess: (DropPoint) -> Unit,
+        onFetchFailed: (String) -> Unit
+    )
 }

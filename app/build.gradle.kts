@@ -68,7 +68,7 @@ dependencies {
     implementation(project(":feature:mission"))
     implementation(project(":feature:droppoint"))
     implementation(project(":feature:qrcode"))
-
+    implementation(project(":feature:transaction:plastic"))
 
     // Firebase
     implementation("com.google.firebase:firebase-auth:22.3.1")

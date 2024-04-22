@@ -46,7 +46,7 @@ interface UserRepository {
 
     fun checkUserById(
         userId: String,
-        onFetchSuccess: (Boolean) -> Unit,
+        onFetchSuccess: (Boolean, user: User?) -> Unit,
         onFetchFailed: (String) -> Unit
     )
 }
