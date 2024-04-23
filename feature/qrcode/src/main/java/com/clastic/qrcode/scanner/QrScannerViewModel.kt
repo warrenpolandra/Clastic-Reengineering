@@ -16,7 +16,8 @@ class QrScannerViewModel @Inject constructor(
 
     fun checkUserById(
         userId: String,
-        onUserFound: () -> Unit
+        onUserFound: () -> Unit,
+        onScanFailed: (String) -> Unit
     ) {
         userRepository.checkUserById(
             userId,
@@ -25,7 +26,7 @@ class QrScannerViewModel @Inject constructor(
                 if (isUserExist) { onUserFound() }
                 _isUserExist.value = null
             },
-            onFetchFailed = { /*TODO*/ }
+            onFetchFailed = onScanFailed
         )
     }
 }

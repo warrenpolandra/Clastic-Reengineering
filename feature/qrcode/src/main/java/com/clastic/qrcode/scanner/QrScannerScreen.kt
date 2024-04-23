@@ -64,7 +64,11 @@ fun QrScannerScreen(
     QrScannerScreenContent(
         context = context,
         onQrCodeScanned = { userId ->
-            viewModel.checkUserById(userId) { onScannedSuccess(userId) }
+            viewModel.checkUserById(
+                userId = userId,
+                onUserFound = { onScannedSuccess(userId) },
+                onScanFailed = { showToast(context, it) }
+            )
         },
         hasCameraPermission = hasCameraPermission,
         isUserExist = isUserExist,

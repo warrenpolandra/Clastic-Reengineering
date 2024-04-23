@@ -29,7 +29,9 @@ class DropPointMapViewModel @Inject constructor(
                 _dropPointList.value = dropPointList
                 _boundsCenter.value = boundsCenter
             },
-            onFetchFailed = { /*TODO*/ }
+            onFetchFailed = {
+                _dropPointList.value = emptyList()
+            }
         )
     }
 }
