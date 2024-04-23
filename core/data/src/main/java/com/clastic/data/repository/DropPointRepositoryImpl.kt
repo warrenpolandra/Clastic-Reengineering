@@ -71,6 +71,28 @@ class DropPointRepositoryImpl @Inject constructor(): DropPointRepository {
             }
     }
 
+    override fun getDropPointById(
+        dropPointId: String,
+        onFetchSuccess: (DropPoint) -> Unit,
+        onFetchFailed: (String) -> Unit
+    ) {
+        db.collection("dropPoint").document(dropPointId).get()
+            .addOnSuccessListener { document ->
+                val dropPoint =  DropPoint(
+                    id = document.getString("id") ?: "",
+                    lat = document.getGeoPoint("coordinate")?.latitude ?: 0.0,
+                    long = document.getGeoPoint("coordinate")?.longitude ?: 0.0,
+                    name = document.getString("name") ?: "",
+                    address = document.getString("address") ?: "",
+                    ownerEmail = document.getString("owner") ?: ""
+                )
+                onFetchSuccess(dropPoint)
+            }
+            .addOnFailureListener { error ->
+                onFetchFailed(error.message.toString())
+            }
+    }
+
     private fun getBoundsCenter(positions: List<LatLng>): LatLng {
         val boundBuilder = LatLngBounds.Builder()
         for (position in positions) {

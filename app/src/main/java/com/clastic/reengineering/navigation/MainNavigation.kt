@@ -30,6 +30,7 @@ import com.clastic.qrcode.MyQrCodeScreen
 import com.clastic.qrcode.scanner.QrScannerScreen
 import com.clastic.splashscreen.ClasticSplashScreen
 import com.clastic.transaction.plastic.PlasticTransactionScreen
+import com.clastic.transaction.plastic.detail.PlasticTransactionDetailScreen
 import java.net.URLDecoder
 
 @Composable
@@ -148,6 +149,23 @@ fun MainNavigation(
                 val userId = navBackStackEntry.arguments?.getString("userId")
                 PlasticTransactionScreen(
                     userId = userId ?: "",
+                    navigateToHome = {
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.Home.route)
+                    },
+                    navigateToPlasticTransactionDetail = { plasticTransactionId ->
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.PlasticTransactionDetail.createRoute(plasticTransactionId))
+                    }
+                )
+            }
+            composable(
+                route = Screen.PlasticTransactionDetail.route,
+                arguments = listOf(navArgument("plasticTransactionId") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                val plasticTransactionId = navBackStackEntry.arguments?.getString("plasticTransactionId")
+                PlasticTransactionDetailScreen(
+                    plasticTransactionId = plasticTransactionId ?: "",
                     navigateToHome = {
                         navHostController.popBackStack()
                         navHostController.navigate(Screen.Home.route)

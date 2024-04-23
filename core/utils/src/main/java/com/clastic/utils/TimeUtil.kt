@@ -2,6 +2,7 @@ package com.clastic.utils
 
 import com.google.firebase.Timestamp
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 import java.util.concurrent.TimeUnit
 
@@ -21,11 +22,21 @@ object TimeUtil {
         return TimeUnit.SECONDS.toDays(remainingSeconds).toInt()
     }
 
-    fun getCurrentDateTimeString(): String {
-        val currentTimestamp = Timestamp.now().toDate()
+    fun getCurrentDateTime(): Date = Timestamp.now().toDate()
+
+    fun dateToStringFormat(date: Date): String {
         val formatter = SimpleDateFormat("EEEE, dd MMMM yyyy 'jam' HH:mm:ss",
             Locale("id", "ID")
         )
-        return formatter.format(currentTimestamp)
+        return formatter.format(date)
     }
+
+    fun timestampToStringFormat(timestamp: Timestamp): String {
+        val formatter = SimpleDateFormat("EEEE, dd MMMM yyyy 'jam' HH:mm:ss",
+            Locale("id", "ID")
+        )
+        return formatter.format(timestamp.toDate())
+    }
+
+    fun dateToTimestamp(date: Date): Timestamp = Timestamp(date)
 }

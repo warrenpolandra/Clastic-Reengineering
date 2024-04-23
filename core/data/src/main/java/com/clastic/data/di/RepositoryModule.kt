@@ -4,11 +4,13 @@ import com.clastic.data.repository.ArticleRepositoryImpl
 import com.clastic.data.repository.DropPointRepositoryImpl
 import com.clastic.data.repository.MissionRepositoryImpl
 import com.clastic.data.repository.PlasticKnowledgeRepositoryImpl
+import com.clastic.data.repository.PlasticTransactionRepositoryImpl
 import com.clastic.data.repository.UserRepositoryImpl
 import com.clastic.domain.repository.ArticleRepository
 import com.clastic.domain.repository.DropPointRepository
 import com.clastic.domain.repository.MissionRepository
 import com.clastic.domain.repository.PlasticKnowledgeRepository
+import com.clastic.domain.repository.PlasticTransactionRepository
 import com.clastic.domain.repository.UserRepository
 import dagger.Binds
 import dagger.Module
@@ -49,4 +51,10 @@ abstract class RepositoryModule {
     abstract fun bindsDropPointRepository(
         dropPointRepositoryImpl: DropPointRepositoryImpl
     ): DropPointRepository
+
+    @Binds
+    @Singleton
+    abstract fun bindsPlasticTransactionRepository(
+        plasticTransactionRepositoryImpl: PlasticTransactionRepositoryImpl
+    ): PlasticTransactionRepository
 }

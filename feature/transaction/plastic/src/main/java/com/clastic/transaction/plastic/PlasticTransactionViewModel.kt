@@ -3,12 +3,16 @@ package com.clastic.transaction.plastic
 import androidx.lifecycle.ViewModel
 import com.clastic.domain.repository.DropPointRepository
 import com.clastic.domain.repository.PlasticKnowledgeRepository
+import com.clastic.domain.repository.PlasticTransactionRepository
 import com.clastic.domain.repository.UserRepository
-import com.clastic.model.transaction.PlasticTransactionItem
+import com.clastic.model.DropPoint
+import com.clastic.model.User
+import com.clastic.model.transaction.plastic.PlasticTransactionItem
 import com.clastic.utils.TimeUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,27 +20,31 @@ class PlasticTransactionViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val dropPointRepository: DropPointRepository,
     private val plasticKnowledgeRepository: PlasticKnowledgeRepository,
+    private val plasticTransactionRepository: PlasticTransactionRepository
 ): ViewModel() {
-    private val _username = MutableStateFlow("")
-    val username = _username.asStateFlow()
+    private val _user = MutableStateFlow(User())
+    val user = _user.asStateFlow()
 
     private val _plasticTypeList = MutableStateFlow<List<String>>(emptyList())
     val plasticTypeList = _plasticTypeList.asStateFlow()
 
-    private val _currentDate = MutableStateFlow("")
+    private val _currentDate = MutableStateFlow(Date())
     val currentDate = _currentDate.asStateFlow()
 
     private val _points = MutableStateFlow(0)
     val points = _points.asStateFlow()
 
-    private val _dropPointName = MutableStateFlow("")
-    val dropPointName = _dropPointName.asStateFlow()
+    private val _dropPoint = MutableStateFlow(DropPoint())
+    val dropPointName = _dropPoint.asStateFlow()
 
     private val _plasticTransactionItemList = MutableStateFlow(listOf(PlasticTransactionItem()))
     val plasticTransactionItemList = _plasticTransactionItemList.asStateFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
     init {
-        _currentDate.value = TimeUtil.getCurrentDateTimeString()
+        _currentDate.value = TimeUtil.getCurrentDateTime()
         fetchPlasticTypeList()
         getDropPointName()
     }
@@ -55,10 +63,10 @@ class PlasticTransactionViewModel @Inject constructor(
         dropPointRepository.getDropPointByOwnerId(
             ownerId = ownerId,
             onFetchSuccess = { dropPoint ->
-                _dropPointName.value = dropPoint.name
+                _dropPoint.value = dropPoint
             },
             onFetchFailed = {
-                _dropPointName.value = ""
+                _dropPoint.value = DropPoint()
             }
         )
     }
@@ -70,8 +78,8 @@ class PlasticTransactionViewModel @Inject constructor(
     fun getUserById(userId: String) {
         userRepository.checkUserById(
             userId = userId,
-            onFetchSuccess = { _, user -> _username.value = user?.username ?: "" },
-            onFetchFailed = { _username.value = "" }
+            onFetchSuccess = { _, user -> _user.value = user ?: User()},
+            onFetchFailed = { _user.value = User() }
         )
     }
 
@@ -107,6 +115,31 @@ class PlasticTransactionViewModel @Inject constructor(
             currentItemList.removeAt(_plasticTransactionItemList.value.size - 1)
             _plasticTransactionItemList.value = currentItemList
             updatePoints()
+        }
+    }
+
+    fun submitTransaction(
+        onPostSuccess: (transactionId: String) -> Unit,
+        onPostFailed: (String) -> Unit
+    ) {
+        if (_plasticTransactionItemList.value.isNotEmpty()) {
+            _isLoading.value = true
+            plasticTransactionRepository.submitPlasticTransaction(
+                date = _currentDate.value,
+                dropPointId = _dropPoint.value.id,
+                ownerId = userRepository.getLoggedInUser()?.email ?: "",
+                totalPoints = _points.value,
+                userId = _user.value.email,
+                plasticTransactionItemList = _plasticTransactionItemList.value,
+                onPostSuccess = {
+                    onPostSuccess(it)
+                    _isLoading.value = false
+                },
+                onPostFailed = {
+                    onPostFailed(it)
+                    _isLoading.value = false
+                }
+            )
         }
     }
 }

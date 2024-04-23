@@ -1,4 +1,4 @@
-package com.clastic.model.transaction
+package com.clastic.model.transaction.plastic
 
 import com.google.errorprone.annotations.Keep
 

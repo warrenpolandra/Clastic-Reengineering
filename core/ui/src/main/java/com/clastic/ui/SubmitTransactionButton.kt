@@ -19,6 +19,7 @@ import com.clastic.ui.theme.CyanPrimary
 @Composable
 fun SubmitTransactionButton(
     onClick: () -> Unit,
+    isEnabled: Boolean,
     modifier: Modifier = Modifier
 ) {
     Button(
@@ -27,6 +28,7 @@ fun SubmitTransactionButton(
         colors = ButtonDefaults.buttonColors(
             backgroundColor = CyanPrimary
         ),
+        enabled = isEnabled,
         modifier = modifier.heightIn(min = 48.dp)
     ) {
         Text(
@@ -42,6 +44,9 @@ fun SubmitTransactionButton(
 @Composable
 fun SubmitTransactionButtonPreview() {
     ClasticTheme {
-        SubmitTransactionButton(onClick = { /*TODO*/ })
+        SubmitTransactionButton(
+            isEnabled = true,
+            onClick = {}
+        )
     }
 }

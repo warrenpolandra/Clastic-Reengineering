@@ -21,6 +21,7 @@ import com.clastic.ui.theme.CyanPrimaryVariant
 
 @Composable
 fun AddRemoveButton(
+    isEnabled: Boolean,
     onAdd: () -> Unit,
     onRemove: () -> Unit,
     modifier: Modifier = Modifier
@@ -37,6 +38,7 @@ fun AddRemoveButton(
                 backgroundColor = Color.Red,
                 contentColor = Color.White
             ),
+            enabled = isEnabled,
             modifier = Modifier.size(40.dp)
         ) {
             Icon(
@@ -52,6 +54,7 @@ fun AddRemoveButton(
                 backgroundColor = CyanPrimaryVariant,
                 contentColor = Color.White
             ),
+            enabled = isEnabled,
             modifier = Modifier.size(40.dp)
         ) {
             Icon(
@@ -67,6 +70,7 @@ fun AddRemoveButton(
 fun AddRemoveButtonPreview() {
     ClasticTheme {
         AddRemoveButton(
+            isEnabled = true,
             onAdd = {},
             onRemove = {}
         )

@@ -11,6 +11,7 @@ android {
 
 dependencies {
 
+    implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
     // Hilt
     hilt()
 
