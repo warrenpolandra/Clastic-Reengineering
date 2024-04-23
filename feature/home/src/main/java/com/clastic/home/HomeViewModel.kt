@@ -36,7 +36,7 @@ class HomeViewModel @Inject constructor(
                 _listPlasticKnowledge.value = listPlasticKnowledge
             },
             onFetchFailed = {
-                /*TODO*/
+                _listPlasticKnowledge.value = emptyList()
             }
         )
     }
@@ -48,7 +48,6 @@ class HomeViewModel @Inject constructor(
                 _isLoading.value = false
             },
             onFetchFailed = {
-                /*TODO*/
                 _isLoading.value = false
             }
         )

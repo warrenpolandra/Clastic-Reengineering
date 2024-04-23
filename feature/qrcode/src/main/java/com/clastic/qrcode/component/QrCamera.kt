@@ -44,7 +44,7 @@ fun QrCamera(
             modifier = Modifier
                 .fillMaxSize()
                 .clip(RoundedCornerShape(40.dp)),
-            factory = {context ->
+            factory = { context ->
                 val previewView = PreviewView(context)
                 val preview = Preview.Builder().build()
                 val selector = CameraSelector.Builder()
