@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="plastic_transaction">Transaksi Plastik</string>
+    <string name="user_id">User ID</string>
+    <string name="user_name">Nama Pengguna</string>
+    <string name="transaction_time">Waktu Transaksi</string>
+    <string name="transaction_location">Lokasi Transaksi</string>
+    <string name="plastic_transaction_detail">Detail Transaksi Plastik</string>
+    <string name="total_points_obtained">Total poin yang didapatkan</string>
+    <string name="amount_pts">%s pts</string>
+    <string name="type">Jenis</string>
+    <string name="weight_placeholder">0.0</string>
+    <string name="kg">kg</string>
+    <string name="equals">=</string>
+    <string name="total_points">%s pts</string>
+    <string name="transaction_created">Transaksi Dibuat</string>
+    <string name="transaction_info">Informasi Transaksi</string>
+    <string name="transaction_code">Kode Transaksi</string>
+    <string name="receiver">Penerima</string>
+    <string name="location">Lokasi</string>
+    <string name="time">Waktu</string>
+    <string name="plastic_weight">%s kg</string>
+    <string name="added_points">+ %s pts</string>
+    <string name="total_points_pts">Total Poin: %s pts</string>
+    <string name="back_to_home">Kembali ke Home</string>
+</resources>

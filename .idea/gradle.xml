@@ -37,6 +37,8 @@
             <option value="$PROJECT_DIR$/feature/mission" />
             <option value="$PROJECT_DIR$/feature/qrcode" />
             <option value="$PROJECT_DIR$/feature/splashscreen" />
+            <option value="$PROJECT_DIR$/feature/transaction" />
+            <option value="$PROJECT_DIR$/feature/transaction/plastic" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

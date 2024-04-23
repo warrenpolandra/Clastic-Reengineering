@@ -21,4 +21,10 @@ sealed class Screen(val route: String) {
     }
     data object QrCodeScanner: Screen("qrCodeScanner")
     data object Tutorial: Screen("tutorial")
+    data object PlasticTransaction: Screen("plasticTransaction/{userId}") {
+        fun createRoute(userId: String) = "plasticTransaction/$userId"
+    }
+    data object PlasticTransactionDetail: Screen("plasticTransactionDetail/{plasticTransactionId}") {
+        fun createRoute(plasticTransactionId: String) = "plasticTransactionDetail/$plasticTransactionId"
+    }
 }

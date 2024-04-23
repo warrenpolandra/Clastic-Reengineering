@@ -29,6 +29,8 @@ import com.clastic.mission.list.ListMissionScreen
 import com.clastic.qrcode.MyQrCodeScreen
 import com.clastic.qrcode.scanner.QrScannerScreen
 import com.clastic.splashscreen.ClasticSplashScreen
+import com.clastic.transaction.plastic.PlasticTransactionScreen
+import com.clastic.transaction.plastic.detail.PlasticTransactionDetailScreen
 import java.net.URLDecoder
 
 @Composable
@@ -130,9 +132,40 @@ fun MainNavigation(
             composable(Screen.QrCodeScanner.route) {
                 bottomBarVisible = false
                 QrScannerScreen(
-                    onScannedSuccess = {
-                        // TODO: navigate to Transaction
+                    onScannedSuccess = { userId ->
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.PlasticTransaction.createRoute(userId))
                     },
+                    navigateToHome = {
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.Home.route)
+                    }
+                )
+            }
+            composable(
+                route = Screen.PlasticTransaction.route,
+                arguments = listOf(navArgument("userId") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                val userId = navBackStackEntry.arguments?.getString("userId")
+                PlasticTransactionScreen(
+                    userId = userId ?: "",
+                    navigateToHome = {
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.Home.route)
+                    },
+                    navigateToPlasticTransactionDetail = { plasticTransactionId ->
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.PlasticTransactionDetail.createRoute(plasticTransactionId))
+                    }
+                )
+            }
+            composable(
+                route = Screen.PlasticTransactionDetail.route,
+                arguments = listOf(navArgument("plasticTransactionId") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                val plasticTransactionId = navBackStackEntry.arguments?.getString("plasticTransactionId")
+                PlasticTransactionDetailScreen(
+                    plasticTransactionId = plasticTransactionId ?: "",
                     navigateToHome = {
                         navHostController.popBackStack()
                         navHostController.navigate(Screen.Home.route)

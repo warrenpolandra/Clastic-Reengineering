@@ -2,4 +2,5 @@
 <resources>
     <string name="do_mission">Do this mission</string>
     <string name="mission_days_left">%s Days Left</string>
+    <string name="submit_transaction">Submit Transaksi</string>
 </resources>
