@@ -20,6 +20,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:model"))
     implementation(project(":core:domain"))
+    implementation(project(":core:utils"))
 
     implementation("androidx.compose.material:material-icons-extended:1.6.5")
 
