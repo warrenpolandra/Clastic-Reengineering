@@ -51,6 +51,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimary
 import com.clastic.ui.theme.CyanPrimaryVariant
 import com.clastic.ui.theme.CyanPrimaryVariant2
+import com.clastic.utils.NumberUtil
 
 @Composable
 fun HomeScreen(
@@ -164,7 +165,7 @@ fun HomeScreenContent(
                                 contentDescription = null
                             )
                             Text(
-                                text = stringResource(R.string.user_points, user.points),
+                                text = stringResource(R.string.user_points,  NumberUtil.formatNumberToGrouped(user.points)),
                                 style = MaterialTheme.typography.subtitle1.copy(
                                     color = CyanPrimaryVariant,
                                     fontWeight = FontWeight.Bold
