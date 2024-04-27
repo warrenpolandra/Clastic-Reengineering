@@ -19,6 +19,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -50,13 +51,16 @@ fun MissionDetailScreen(
     viewModel: MissionDetailViewModel = hiltViewModel<MissionDetailViewModel>()
 ) {
     val context = LocalContext.current
-    viewModel.fetchMissionById(
-        missionId = missionId,
-        onFetchFailed = { error ->
-            showToast(context, error)
-        }
-    )
     val mission by viewModel.mission.collectAsState()
+
+    LaunchedEffect(true) {
+        viewModel.fetchMissionById(
+            missionId = missionId,
+            onFetchFailed = { error ->
+                showToast(context, error)
+            }
+        )
+    }
 
     MissionDetailScreenContent(
         mission = mission,
