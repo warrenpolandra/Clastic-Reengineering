@@ -35,6 +35,7 @@
             <option value="$PROJECT_DIR$/feature/droppoint" />
             <option value="$PROJECT_DIR$/feature/home" />
             <option value="$PROJECT_DIR$/feature/mission" />
+            <option value="$PROJECT_DIR$/feature/profile" />
             <option value="$PROJECT_DIR$/feature/qrcode" />
             <option value="$PROJECT_DIR$/feature/splashscreen" />
             <option value="$PROJECT_DIR$/feature/transaction" />
