@@ -78,7 +78,7 @@ fun QrScannerScreen(
 }
 
 @Composable
-fun QrScannerScreenContent(
+private fun QrScannerScreenContent(
     context: Context,
     onQrCodeScanned: (String) -> Unit,
     navigateToHome: () -> Unit,
@@ -135,6 +135,6 @@ fun QrScannerScreenContent(
     }
 }
 
-fun showToast(context: Context, message: String) {
+private fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }

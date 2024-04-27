@@ -111,7 +111,7 @@ fun RegisterScreen(
 }
 
 @Composable
-fun RegisterScreenContent(
+private fun RegisterScreenContent(
     nameInput: String,
     emailInput: String,
     passInput: String,
@@ -212,13 +212,13 @@ fun RegisterScreenContent(
     }
 }
 
-fun showToast(context: Context, message: String) {
+private fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
 @Preview(showBackground = true)
 @Composable
-fun RegisterScreenPreview() {
+private fun RegisterScreenPreview() {
     ClasticTheme {
         RegisterScreenContent(
             nameInput = "Warren",

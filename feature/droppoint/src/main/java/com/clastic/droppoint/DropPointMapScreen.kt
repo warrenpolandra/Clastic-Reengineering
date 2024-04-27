@@ -76,7 +76,7 @@ fun DropPointMapScreen(
 }
 
 @Composable
-fun DropPointMapScreenContent(
+private fun DropPointMapScreenContent(
     context: Context,
     hasPermission: Boolean,
     dropPointList: List<DropPoint>,

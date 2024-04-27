@@ -106,7 +106,7 @@ fun LoginScreen(
 }
 
 @Composable
-fun LoginScreenContent(
+private fun LoginScreenContent(
     emailInput: String,
     passInput: String,
     isLoading: Boolean,
@@ -203,13 +203,13 @@ fun LoginScreenContent(
     }
 }
 
-fun showToast(context: Context, message: String) {
+private fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
 @Preview(showBackground = true)
 @Composable
-fun LoginScreenPreview() {
+private fun LoginScreenPreview() {
     ClasticTheme {
         LoginScreenContent(
             emailInput = "email@gmail.com",

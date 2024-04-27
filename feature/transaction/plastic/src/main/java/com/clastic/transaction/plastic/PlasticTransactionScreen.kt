@@ -226,13 +226,13 @@ fun PlasticTransactionScreenContent(
     }
 }
 
-fun showToast(context: Context, message: String) {
+private fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
 @Preview
 @Composable
-fun PlasticTransactionScreenPreview() {
+private fun PlasticTransactionScreenPreview() {
     ClasticTheme {
         PlasticTransactionScreenContent(
             username = "Warren",

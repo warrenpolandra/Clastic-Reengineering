@@ -83,7 +83,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeScreenContent(
+private fun HomeScreenContent(
     user: User,
     isLoading: Boolean,
     listPlasticKnowledge: List<PlasticKnowledge>,
@@ -293,7 +293,7 @@ fun HomeScreenContent(
 
 @Preview(showBackground = true)
 @Composable
-fun HomeScreenPreview() {
+private fun HomeScreenPreview() {
     ClasticTheme {
         HomeScreenContent(
             user = User(),

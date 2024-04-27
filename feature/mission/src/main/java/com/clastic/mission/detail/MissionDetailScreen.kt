@@ -70,7 +70,7 @@ fun MissionDetailScreen(
 }
 
 @Composable
-fun MissionDetailScreenContent(
+private fun MissionDetailScreenContent(
     mission: Mission,
     navigateToMissionList: () -> Unit,
     modifier: Modifier = Modifier
@@ -218,13 +218,13 @@ fun MissionDetailScreenContent(
     }
 }
 
-fun showToast(context: Context, message: String) {
+private fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
 @Preview
 @Composable
-fun MissionDetailScreenPreview() {
+private fun MissionDetailScreenPreview() {
     ClasticTheme {
         MissionDetailScreenContent(
             mission = Mission(

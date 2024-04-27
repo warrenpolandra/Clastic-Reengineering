@@ -48,7 +48,7 @@ fun ListArticleScreen(
 }
 
 @Composable
-fun ListArticleScreenContent(
+private fun ListArticleScreenContent(
     isLoading: Boolean,
     error: String,
     articleList: List<Article>,
@@ -110,7 +110,7 @@ fun ListArticleScreenContent(
 
 @Preview(showBackground = true)
 @Composable
-fun ListArticleScreenPreview() {
+private fun ListArticleScreenPreview() {
     ClasticTheme {
         ListArticleScreenContent(
             isLoading = true,

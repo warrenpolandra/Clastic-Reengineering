@@ -37,7 +37,7 @@ fun ClasticSplashScreen(
 }
 
 @Composable
-fun SplashScreenContent(
+private fun SplashScreenContent(
     isUserLoggedIn: Boolean,
     navigateToHome: () -> Unit,
     navigateToLogin: () -> Unit,
@@ -82,7 +82,7 @@ fun SplashScreenContent(
 
 @Preview(showBackground = false)
 @Composable
-fun SplashScreenPreview() {
+private fun SplashScreenPreview() {
     ClasticTheme {
         SplashScreenContent(
             isUserLoggedIn = true,

@@ -47,7 +47,7 @@ fun ListMissionScreen(
 }
 
 @Composable
-fun ListMissionScreenContent(
+private fun ListMissionScreenContent(
     isLoading: Boolean,
     error: String,
     missionList: List<Mission>,
@@ -105,7 +105,7 @@ fun ListMissionScreenContent(
 
 @Preview(showBackground = true)
 @Composable
-fun ListMissionScreenPreview() {
+private fun ListMissionScreenPreview() {
     ClasticTheme {
         ListMissionScreenContent(
             isLoading = true,
