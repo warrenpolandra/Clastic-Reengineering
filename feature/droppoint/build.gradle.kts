@@ -10,7 +10,6 @@ android {
 }
 
 dependencies {
-
     // Hilt
     hilt()
 

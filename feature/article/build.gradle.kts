@@ -10,14 +10,13 @@ android {
 }
 
 dependencies {
-
     // Hilt
     hilt()
 
     // Compose
     compose()
 
-    // Module implementation
+    // Module Implementation
     implementation(project(":core:model"))
     implementation(project(":core:domain"))
     implementation(project(":core:ui"))

@@ -10,13 +10,13 @@ android {
 }
 
 dependencies {
-
     // Hilt
     hilt()
 
     // Compose
     compose()
 
+    // Module Implementation
     implementation(project(":core:ui"))
     implementation(project(":core:utils"))
     implementation(project(":core:domain"))
@@ -26,7 +26,10 @@ dependencies {
     implementation("androidx.camera:camera-lifecycle:1.3.2")
     implementation("androidx.camera:camera-view:1.3.2")
 
+    // Zxing
     implementation("com.google.zxing:core:3.5.1")
+
+    // Guava
     implementation("com.google.guava:guava:31.0.1-jre")
 
     implementation("androidx.core:core-ktx:1.12.0")

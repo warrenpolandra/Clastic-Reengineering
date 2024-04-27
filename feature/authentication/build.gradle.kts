@@ -10,7 +10,6 @@ android {
 }
 
 dependencies {
-    implementation("com.google.firebase:firebase-auth:22.3.1")
     // Hilt
     hilt()
 
@@ -22,7 +21,11 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:ui"))
 
-    implementation("androidx.compose.material:material-icons-extended:1.6.5")
+    // Material Icons Extended
+    implementation("androidx.compose.material:material-icons-extended:1.6.6")
+
+    // Firebase
+    implementation("com.google.firebase:firebase-auth:22.3.1")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

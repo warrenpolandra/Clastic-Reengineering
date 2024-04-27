@@ -10,11 +10,13 @@ android {
 }
 
 dependencies {
-
     // Hilt
     hilt()
+
+    // Firebase
     implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
 
+    // Zxing
     implementation("com.google.zxing:core:3.5.1")
 
     implementation("androidx.core:core-ktx:1.12.0")

@@ -10,17 +10,18 @@ android {
 }
 
 dependencies {
+    // Hilt
+    hilt()
 
     // Compose UI
     compose()
 
-    // Hilt
-    hilt()
-
+    // Module Implementation
     implementation(project(":core:domain"))
     implementation(project(":core:model"))
     implementation(project(":core:ui"))
 
+    // Compose Activity
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation(platform("androidx.compose:compose-bom:2024.03.00"))
 

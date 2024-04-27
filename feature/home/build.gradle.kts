@@ -22,7 +22,8 @@ dependencies {
     implementation(project(":core:domain"))
     implementation(project(":core:utils"))
 
-    implementation("androidx.compose.material:material-icons-extended:1.6.5")
+    // Material Icons Extended
+    implementation("androidx.compose.material:material-icons-extended:1.6.6")
 
     // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")

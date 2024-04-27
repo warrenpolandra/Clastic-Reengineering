@@ -10,25 +10,29 @@ android {
 }
 
 dependencies {
-
-    implementation(project(":core:data"))
-    implementation(project(":core:model"))
-    implementation(project(":core:utils"))
-
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
-    implementation("com.google.firebase:firebase-firestore-ktx:24.11.0")
-
     // Hilt
     hilt()
 
     // Compose UI
     compose()
 
+    // Module Implementation
+    implementation(project(":core:data"))
+    implementation(project(":core:model"))
+    implementation(project(":core:utils"))
+
     // Coil
     implementation("io.coil-kt:coil-compose:2.5.0")
 
-    implementation("androidx.compose.material:material-icons-extended:1.6.4")
+    // Material Icons Extended
+    implementation("androidx.compose.material:material-icons-extended:1.6.6")
+
+    // Compose Activity
+    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
+
+    // Firebase
+    implementation("com.google.firebase:firebase-firestore-ktx:24.11.0")
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
