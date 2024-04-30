@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="profile">Profil</string>
+    <string name="points_total">%s pts</string>
+    <string name="transaction_made">Transaksi Dibuat</string>
+    <string name="total_plastic_kg">%s kg</string>
+    <string name="collected_plastic">Plastik Terkumpul</string>
+    <string name="plastic_transaction_history">Riwayat Transaksi Plastik</string>
+    <string name="points_transaction_history">Riwayat Penukaran Points</string>
+    <string name="share_clastic_to_friends">Bagikan Clastic ke Temanmu</string>
+    <string name="settings">Pengaturan</string>
+    <string name="logout">Keluar</string>
+</resources>

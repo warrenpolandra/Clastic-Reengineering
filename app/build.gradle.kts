@@ -72,6 +72,7 @@ dependencies {
     implementation(project(":feature:home"))
     implementation(project(":feature:article"))
     implementation(project(":feature:mission"))
+    implementation(project(":feature:profile"))
     implementation(project(":feature:droppoint"))
     implementation(project(":feature:qrcode"))
     implementation(project(":feature:transaction:plastic"))

@@ -55,7 +55,7 @@ import com.clastic.utils.NumberUtil
 
 @Composable
 fun HomeScreen(
-    onPlasticTypeClicked: (String) -> Unit,
+    onPlasticTypeClicked: (plasticId: String) -> Unit,
     navigateToDropPointMap: () -> Unit,
     navigateToQrCode: (String) -> Unit,
     navigateToQrCodeScanner: () -> Unit,
@@ -283,8 +283,7 @@ private fun HomeScreenContent(
         ) {
             if (isLoading) {
                 CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(64.dp)
+                    modifier = Modifier.size(64.dp)
                 )
             }
         }
