@@ -75,6 +75,7 @@ dependencies {
     implementation(project(":feature:profile"))
     implementation(project(":feature:droppoint"))
     implementation(project(":feature:qrcode"))
+    implementation(project(":feature:plastic_knowledge"))
     implementation(project(":feature:transaction:plastic"))
 
     // Firebase

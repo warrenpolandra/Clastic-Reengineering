@@ -26,6 +26,7 @@ import com.clastic.home.HomeScreen
 import com.clastic.home.component.TutorialScreen
 import com.clastic.mission.detail.MissionDetailScreen
 import com.clastic.mission.list.ListMissionScreen
+import com.clastic.plastic_knowledge.PlasticKnowledgeScreen
 import com.clastic.profile.ProfileScreen
 import com.clastic.qrcode.MyQrCodeScreen
 import com.clastic.qrcode.scanner.QrScannerScreen
@@ -54,44 +55,28 @@ fun MainNavigation(
         ) {
             composable(Screen.SplashScreen.route) {
                 ClasticSplashScreen(
-                    navigateToLogin = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Login.route)
-                    },
-                    navigateToHome = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Home.route)
-                    }
+                    navigateToLogin = { navigateWithPopBack(navHostController, Screen.Login.route) },
+                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
                 )
             }
             composable(Screen.Login.route) {
                 LoginScreen(
-                    navigateToRegister = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Register.route)
-                    },
-                    navigateToHome = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Home.route)
-                    }
+                    navigateToRegister = { navigateWithPopBack(navHostController, Screen.Register.route) },
+                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
                 )
             }
             composable(Screen.Register.route) {
                 RegisterScreen(
-                    navigateToLogin = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Login.route)
-                    },
-                    navigateToHome = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Home.route)
-                    }
+                    navigateToLogin = { navigateWithPopBack(navHostController, Screen.Login.route) },
+                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
                 )
             }
             composable(Screen.Home.route) {
                 bottomBarVisible = true
                 HomeScreen(
-                    onPlasticTypeClicked = { plasticId -> },
+                    onPlasticTypeClicked = { plasticId ->
+                        navHostController.navigate(Screen.PlasticKnowledge.createRoute(plasticId))
+                    },
                     navigateToDropPointMap = { navHostController.navigate(Screen.DropPointMap.route) },
                     navigateToQrCode = { userId ->
                         navHostController.navigate(Screen.QrCode.createRoute(userId))
@@ -111,10 +96,7 @@ fun MainNavigation(
             }
             composable(Screen.DropPointMap.route) {
                 bottomBarVisible = false
-                DropPointMapScreen(navigateToHome = {
-                    navHostController.popBackStack()
-                    navHostController.navigate(Screen.Home.route)
-                })
+                DropPointMapScreen(navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) })
             }
             composable(
                 route = Screen.QrCode.route,
@@ -124,23 +106,16 @@ fun MainNavigation(
                 val userId = navBackStackEntry.arguments?.getString("userId")
                 MyQrCodeScreen(
                     qrText = userId ?: "",
-                    navigateToHome = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Home.route)
-                    }
+                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
                 )
             }
             composable(Screen.QrCodeScanner.route) {
                 bottomBarVisible = false
                 QrScannerScreen(
                     onScannedSuccess = { userId ->
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.PlasticTransaction.createRoute(userId))
+                        navigateWithPopBack(navHostController, Screen.PlasticTransaction.createRoute(userId))
                     },
-                    navigateToHome = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Home.route)
-                    }
+                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
                 )
             }
             composable(
@@ -150,13 +125,9 @@ fun MainNavigation(
                 val userId = navBackStackEntry.arguments?.getString("userId")
                 PlasticTransactionScreen(
                     userId = userId ?: "",
-                    navigateToHome = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Home.route)
-                    },
+                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) },
                     navigateToPlasticTransactionDetail = { plasticTransactionId ->
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.PlasticTransactionDetail.createRoute(plasticTransactionId))
+                        navigateWithPopBack(navHostController, Screen.PlasticTransactionDetail.createRoute(plasticTransactionId))
                     }
                 )
             }
@@ -167,10 +138,18 @@ fun MainNavigation(
                 val plasticTransactionId = navBackStackEntry.arguments?.getString("plasticTransactionId")
                 PlasticTransactionDetailScreen(
                     plasticTransactionId = plasticTransactionId ?: "",
-                    navigateToHome = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Home.route)
-                    }
+                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
+                )
+            }
+            composable(
+                route = Screen.PlasticKnowledge.route,
+                arguments = listOf(navArgument("plasticKnowledgeId") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                bottomBarVisible = false
+                val plasticKnowledgeId = navBackStackEntry.arguments?.getString("plasticKnowledgeId")
+                PlasticKnowledgeScreen(
+                    plasticId = plasticKnowledgeId ?: "",
+                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
                 )
             }
             composable(Screen.Article.route) {
@@ -189,10 +168,7 @@ fun MainNavigation(
                 )
                 ArticleDetailScreen(
                     contentUrl = articleUrl,
-                    navigateToListArticle = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Article.route)
-                    }
+                    navigateToListArticle = { navigateWithPopBack(navHostController, Screen.Article.route) }
                 )
             }
             composable(Screen.Mission.route) {
@@ -208,21 +184,25 @@ fun MainNavigation(
                 bottomBarVisible = false
                 MissionDetailScreen(
                     missionId = navBackStackEntry.arguments?.getString("missionId") ?: "",
-                    navigateToMissionList = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Mission.route)
-                    }
+                    navigateToMissionList = { navigateWithPopBack(navHostController, Screen.Mission.route) }
                 )
             }
             composable(Screen.Profile.route) {
                 bottomBarVisible = true
                 ProfileScreen(
-                    onLogout = {
-                        navHostController.popBackStack()
-                        navHostController.navigate(Screen.Login.route)
-                    }
+                    onLogout = { navigateWithPopBack(navHostController, Screen.Login.route) }
                 )
             }
         }
+    }
+}
+
+fun navigateWithPopBack(
+    navHostController: NavHostController,
+    screen: String
+) {
+    navHostController.apply {
+        popBackStack()
+        navigate(screen)
     }
 }

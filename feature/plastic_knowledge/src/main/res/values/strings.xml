@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="description">Deskripsi</string>
+    <string name="product_sample">Contoh Barang</string>
+    <string name="plastic_knowledge">Jenis Sampah Plastik</string>
+</resources>
