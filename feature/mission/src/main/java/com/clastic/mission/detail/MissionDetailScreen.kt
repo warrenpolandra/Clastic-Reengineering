@@ -48,9 +48,9 @@ fun MissionDetailScreen(
     missionId: String,
     navigateToMissionList: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: MissionDetailViewModel = hiltViewModel<MissionDetailViewModel>()
 ) {
     val context = LocalContext.current
+    val viewModel: MissionDetailViewModel = hiltViewModel<MissionDetailViewModel>()
     val mission by viewModel.mission.collectAsState()
 
     LaunchedEffect(true) {

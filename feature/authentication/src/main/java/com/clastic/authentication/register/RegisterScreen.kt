@@ -47,10 +47,10 @@ import com.clastic.ui.theme.CyanTextField
 fun RegisterScreen(
     navigateToHome: () -> Unit,
     navigateToLogin: () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: RegisterViewModel = hiltViewModel<RegisterViewModel>()
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    val viewModel: RegisterViewModel = hiltViewModel<RegisterViewModel>()
     val nameInput by viewModel.nameInput.collectAsState()
     val emailInput by viewModel.emailInput.collectAsState()
     val passInput by viewModel.passInput.collectAsState()

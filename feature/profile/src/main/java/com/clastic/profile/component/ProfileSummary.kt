@@ -26,7 +26,7 @@ import com.clastic.profile.R
 import com.clastic.ui.theme.CyanPrimary
 
 @Composable
-fun ProfileSummary(
+internal fun ProfileSummary(
     totalTransaction: Int,
     totalPlastic: Double,
     modifier: Modifier = Modifier

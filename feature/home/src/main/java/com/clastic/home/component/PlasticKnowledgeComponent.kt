@@ -27,7 +27,7 @@ import com.clastic.model.PlasticKnowledge
 import com.clastic.ui.theme.ClasticTheme
 
 @Composable
-fun PlasticKnowledgeComponent(
+internal fun PlasticKnowledgeComponent(
     onTypeClicked: (String) -> Unit,
     plasticType: PlasticKnowledge,
     modifier: Modifier = Modifier
@@ -66,7 +66,7 @@ fun PlasticKnowledgeComponent(
 
 @Preview(showBackground = true)
 @Composable
-fun PlasticKnowledgeComponentPreview() {
+private fun PlasticKnowledgeComponentPreview() {
     ClasticTheme {
         PlasticKnowledgeComponent(
             onTypeClicked = {},

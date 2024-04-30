@@ -47,9 +47,9 @@ fun LoginScreen(
     navigateToRegister: () -> Unit,
     navigateToHome: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
 ) {
     val context = LocalContext.current
+    val viewModel: LoginViewModel = hiltViewModel<LoginViewModel>()
     val emailInput by viewModel.emailInput.collectAsState()
     val passInput by viewModel.passInput.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()

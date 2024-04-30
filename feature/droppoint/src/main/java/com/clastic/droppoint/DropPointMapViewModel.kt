@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class DropPointMapViewModel @Inject constructor(
+internal class DropPointMapViewModel @Inject constructor(
     private val dropPointRepository: DropPointRepository
 ): ViewModel() {
     private val _dropPointList = MutableStateFlow<List<DropPoint>>(emptyList())

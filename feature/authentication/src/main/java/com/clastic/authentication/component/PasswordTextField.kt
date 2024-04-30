@@ -38,7 +38,7 @@ import com.clastic.ui.theme.CyanPrimary
 import com.clastic.ui.theme.CyanTextField
 
 @Composable
-fun PasswordTextField(
+internal fun PasswordTextField(
     password: String,
     isEnabled: Boolean,
     placeholderId: Int,
@@ -121,7 +121,7 @@ fun PasswordTextField(
 
 @Preview(showBackground = true)
 @Composable
-fun PasswordTextFieldPreview() {
+private fun PasswordTextFieldPreview() {
     ClasticTheme {
         PasswordTextField(
             password = "invalid input",

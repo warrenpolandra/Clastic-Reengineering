@@ -23,7 +23,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanTextField
 
 @Composable
-fun PlasticDropDownMenu(
+internal fun PlasticDropDownMenu(
     plasticTypeList: List<String>,
     onValueChanged: (String) -> Unit,
     modifier: Modifier = Modifier,
@@ -47,7 +47,7 @@ fun PlasticDropDownMenu(
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun PlasticDropDownMenuContent(
+private fun PlasticDropDownMenuContent(
     isExpanded: Boolean,
     onExpandedChanged: (Boolean) -> Unit,
     selectedPlasticType: String,
@@ -95,7 +95,7 @@ fun PlasticDropDownMenuContent(
 
 @Preview(showBackground = true)
 @Composable
-fun PlasticDropDownMenuPreview() {
+private fun PlasticDropDownMenuPreview() {
     ClasticTheme {
         PlasticDropDownMenuContent(
             isExpanded = true,

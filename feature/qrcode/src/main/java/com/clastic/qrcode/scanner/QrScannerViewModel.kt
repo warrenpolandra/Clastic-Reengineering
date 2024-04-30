@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class QrScannerViewModel @Inject constructor(
+internal class QrScannerViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
     private val _isUserExist = MutableStateFlow<Boolean?>(null)

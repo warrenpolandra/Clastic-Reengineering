@@ -48,9 +48,9 @@ fun PlasticTransactionScreen(
     userId: String,
     navigateToHome: () -> Unit,
     navigateToPlasticTransactionDetail: (plasticTransactionId: String) -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: PlasticTransactionViewModel = hiltViewModel<PlasticTransactionViewModel>()
+    modifier: Modifier = Modifier
 ) {
+    val viewModel: PlasticTransactionViewModel = hiltViewModel<PlasticTransactionViewModel>()
     val user by viewModel.user.collectAsState()
     val currentDate by viewModel.currentDate.collectAsState()
     val points by viewModel.points.collectAsState()
@@ -88,7 +88,7 @@ fun PlasticTransactionScreen(
 }
 
 @Composable
-fun PlasticTransactionScreenContent(
+private fun PlasticTransactionScreenContent(
     username: String,
     currentDate: String,
     dropPointName: String,

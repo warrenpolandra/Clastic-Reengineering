@@ -26,7 +26,7 @@ import java.net.URLEncoder
 import java.nio.charset.StandardCharsets
 
 @Composable
-fun ArticleItem(
+internal fun ArticleItem(
     article: Article,
     onClick: (String) -> Unit,
     modifier: Modifier = Modifier
@@ -81,7 +81,7 @@ fun ArticleItem(
 
 @Preview(showBackground = false)
 @Composable
-fun ArticleItemPreview() {
+private fun ArticleItemPreview() {
     ClasticTheme {
         ArticleItem(
             Article(

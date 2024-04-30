@@ -62,8 +62,8 @@ fun HomeScreen(
     navigateToTutorial: () -> Unit,
     onMissionClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: HomeViewModel = hiltViewModel<HomeViewModel>()
 ) {
+    val viewModel: HomeViewModel = hiltViewModel<HomeViewModel>()
     val user by viewModel.user.collectAsState()
     val listPlasticKnowledge by viewModel.listPlasticKnowledge.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()

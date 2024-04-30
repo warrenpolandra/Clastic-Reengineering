@@ -15,7 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.clastic.authentication.R
 
 @Composable
-fun AuthenticationMethodDivider(
+internal fun AuthenticationMethodDivider(
     modifier: Modifier = Modifier
 ) {
     Row(

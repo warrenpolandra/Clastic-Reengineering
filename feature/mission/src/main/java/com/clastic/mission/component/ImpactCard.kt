@@ -25,7 +25,7 @@ import coil.compose.AsyncImage
 import com.clastic.model.Impact
 
 @Composable
-fun ImpactCard(
+internal fun ImpactCard(
     impact: Impact,
     modifier: Modifier = Modifier
 ) {

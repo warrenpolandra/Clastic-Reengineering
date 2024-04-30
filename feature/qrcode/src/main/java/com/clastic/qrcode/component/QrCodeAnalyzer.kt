@@ -11,7 +11,7 @@ import com.google.zxing.MultiFormatReader
 import com.google.zxing.common.HybridBinarizer
 import java.nio.ByteBuffer
 
-class QrCodeAnalyzer(
+internal class QrCodeAnalyzer(
     private val onQrCodeScanned: (String) -> Unit
 ): ImageAnalysis.Analyzer {
     private val supportedImageFormats = listOf(

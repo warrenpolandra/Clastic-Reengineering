@@ -37,9 +37,9 @@ import com.google.maps.android.compose.rememberCameraPositionState
 fun DropPointMapScreen(
     navigateToHome: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: DropPointMapViewModel = hiltViewModel<DropPointMapViewModel>()
 ) {
     val context = LocalContext.current
+    val viewModel: DropPointMapViewModel = hiltViewModel<DropPointMapViewModel>()
     val cameraPositionState = rememberCameraPositionState()
     val dropPointList by viewModel.dropPointList.collectAsState()
     val boundsCenter by viewModel.boundsCenter.collectAsState()

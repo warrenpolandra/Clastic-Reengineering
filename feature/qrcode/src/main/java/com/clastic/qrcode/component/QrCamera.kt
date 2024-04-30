@@ -23,7 +23,7 @@ import androidx.core.content.ContextCompat
 import com.clastic.ui.theme.CyanPrimary
 
 @Composable
-fun QrCamera(
+internal fun QrCamera(
     onQrCodeScanned: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -72,7 +72,7 @@ fun QrCamera(
                     e.printStackTrace()
                 }
                 previewView
-            },
+            }
         )
     }
 }

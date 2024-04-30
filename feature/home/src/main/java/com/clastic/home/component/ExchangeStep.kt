@@ -23,7 +23,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimaryVariant2
 
 @Composable
-fun ExchangeStep(
+internal fun ExchangeStep(
     stepNumber: Int,
     stepText: String,
     modifier: Modifier = Modifier
@@ -60,7 +60,7 @@ fun ExchangeStep(
 
 @Preview(showBackground = true)
 @Composable
-fun ExchangeStepPreview() {
+private fun ExchangeStepPreview() {
     ClasticTheme {
         ExchangeStep(
             stepNumber = 1,

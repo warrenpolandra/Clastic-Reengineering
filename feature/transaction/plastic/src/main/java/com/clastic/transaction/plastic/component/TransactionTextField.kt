@@ -21,7 +21,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanTextField
 
 @Composable
-fun TransactionTextField(
+internal fun TransactionTextField(
     text: String,
     labelId: Int,
     modifier: Modifier = Modifier
@@ -53,9 +53,9 @@ fun TransactionTextField(
     }
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
-fun TransactionTextFieldPreview() {
+private fun TransactionTextFieldPreview() {
     ClasticTheme {
         TransactionTextField(
             text = "Fill here",

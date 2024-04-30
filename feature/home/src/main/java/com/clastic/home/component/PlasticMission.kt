@@ -21,7 +21,7 @@ import com.clastic.ui.MissionCard
 import com.clastic.ui.theme.ClasticTheme
 
 @Composable
-fun PlasticMission(
+internal fun PlasticMission(
     onMissionClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -59,7 +59,7 @@ fun PlasticMission(
 
 @Preview(showBackground = true)
 @Composable
-fun PlasticMissionPreview() {
+private fun PlasticMissionPreview() {
     ClasticTheme {
         PlasticMission(onMissionClick = {})
     }

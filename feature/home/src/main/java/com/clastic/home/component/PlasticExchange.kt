@@ -37,7 +37,7 @@ import com.clastic.ui.theme.CyanPrimary
 import com.clastic.ui.theme.CyanPrimaryVariant
 
 @Composable
-fun PlasticExchange(
+internal fun PlasticExchange(
     role: String,
     navigateToDropPointMap: () -> Unit,
     navigateToQrCode: () -> Unit,
@@ -218,7 +218,7 @@ fun PlasticExchange(
 
 @Preview(showBackground = true)
 @Composable
-fun PlasticExchangePreview() {
+private fun PlasticExchangePreview() {
     ClasticTheme {
         PlasticExchange(
             role = "user",

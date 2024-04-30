@@ -24,10 +24,11 @@ import com.clastic.ui.theme.ClasticTheme
 fun ClasticSplashScreen(
     navigateToHome: () -> Unit,
     navigateToLogin: () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: SplashScreenViewModel = hiltViewModel<SplashScreenViewModel>()
+    modifier: Modifier = Modifier
 ) {
+    val viewModel: SplashScreenViewModel = hiltViewModel<SplashScreenViewModel>()
     val isUserLoggedIn = viewModel.isUserLoggedIn()
+
     SplashScreenContent(
         isUserLoggedIn = isUserLoggedIn,
         navigateToHome = navigateToHome,

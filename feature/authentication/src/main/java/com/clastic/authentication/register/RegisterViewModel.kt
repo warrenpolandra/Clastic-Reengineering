@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 @HiltViewModel
-class RegisterViewModel @Inject constructor(
+internal class RegisterViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
     private val _authState = MutableStateFlow(AuthenticationState())

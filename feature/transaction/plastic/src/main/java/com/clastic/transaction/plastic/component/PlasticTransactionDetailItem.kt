@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.sp
 import com.clastic.ui.theme.ClasticTheme
 
 @Composable
-fun PlasticTransactionDetailItem(
+internal fun PlasticTransactionDetailItem(
     fieldName: String,
     fieldValue: String,
     modifier: Modifier = Modifier
@@ -45,7 +45,7 @@ fun PlasticTransactionDetailItem(
 
 @Preview(showBackground = true)
 @Composable
-fun PlasticTransactionDetailItemPreview() {
+private fun PlasticTransactionDetailItemPreview() {
     ClasticTheme {
         PlasticTransactionDetailItem(
             fieldName = "Id",

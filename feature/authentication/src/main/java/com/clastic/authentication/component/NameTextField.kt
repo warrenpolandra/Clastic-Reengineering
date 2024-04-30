@@ -28,7 +28,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanTextField
 
 @Composable
-fun NameTextField(
+internal fun NameTextField(
     name: String,
     isEnabled: Boolean,
     onInputChanged: (String) -> Unit,
@@ -81,7 +81,7 @@ fun NameTextField(
 
 @Preview(showBackground = true)
 @Composable
-fun NameTextFieldPreview() {
+private fun NameTextFieldPreview() {
     ClasticTheme {
         NameTextField(
             name = "",

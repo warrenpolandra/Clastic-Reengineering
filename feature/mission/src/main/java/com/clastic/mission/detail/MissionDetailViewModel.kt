@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class MissionDetailViewModel @Inject constructor(
+internal class MissionDetailViewModel @Inject constructor(
     private val missionRepository: MissionRepository
 ): ViewModel() {
     private val _mission = MutableStateFlow(Mission())

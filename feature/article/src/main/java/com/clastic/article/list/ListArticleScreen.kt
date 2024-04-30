@@ -32,8 +32,8 @@ import com.clastic.ui.theme.CyanPrimary
 fun ListArticleScreen(
     onArticleClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ListArticleViewModel = hiltViewModel<ListArticleViewModel>()
 ) {
+    val viewModel: ListArticleViewModel = hiltViewModel<ListArticleViewModel>()
     val articleList by viewModel.articleList.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val error by viewModel.errorMessage.collectAsState()

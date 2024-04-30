@@ -51,9 +51,9 @@ import com.clastic.ui.theme.CyanPrimary
 fun ProfileScreen(
     onLogout: () -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ProfileViewModel = hiltViewModel<ProfileViewModel>()
 ) {
     val context = LocalContext.current
+    val viewModel: ProfileViewModel = hiltViewModel<ProfileViewModel>()
     val user by viewModel.user.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
 

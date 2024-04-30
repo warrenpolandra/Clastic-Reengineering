@@ -41,10 +41,10 @@ import com.clastic.ui.ClasticTopAppBar
 fun QrScannerScreen(
     onScannedSuccess: (String) -> Unit,
     navigateToHome: () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: QrScannerViewModel = hiltViewModel<QrScannerViewModel>()
+    modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    val viewModel: QrScannerViewModel = hiltViewModel<QrScannerViewModel>()
     var hasCameraPermission by remember {
         mutableStateOf(ContextCompat.checkSelfPermission(
             context,

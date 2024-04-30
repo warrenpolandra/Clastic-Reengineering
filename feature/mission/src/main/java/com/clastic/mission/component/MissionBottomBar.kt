@@ -25,7 +25,7 @@ import com.clastic.ui.theme.CyanPrimaryVariant
 import com.clastic.ui.theme.CyanPrimaryVariant2
 
 @Composable
-fun MissionBottomBar(
+internal fun MissionBottomBar(
     onJoinButtonClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {

@@ -20,7 +20,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimaryVariant
 
 @Composable
-fun AddRemoveButton(
+internal fun AddRemoveButton(
     isEnabled: Boolean,
     onAdd: () -> Unit,
     onRemove: () -> Unit,
@@ -67,7 +67,7 @@ fun AddRemoveButton(
 
 @Preview
 @Composable
-fun AddRemoveButtonPreview() {
+private fun AddRemoveButtonPreview() {
     ClasticTheme {
         AddRemoveButton(
             isEnabled = true,

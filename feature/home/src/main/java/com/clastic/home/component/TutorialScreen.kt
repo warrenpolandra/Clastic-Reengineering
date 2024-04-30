@@ -187,7 +187,7 @@ fun TutorialScreen(
 
 @Preview
 @Composable
-fun TutorialScreenPreview() {
+private fun TutorialScreenPreview() {
     ClasticTheme {
         TutorialScreen()
     }

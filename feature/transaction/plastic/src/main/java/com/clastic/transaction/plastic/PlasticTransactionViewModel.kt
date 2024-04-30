@@ -16,7 +16,7 @@ import java.util.Date
 import javax.inject.Inject
 
 @HiltViewModel
-class PlasticTransactionViewModel @Inject constructor(
+internal class PlasticTransactionViewModel @Inject constructor(
     private val userRepository: UserRepository,
     private val dropPointRepository: DropPointRepository,
     private val plasticKnowledgeRepository: PlasticKnowledgeRepository,

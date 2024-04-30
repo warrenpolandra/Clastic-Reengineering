@@ -19,7 +19,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimary
 
 @Composable
-fun AuthenticationButton(
+internal fun AuthenticationButton(
     stringId: Int,
     isEnabled: Boolean,
     onClick: () -> Unit,
@@ -46,7 +46,7 @@ fun AuthenticationButton(
 
 @Preview(showBackground = true)
 @Composable
-fun AuthenticationButtonPreview() {
+private fun AuthenticationButtonPreview() {
     ClasticTheme {
         AuthenticationButton(
             stringId = R.string.login,

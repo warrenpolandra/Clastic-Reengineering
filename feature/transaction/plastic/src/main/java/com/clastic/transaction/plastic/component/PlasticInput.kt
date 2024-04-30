@@ -22,7 +22,7 @@ import com.clastic.ui.theme.CyanTextField
 import com.clastic.utils.NumberUtil
 
 @Composable
-fun PlasticInput(
+internal fun PlasticInput(
     plasticTypeList: List<String>,
     onValueChanged: (weight: Float , points: Int) -> Unit,
     onTypeSelected: (plasticType: String) -> Unit,
@@ -70,7 +70,7 @@ fun PlasticInput(
 
 @Preview(showBackground = true)
 @Composable
-fun PlasticInputPreview() {
+private fun PlasticInputPreview() {
     ClasticTheme {
         PlasticInput(
             plasticTypeList = emptyList(),

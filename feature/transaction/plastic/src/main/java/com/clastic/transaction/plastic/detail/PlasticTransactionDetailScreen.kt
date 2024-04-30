@@ -53,12 +53,11 @@ import com.clastic.utils.TimeUtil
 fun PlasticTransactionDetailScreen(
     plasticTransactionId: String,
     navigateToHome: () -> Unit,
-    modifier: Modifier = Modifier,
-    viewModel: PlasticTransactionDetailViewModel =
-        hiltViewModel<PlasticTransactionDetailViewModel>()
+    modifier: Modifier = Modifier
 ) {
-    val plasticTransaction by viewModel.plasticTransaction.collectAsState()
+    val viewModel: PlasticTransactionDetailViewModel = hiltViewModel<PlasticTransactionDetailViewModel>()
     val user by viewModel.user.collectAsState()
+    val plasticTransaction by viewModel.plasticTransaction.collectAsState()
     val dropPoint by viewModel.dropPoint.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val context = LocalContext.current
@@ -81,7 +80,7 @@ fun PlasticTransactionDetailScreen(
 }
 
 @Composable
-fun PlasticTransactionDetailScreenContent(
+private fun PlasticTransactionDetailScreenContent(
     plasticTransaction: PlasticTransaction,
     isLoading: Boolean,
     username: String,
@@ -225,13 +224,13 @@ fun PlasticTransactionDetailScreenContent(
     }
 }
 
-fun showToast(context: Context, message: String) {
+private fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }
 
 @Preview
 @Composable
-fun PlasticTransactionDetailScreenPreview() {
+private fun PlasticTransactionDetailScreenPreview() {
     ClasticTheme {
         PlasticTransactionDetailScreenContent(
             plasticTransaction = PlasticTransaction(

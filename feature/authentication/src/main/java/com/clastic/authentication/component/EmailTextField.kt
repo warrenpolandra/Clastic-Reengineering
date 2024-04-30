@@ -31,7 +31,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanTextField
 
 @Composable
-fun EmailTextField(
+internal fun EmailTextField(
     email: String,
     isEnabled: Boolean,
     onInputChanged: (String) -> Unit,
@@ -98,7 +98,7 @@ fun EmailTextField(
 
 @Preview(showBackground = true)
 @Composable
-fun EmailTextFieldPreview() {
+private fun EmailTextFieldPreview() {
     ClasticTheme {
         EmailTextField(
             email = "invalid input",

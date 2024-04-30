@@ -29,7 +29,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimary
 
 @Composable
-fun ProfileMenu(
+internal fun ProfileMenu(
     title: String,
     icon: ImageVector,
     onClick: () -> Unit,

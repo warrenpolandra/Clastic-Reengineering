@@ -23,7 +23,7 @@ import com.clastic.ui.theme.CyanPrimary
 import com.clastic.ui.theme.CyanTextField
 
 @Composable
-fun BenefitCard(
+internal fun BenefitCard(
     benefitText: String,
     cardNumber: Int,
     modifier: Modifier = Modifier
@@ -59,7 +59,7 @@ fun BenefitCard(
 
 @Preview(showBackground = true)
 @Composable
-fun BenefitCardPreview() {
+private fun BenefitCardPreview() {
     ClasticTheme {
         BenefitCard(
             benefitText = "Meningkatkan Kesehatan Lingkungan",

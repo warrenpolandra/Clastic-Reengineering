@@ -18,7 +18,7 @@ import com.clastic.authentication.R
 import com.clastic.ui.theme.ClasticTheme
 
 @Composable
-fun GoogleSignInButton(
+internal fun GoogleSignInButton(
     isEnabled: Boolean,
     onClick: () -> Unit,
     stringId: Int,
@@ -48,7 +48,7 @@ fun GoogleSignInButton(
 
 @Preview(showBackground = false)
 @Composable
-fun GoogleSignInButtonPreview() {
+private fun GoogleSignInButtonPreview() {
     ClasticTheme {
         GoogleSignInButton(
             isEnabled = true,

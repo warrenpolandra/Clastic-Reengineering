@@ -25,7 +25,7 @@ import com.clastic.ui.theme.CyanPrimary
 import com.clastic.utils.NumberUtil
 
 @Composable
-fun PlasticTransactionResultItem(
+internal fun PlasticTransactionResultItem(
     plasticType: String,
     weight: Float,
     points: Int,
@@ -74,7 +74,7 @@ fun PlasticTransactionResultItem(
 
 @Preview(showBackground = true)
 @Composable
-fun PlasticTransactionResultItemPreview() {
+private fun PlasticTransactionResultItemPreview() {
     ClasticTheme {
         PlasticTransactionResultItem(
             plasticType = "PET",

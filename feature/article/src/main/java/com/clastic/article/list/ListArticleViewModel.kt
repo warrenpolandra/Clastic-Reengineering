@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class ListArticleViewModel @Inject constructor(
+internal class ListArticleViewModel @Inject constructor(
     private val articleRepository: ArticleRepository
 ): ViewModel() {
     private val _articleList = MutableStateFlow<List<Article>>(emptyList())

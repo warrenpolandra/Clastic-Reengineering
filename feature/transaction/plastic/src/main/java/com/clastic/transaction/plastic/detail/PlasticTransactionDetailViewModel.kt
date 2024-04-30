@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class PlasticTransactionDetailViewModel @Inject constructor(
+internal class PlasticTransactionDetailViewModel @Inject constructor(
     private val dropPointRepository: DropPointRepository,
     private val plasticTransactionRepository: PlasticTransactionRepository,
     private val userRepository: UserRepository

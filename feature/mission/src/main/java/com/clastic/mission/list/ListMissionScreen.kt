@@ -31,8 +31,8 @@ import com.clastic.ui.theme.CyanPrimary
 fun ListMissionScreen(
     onMissionClick: (String) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: ListMissionViewModel = hiltViewModel<ListMissionViewModel>()
 ) {
+    val viewModel: ListMissionViewModel = hiltViewModel<ListMissionViewModel>()
     val missionList by viewModel.missionList.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
     val error by viewModel.errorMessage.collectAsState()

@@ -22,7 +22,7 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanTextField
 
 @Composable
-fun PlasticWeightTextField(
+internal fun PlasticWeightTextField(
     onValueChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -66,7 +66,7 @@ fun PlasticWeightTextField(
 
 @Preview(showBackground = true)
 @Composable
-fun PlasticWeightTextFieldPreview() {
+private fun PlasticWeightTextFieldPreview() {
     ClasticTheme {
         PlasticWeightTextField(onValueChange = {})
     }

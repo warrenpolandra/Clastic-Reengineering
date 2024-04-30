@@ -6,7 +6,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashScreenViewModel @Inject constructor(
+internal class SplashScreenViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
     fun isUserLoggedIn(): Boolean {
