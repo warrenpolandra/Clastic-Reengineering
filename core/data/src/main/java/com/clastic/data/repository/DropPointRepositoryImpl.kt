@@ -4,13 +4,12 @@ import com.clastic.domain.repository.DropPointRepository
 import com.clastic.model.DropPoint
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
-class DropPointRepositoryImpl @Inject constructor(): DropPointRepository {
-    private val db = Firebase.firestore
-
+class DropPointRepositoryImpl @Inject constructor(
+    private val db: FirebaseFirestore
+): DropPointRepository {
     override fun getDropPointList(
         onFetchSuccess: (List<DropPoint>, LatLng) -> Unit,
         onFetchFailed: (String) -> Unit

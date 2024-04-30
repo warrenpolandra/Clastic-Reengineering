@@ -80,6 +80,7 @@ dependencies {
 
     // Firebase
     implementation("com.google.firebase:firebase-auth:22.3.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
 
     // Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")

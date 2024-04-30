@@ -9,9 +9,9 @@ import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
 import javax.inject.Inject
 
-class PlasticTransactionRepositoryImpl @Inject constructor(): PlasticTransactionRepository {
-    private val db = FirebaseFirestore.getInstance()
-
+class PlasticTransactionRepositoryImpl @Inject constructor(
+    private val db: FirebaseFirestore
+): PlasticTransactionRepository {
     override fun submitPlasticTransaction(
         date: Date,
         dropPointId: String,

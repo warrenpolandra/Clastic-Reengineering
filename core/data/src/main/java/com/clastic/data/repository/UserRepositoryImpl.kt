@@ -12,20 +12,18 @@ import com.clastic.utils.TimeUtil
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.BeginSignInRequest.GoogleIdTokenRequestOptions
 import com.google.android.gms.auth.api.identity.Identity
-import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
-import com.google.firebase.auth.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
 class UserRepositoryImpl @Inject constructor(
-    private val appContext: Context
+    private val appContext: Context,
+    private val auth: FirebaseAuth,
+    private val db: FirebaseFirestore
 ) : UserRepository {
-
-    private val auth = Firebase.auth
-    private val db = FirebaseFirestore.getInstance()
     private val oneTapClient = Identity.getSignInClient(appContext)
 
     override fun userGoogleSignIn(

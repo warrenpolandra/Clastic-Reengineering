@@ -7,9 +7,9 @@ import com.clastic.utils.TimeUtil
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
-class MissionRepositoryImpl @Inject constructor(): MissionRepository {
-    private val db = FirebaseFirestore.getInstance()
-
+class MissionRepositoryImpl @Inject constructor(
+    private val db: FirebaseFirestore
+): MissionRepository {
     @Suppress("UNCHECKED_CAST")
     override fun fetchMissions(
         onFetchSuccess: (List<Mission>) -> Unit,

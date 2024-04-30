@@ -17,7 +17,6 @@ dependencies {
     compose()
 
     // Module Implementation
-    implementation(project(":core:data"))
     implementation(project(":core:model"))
     implementation(project(":core:utils"))
 
@@ -32,7 +31,7 @@ dependencies {
     implementation(platform("androidx.compose:compose-bom:2024.03.00"))
 
     // Firebase
-    implementation("com.google.firebase:firebase-firestore-ktx:24.11.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
 
     implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

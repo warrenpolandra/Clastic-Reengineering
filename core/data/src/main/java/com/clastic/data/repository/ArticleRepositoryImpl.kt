@@ -6,8 +6,9 @@ import com.clastic.utils.TimeUtil.toDateFormat
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
-class ArticleRepositoryImpl @Inject constructor(): ArticleRepository {
-    private val db = FirebaseFirestore.getInstance()
+class ArticleRepositoryImpl @Inject constructor(
+    private val db: FirebaseFirestore
+): ArticleRepository {
 
     @Suppress("UNCHECKED_CAST")
     override fun fetchArticles(

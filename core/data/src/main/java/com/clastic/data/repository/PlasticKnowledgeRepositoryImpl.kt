@@ -7,9 +7,9 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
-class PlasticKnowledgeRepositoryImpl @Inject constructor(): PlasticKnowledgeRepository {
-    private val db = FirebaseFirestore.getInstance()
-
+class PlasticKnowledgeRepositoryImpl @Inject constructor(
+    private val db: FirebaseFirestore
+): PlasticKnowledgeRepository {
     override fun fetchListPlasticKnowledge(
         onFetchSuccess: (List<PlasticKnowledge>) -> Unit,
         onFetchFailed: (String) -> Unit
