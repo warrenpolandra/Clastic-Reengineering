@@ -72,7 +72,6 @@ fun ArticleItem(
             )
             Box(
                 contentAlignment = Alignment.BottomStart,
-                modifier = Modifier.background(Color.White)
             ) {
                 ArticleData(article = article)
             }

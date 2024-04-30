@@ -19,7 +19,7 @@ interface UserRepository {
 
     fun userSignOut(
         onSignOutSuccess: () -> Unit,
-        onSignOutFailed: (Exception) -> Unit
+        onSignOutFailed: (String) -> Unit
     )
 
     fun registerWithEmail(

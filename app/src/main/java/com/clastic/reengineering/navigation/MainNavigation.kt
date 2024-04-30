@@ -26,6 +26,7 @@ import com.clastic.home.HomeScreen
 import com.clastic.home.component.TutorialScreen
 import com.clastic.mission.detail.MissionDetailScreen
 import com.clastic.mission.list.ListMissionScreen
+import com.clastic.profile.ProfileScreen
 import com.clastic.qrcode.MyQrCodeScreen
 import com.clastic.qrcode.scanner.QrScannerScreen
 import com.clastic.splashscreen.ClasticSplashScreen
@@ -90,7 +91,7 @@ fun MainNavigation(
             composable(Screen.Home.route) {
                 bottomBarVisible = true
                 HomeScreen(
-                    onPlasticTypeClicked = { plasticTag -> },
+                    onPlasticTypeClicked = { plasticId -> },
                     navigateToDropPointMap = { navHostController.navigate(Screen.DropPointMap.route) },
                     navigateToQrCode = { userId ->
                         navHostController.navigate(Screen.QrCode.createRoute(userId))
@@ -210,6 +211,15 @@ fun MainNavigation(
                     navigateToMissionList = {
                         navHostController.popBackStack()
                         navHostController.navigate(Screen.Mission.route)
+                    }
+                )
+            }
+            composable(Screen.Profile.route) {
+                bottomBarVisible = true
+                ProfileScreen(
+                    onLogout = {
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.Login.route)
                     }
                 )
             }

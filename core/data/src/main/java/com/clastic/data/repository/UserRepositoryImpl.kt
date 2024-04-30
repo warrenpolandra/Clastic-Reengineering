@@ -16,6 +16,7 @@ import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
@@ -85,7 +86,7 @@ class UserRepositoryImpl @Inject constructor(
 
     override fun userSignOut(
         onSignOutSuccess: () -> Unit,
-        onSignOutFailed: (Exception) -> Unit
+        onSignOutFailed: (String) -> Unit
     ) {
         oneTapClient.signOut()
             .addOnSuccessListener {
@@ -94,7 +95,7 @@ class UserRepositoryImpl @Inject constructor(
             }
             .addOnFailureListener { e ->
                 e.printStackTrace()
-                onSignOutFailed(e)
+                onSignOutFailed(e.message.toString())
             }
     }
 
@@ -176,6 +177,7 @@ class UserRepositoryImpl @Inject constructor(
                     if (document.exists()) {
                         val result = AuthenticationResult(
                             data = user.run {
+                                @Suppress("UNCHECKED_CAST")
                                 User(
                                     userId = uid,
                                     username = document.getString("username"),
@@ -185,7 +187,10 @@ class UserRepositoryImpl @Inject constructor(
                                     level = document.getLong("level")?.toInt() ?: 0,
                                     exp = document.getLong("exp")?.toInt() ?: 0,
                                     createdAt = document.getTimestamp("createdAt")?.seconds ?: 0,
-                                    role = document.getString("role") ?: "user"
+                                    role = document.getString("role") ?: "user",
+                                    totalPlastic = document.getDouble("totalPlastic") ?: 0.0,
+                                    totalTransaction = document.getLong("totalTransaction")?.toInt() ?: 0,
+                                    plasticTransactionList = document.get("plasticTransactionList") as List<String>
                                 )
                             },
                             errorMessage = null
@@ -215,7 +220,10 @@ class UserRepositoryImpl @Inject constructor(
                 "createdAt" to TimeUtil.getTimestamp(),
                 "level" to 1,
                 "exp" to 0,
-                "role" to "user"
+                "role" to "user",
+                "totalPlastic" to 0.0,
+                "totalTransaction" to 0,
+                "plasticTransactions" to emptyList<String>()
             )
             db.collection("user")
                 .document(email ?: "")
@@ -233,7 +241,10 @@ class UserRepositoryImpl @Inject constructor(
                                     createdAt = TimeUtil.getCurrentTimeSeconds(),
                                     level = 1,
                                     exp = 0,
-                                    role = "user"
+                                    role = "user",
+                                    totalPlastic = 0.0,
+                                    totalTransaction = 0,
+                                    plasticTransactionList = emptyList()
                                 )
                             },
                             errorMessage = null
@@ -253,18 +264,7 @@ class UserRepositoryImpl @Inject constructor(
             .get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    val user = User(
-                        userId = document.getString("userId") ?: "",
-                        username = document.getString("username"),
-                        email = document.getString("email") ?: "",
-                        points = document.getLong("points")?.toInt() ?: 0,
-                        userPhoto = document.getString("userPhoto"),
-                        level = document.getLong("level")?.toInt() ?: 0,
-                        exp = document.getLong("exp")?.toInt() ?: 0,
-                        createdAt = document.getTimestamp("createdAt")?.seconds ?: 0,
-                        role = document.getString("role") ?: "user"
-                    )
-                    onFetchSuccess(user)
+                    onFetchSuccess(getUserFromSnapshot(document))
                 }
             }
             .addOnFailureListener { e ->
@@ -280,18 +280,7 @@ class UserRepositoryImpl @Inject constructor(
         db.collection("user").document(userId).get()
             .addOnSuccessListener { document ->
                 if (document.exists()) {
-                    val user = User(
-                        userId = document.getString("userId") ?: "",
-                        username = document.getString("username"),
-                        email = document.getString("email") ?: "",
-                        points = document.getLong("points")?.toInt() ?: 0,
-                        userPhoto = document.getString("userPhoto"),
-                        level = document.getLong("level")?.toInt() ?: 0,
-                        exp = document.getLong("exp")?.toInt() ?: 0,
-                        createdAt = document.getTimestamp("createdAt")?.seconds ?: 0,
-                        role = document.getString("role") ?: "user"
-                    )
-                    onFetchSuccess(document.exists(), user)
+                    onFetchSuccess(document.exists(), getUserFromSnapshot(document))
                 } else {
                     onFetchSuccess(false, null)
                 }
@@ -299,5 +288,23 @@ class UserRepositoryImpl @Inject constructor(
             .addOnFailureListener { error ->
                 onFetchFailed(error.message.toString())
             }
+    }
+
+    private fun getUserFromSnapshot(document: DocumentSnapshot): User {
+        @Suppress("UNCHECKED_CAST")
+        return User(
+           userId = document.getString("userId") ?: "",
+           username = document.getString("username"),
+           email = document.getString("email") ?: "",
+           points = document.getLong("points")?.toInt() ?: 0,
+           userPhoto = document.getString("userPhoto"),
+           level = document.getLong("level")?.toInt() ?: 0,
+           exp = document.getLong("exp")?.toInt() ?: 0,
+           createdAt = document.getTimestamp("createdAt")?.seconds ?: 0,
+           role = document.getString("role") ?: "user",
+           totalPlastic = document.getDouble("totalPlastic") ?: 0.0,
+           totalTransaction = document.getLong("totalTransaction")?.toInt() ?: 0,
+           plasticTransactionList = document.get("plasticTransactionList") as List<String>
+       )
     }
 }
