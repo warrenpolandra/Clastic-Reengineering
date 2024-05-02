@@ -5,6 +5,7 @@ import com.clastic.model.transaction.plastic.PlasticTransaction
 import com.clastic.model.transaction.plastic.PlasticTransactionItem
 import com.clastic.utils.TimeUtil
 import com.google.firebase.Timestamp
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.Date
 import javax.inject.Inject
@@ -16,25 +17,52 @@ class PlasticTransactionRepositoryImpl @Inject constructor(
         date: Date,
         dropPointId: String,
         ownerId: String,
-        totalPoints: Int,
+        totalPoints: Long,
         userId: String,
         plasticTransactionItemList: List<PlasticTransactionItem>,
         onPostSuccess: (transactionId: String) -> Unit,
         onPostFailed: (String) -> Unit
     ) {
-        val newDocumentRef = db.collection("plasticTransaction").document()
-        val newTransaction = hashMapOf(
-            "id" to newDocumentRef.id,
-            "date" to TimeUtil.dateToTimestamp(date),
-            "dropPointId" to dropPointId,
-            "ownerId" to ownerId,
-            "plasticList" to getPlasticTransactionMap(plasticTransactionItemList),
-            "totalPoints" to totalPoints,
-            "userId" to userId,
-        )
-        newDocumentRef.set(newTransaction)
-            .addOnSuccessListener { onPostSuccess(newDocumentRef.id) }
-            .addOnFailureListener { error -> onPostFailed(error.message.toString()) }
+        db.collection("user").document(ownerId).get()
+            .addOnSuccessListener { document ->
+                val ownerPoints = document.getLong("points") ?: 0
+                if (ownerPoints < totalPoints) {
+                    onPostFailed("Not enough owner points")
+                    return@addOnSuccessListener
+                }
+
+                val batch = db.batch()
+                val userRef = db.collection("user").document(userId)
+                val ownerRef = db.collection("user").document(ownerId)
+                val transactionRef = db.collection("plasticTransaction").document()
+
+                batch.update(userRef, "totalTransaction", FieldValue.increment(1))
+                batch.update(ownerRef, "totalTransaction", FieldValue.increment(1))
+                batch.update(userRef, "points", FieldValue.increment(totalPoints))
+                batch.update(ownerRef, "points", FieldValue.increment(-totalPoints))
+
+                val totalWeight = plasticTransactionItemList.sumOf { it.weight.toDouble() }
+                batch.update(userRef, "totalPlastic", FieldValue.increment(totalWeight))
+                batch.update(ownerRef, "totalPlastic", FieldValue.increment(totalWeight))
+
+                val newTransaction = hashMapOf(
+                    "id" to transactionRef.id,
+                    "date" to TimeUtil.dateToTimestamp(date),
+                    "dropPointId" to dropPointId,
+                    "ownerId" to ownerId,
+                    "plasticList" to getPlasticTransactionMap(plasticTransactionItemList),
+                    "totalPoints" to totalPoints,
+                    "userId" to userId,
+                )
+                batch.set(transactionRef, newTransaction)
+
+                batch.update(userRef, "plasticTransactionList", FieldValue.arrayUnion(transactionRef.id))
+                batch.update(ownerRef, "plasticTransactionList", FieldValue.arrayUnion(transactionRef.id))
+
+                batch.commit()
+                    .addOnSuccessListener { onPostSuccess(transactionRef.id) }
+                    .addOnFailureListener { error -> onPostFailed(error.message.toString()) }
+            }
     }
 
     override fun getPlasticTransactionById(

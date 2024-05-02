@@ -9,7 +9,7 @@ interface PlasticTransactionRepository {
         date: Date,
         dropPointId: String,
         ownerId: String,
-        totalPoints: Int,
+        totalPoints: Long,
         userId: String,
         plasticTransactionItemList: List<PlasticTransactionItem>,
         onPostSuccess: (transactionId: String) -> Unit,
