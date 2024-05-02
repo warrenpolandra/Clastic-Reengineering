@@ -30,4 +30,5 @@ sealed class Screen(val route: String) {
     data object PlasticKnowledge: Screen("plasticKnowledge/{plasticKnowledgeId}") {
         fun createRoute(plasticKnowledgeId: String) = "plasticKnowledge/$plasticKnowledgeId"
     }
+    data object PlasticTransactionHistory: Screen("plasticTransactionHistory")
 }

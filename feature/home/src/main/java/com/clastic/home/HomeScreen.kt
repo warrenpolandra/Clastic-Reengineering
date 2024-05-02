@@ -25,6 +25,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.FiberSmartRecord
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -177,17 +178,21 @@ private fun HomeScreenContent(
                         Row(
                             horizontalArrangement = Arrangement.spacedBy(4.dp),
                             verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.align(
-                                Alignment.Center
-                            )
+                            modifier = Modifier
+                                .align(Alignment.Center)
+                                .clickable{ navigateToTutorial() }
                         ) {
                             Text(
                                 text = stringResource(R.string.want_more_points),
                                 style = MaterialTheme.typography.subtitle1.copy(
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold
-                                ),
-                                modifier = Modifier.clickable{ navigateToTutorial() }
+                                )
+                            )
+                            Icon(
+                                imageVector = Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                                contentDescription = null,
+                                tint = Color.White
                             )
                         }
                     }
