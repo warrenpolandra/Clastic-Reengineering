@@ -74,7 +74,7 @@ internal fun ProfileSummary(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = stringResource(R.string.total_plastic_kg, totalPlastic),
+                    text = stringResource(R.string.total_plastic_kg, "%.2f".format(totalPlastic)),
                     color = Color.Black,
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Medium
@@ -94,6 +94,6 @@ internal fun ProfileSummary(
 private fun ProfileSummaryPreview() {
     ProfileSummary(
         totalTransaction = 20,
-        totalPlastic = 200.19
+        totalPlastic = 200.198231
     )
 }

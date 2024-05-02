@@ -128,7 +128,7 @@ internal class PlasticTransactionViewModel @Inject constructor(
                 date = _currentDate.value,
                 dropPointId = _dropPoint.value.id,
                 ownerId = userRepository.getLoggedInUser()?.email ?: "",
-                totalPoints = _points.value,
+                totalPoints = _points.value.toLong(),
                 userId = _user.value.email,
                 plasticTransactionItemList = _plasticTransactionItemList.value,
                 onPostSuccess = {

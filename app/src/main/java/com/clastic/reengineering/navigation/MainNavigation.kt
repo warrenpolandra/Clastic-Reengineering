@@ -54,18 +54,21 @@ fun MainNavigation(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.SplashScreen.route) {
+                bottomBarVisible = false
                 ClasticSplashScreen(
                     navigateToLogin = { navigateWithPopBack(navHostController, Screen.Login.route) },
                     navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
                 )
             }
             composable(Screen.Login.route) {
+                bottomBarVisible = false
                 LoginScreen(
                     navigateToRegister = { navigateWithPopBack(navHostController, Screen.Register.route) },
                     navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
                 )
             }
             composable(Screen.Register.route) {
+                bottomBarVisible = false
                 RegisterScreen(
                     navigateToLogin = { navigateWithPopBack(navHostController, Screen.Login.route) },
                     navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }

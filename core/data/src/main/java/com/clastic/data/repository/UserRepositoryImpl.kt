@@ -221,7 +221,7 @@ class UserRepositoryImpl @Inject constructor(
                 "role" to "user",
                 "totalPlastic" to 0.0,
                 "totalTransaction" to 0,
-                "plasticTransactions" to emptyList<String>()
+                "plasticTransactionList" to emptyList<String>()
             )
             db.collection("user")
                 .document(email ?: "")
