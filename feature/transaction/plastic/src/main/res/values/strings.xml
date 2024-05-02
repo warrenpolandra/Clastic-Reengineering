@@ -23,4 +23,7 @@
     <string name="added_points">+ %s pts</string>
     <string name="total_points_pts">Total Poin: %s pts</string>
     <string name="back_to_home">Kembali ke Home</string>
+    <string name="plastic_transaction_history">Riwayat Transaksi Plastik</string>
+    <string name="history_location">Lokasi: %s</string>
+    <string name="detail">Detail</string>
 </resources>

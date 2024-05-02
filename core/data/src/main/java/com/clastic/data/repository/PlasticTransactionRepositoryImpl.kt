@@ -100,6 +100,34 @@ class PlasticTransactionRepositoryImpl @Inject constructor(
             .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
     }
 
+    @Suppress("UNCHECKED_CAST")
+    override fun getPlasticTransactionByUserId(
+        userId: String,
+        onFetchSuccess: (List<PlasticTransaction>) -> Unit,
+        onFetchFailed: (String) -> Unit
+    ) {
+        db.collection("user").document(userId).get()
+            .addOnSuccessListener { document ->
+                val plasticTransactionList = mutableListOf<PlasticTransaction>()
+                val plasticTransactionListId = document.get("plasticTransactionList") as List<String>
+                if (plasticTransactionListId.isEmpty()) {
+                    onFetchSuccess(emptyList())
+                } else {
+                    plasticTransactionListId.forEachIndexed { index, plasticTransactionId ->
+                        getPlasticTransactionById(
+                            plasticTransactionId = plasticTransactionId,
+                            onFetchSuccess = {
+                                plasticTransaction -> plasticTransactionList.add(plasticTransaction)
+                                if (index == plasticTransactionListId.size-1) { onFetchSuccess(plasticTransactionList) }
+                            },
+                            onFetchFailed = onFetchFailed
+                        )
+                    }
+                }
+            }
+            .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
+    }
+
     private fun getPlasticTransactionMap(
         plasticTransactionItemList: List<PlasticTransactionItem>
     ): Map<String, Map<String, Any>> {

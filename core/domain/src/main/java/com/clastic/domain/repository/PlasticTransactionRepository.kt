@@ -21,4 +21,10 @@ interface PlasticTransactionRepository {
         onFetchSuccess: (PlasticTransaction) -> Unit,
         onFetchFailed: (String) -> Unit
     )
+
+    fun getPlasticTransactionByUserId(
+        userId: String,
+        onFetchSuccess: (List<PlasticTransaction>) -> Unit,
+        onFetchFailed: (String) -> Unit
+    )
 }

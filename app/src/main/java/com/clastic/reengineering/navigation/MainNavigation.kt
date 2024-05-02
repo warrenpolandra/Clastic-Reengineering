@@ -33,6 +33,7 @@ import com.clastic.qrcode.scanner.QrScannerScreen
 import com.clastic.splashscreen.ClasticSplashScreen
 import com.clastic.transaction.plastic.PlasticTransactionScreen
 import com.clastic.transaction.plastic.detail.PlasticTransactionDetailScreen
+import com.clastic.transaction.plastic.history.PlasticTransactionHistoryScreen
 import java.net.URLDecoder
 
 @Composable
@@ -99,7 +100,7 @@ fun MainNavigation(
             }
             composable(Screen.DropPointMap.route) {
                 bottomBarVisible = false
-                DropPointMapScreen(navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) })
+                DropPointMapScreen(navigateToHome = { navHostController.popBackStack() })
             }
             composable(
                 route = Screen.QrCode.route,
@@ -109,7 +110,7 @@ fun MainNavigation(
                 val userId = navBackStackEntry.arguments?.getString("userId")
                 MyQrCodeScreen(
                     qrText = userId ?: "",
-                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
+                    navigateToHome = { navHostController.popBackStack() }
                 )
             }
             composable(Screen.QrCodeScanner.route) {
@@ -118,7 +119,7 @@ fun MainNavigation(
                     onScannedSuccess = { userId ->
                         navigateWithPopBack(navHostController, Screen.PlasticTransaction.createRoute(userId))
                     },
-                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
+                    navigateToHome = { navHostController.popBackStack() }
                 )
             }
             composable(
@@ -138,6 +139,7 @@ fun MainNavigation(
                 route = Screen.PlasticTransactionDetail.route,
                 arguments = listOf(navArgument("plasticTransactionId") { type = NavType.StringType })
             ) { navBackStackEntry ->
+                bottomBarVisible = false
                 val plasticTransactionId = navBackStackEntry.arguments?.getString("plasticTransactionId")
                 PlasticTransactionDetailScreen(
                     plasticTransactionId = plasticTransactionId ?: "",
@@ -152,7 +154,7 @@ fun MainNavigation(
                 val plasticKnowledgeId = navBackStackEntry.arguments?.getString("plasticKnowledgeId")
                 PlasticKnowledgeScreen(
                     plasticId = plasticKnowledgeId ?: "",
-                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
+                    navigateToHome = { navHostController.popBackStack() }
                 )
             }
             composable(Screen.Article.route) {
@@ -171,7 +173,7 @@ fun MainNavigation(
                 )
                 ArticleDetailScreen(
                     contentUrl = articleUrl,
-                    navigateToListArticle = { navigateWithPopBack(navHostController, Screen.Article.route) }
+                    navigateToListArticle = { navHostController.popBackStack() }
                 )
             }
             composable(Screen.Mission.route) {
@@ -187,13 +189,25 @@ fun MainNavigation(
                 bottomBarVisible = false
                 MissionDetailScreen(
                     missionId = navBackStackEntry.arguments?.getString("missionId") ?: "",
-                    navigateToMissionList = { navigateWithPopBack(navHostController, Screen.Mission.route) }
+                    navigateToMissionList = { navHostController.popBackStack() }
                 )
             }
             composable(Screen.Profile.route) {
                 bottomBarVisible = true
                 ProfileScreen(
-                    onLogout = { navigateWithPopBack(navHostController, Screen.Login.route) }
+                    onLogout = { navigateWithPopBack(navHostController, Screen.Login.route) },
+                    navigateToPlasticTransactionHistory = {
+                        navHostController.navigate(Screen.PlasticTransactionHistory.route)
+                    }
+                )
+            }
+            composable(Screen.PlasticTransactionHistory.route) {
+                bottomBarVisible = false
+                PlasticTransactionHistoryScreen(
+                    onTransactionClicked = { plasticTransactionId ->
+                        navHostController.navigate(Screen.PlasticTransactionDetail.createRoute(plasticTransactionId))
+                    },
+                    navigateToProfile = { navHostController.popBackStack() }
                 )
             }
         }

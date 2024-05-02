@@ -50,6 +50,7 @@ import com.clastic.ui.theme.CyanPrimary
 @Composable
 fun ProfileScreen(
     onLogout: () -> Unit,
+    navigateToPlasticTransactionHistory: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -66,6 +67,7 @@ fun ProfileScreen(
                 onSignOutFailed = { showToast(context, it) }
             )
         },
+        navigateToPlasticTransactionHistory = navigateToPlasticTransactionHistory,
         modifier = modifier
     )
 }
@@ -75,6 +77,7 @@ private fun ProfileScreenContent(
     isLoading: Boolean,
     user: User,
     onLogoutClick: () -> Unit,
+    navigateToPlasticTransactionHistory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -118,10 +121,7 @@ private fun ProfileScreenContent(
                 ProfileMenu(
                     title = stringResource(R.string.plastic_transaction_history),
                     icon = Icons.AutoMirrored.Filled.List,
-                    onClick = {
-                        /*TODO*/
-                        print("")
-                    }
+                    onClick = navigateToPlasticTransactionHistory
                 )
                 ProfileMenu(
                     title = stringResource(R.string.points_transaction_history),
@@ -219,7 +219,8 @@ private fun ProfileScreenPreview() {
         ProfileScreenContent(
             isLoading = true,
             user = User(),
-            onLogoutClick = {}
+            onLogoutClick = {},
+            navigateToPlasticTransactionHistory = {}
         )
     }
 }
