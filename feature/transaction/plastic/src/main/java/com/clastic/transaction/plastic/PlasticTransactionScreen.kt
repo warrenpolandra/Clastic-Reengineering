@@ -212,15 +212,11 @@ private fun PlasticTransactionScreenContent(
             }
         }
         Box(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             if (isLoading) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(64.dp)
-                )
+                CircularProgressIndicator(modifier = Modifier.size(64.dp))
             }
         }
     }

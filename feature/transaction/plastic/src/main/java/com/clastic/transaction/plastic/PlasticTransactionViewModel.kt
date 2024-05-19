@@ -1,5 +1,6 @@
 package com.clastic.transaction.plastic
 
+import android.content.Context
 import androidx.lifecycle.ViewModel
 import com.clastic.domain.repository.DropPointRepository
 import com.clastic.domain.repository.PlasticKnowledgeRepository
@@ -17,6 +18,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 internal class PlasticTransactionViewModel @Inject constructor(
+    private val appContext: Context,
     private val userRepository: UserRepository,
     private val dropPointRepository: DropPointRepository,
     private val plasticKnowledgeRepository: PlasticKnowledgeRepository,
@@ -122,7 +124,9 @@ internal class PlasticTransactionViewModel @Inject constructor(
         onPostSuccess: (transactionId: String) -> Unit,
         onPostFailed: (String) -> Unit
     ) {
-        if (_plasticTransactionItemList.value.isNotEmpty()) {
+        if (_plasticTransactionItemList.value.any{ transaction -> transaction.points == 0  || transaction.plasticType == "" || transaction.weight == 0f}) run {
+            onPostFailed(appContext.getString(R.string.please_fill_data))
+        } else {
             _isLoading.value = true
             plasticTransactionRepository.submitPlasticTransaction(
                 date = _currentDate.value,

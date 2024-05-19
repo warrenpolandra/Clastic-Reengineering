@@ -26,4 +26,5 @@
     <string name="plastic_transaction_history">Riwayat Transaksi Plastik</string>
     <string name="history_location">Lokasi: %s</string>
     <string name="detail">Detail</string>
+    <string name="please_fill_data">Harap lengkapi data yang ada</string>
 </resources>
