@@ -49,7 +49,7 @@ fun ClasticTopAppBar(
 
 @Preview
 @Composable
-fun ClasticTopAppBarPreview() {
+private fun ClasticTopAppBarPreview() {
     ClasticTheme {
         ClasticTopAppBar(
             title = "Title",
