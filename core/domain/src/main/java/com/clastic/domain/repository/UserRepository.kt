@@ -49,4 +49,9 @@ interface UserRepository {
         onFetchSuccess: (Boolean, user: User?) -> Unit,
         onFetchFailed: (String) -> Unit
     )
+
+    fun fetchAllUsers(
+        onFetchSuccess: (List<User>) -> Unit,
+        onFetchFailed: (String) -> Unit
+    )
 }

@@ -24,6 +24,7 @@ import com.clastic.authentication.register.RegisterScreen
 import com.clastic.droppoint.DropPointMapScreen
 import com.clastic.home.HomeScreen
 import com.clastic.home.component.TutorialScreen
+import com.clastic.leaderboard.LeaderboardScreen
 import com.clastic.mission.detail.MissionDetailScreen
 import com.clastic.mission.list.ListMissionScreen
 import com.clastic.plastic_knowledge.PlasticKnowledgeScreen
@@ -198,6 +199,9 @@ fun MainNavigation(
                     onLogout = { navigateWithPopBack(navHostController, Screen.Login.route) },
                     navigateToPlasticTransactionHistory = {
                         navHostController.navigate(Screen.PlasticTransactionHistory.route)
+                    },
+                    navigateToLeaderboard = {
+                        navHostController.navigate(Screen.Leaderboard.route)
                     }
                 )
             }
@@ -209,6 +213,10 @@ fun MainNavigation(
                     },
                     navigateToProfile = { navHostController.popBackStack() }
                 )
+            }
+            composable(Screen.Leaderboard.route) {
+                bottomBarVisible = false
+                LeaderboardScreen(navigateToProfile = { navHostController.popBackStack() })
             }
         }
     }

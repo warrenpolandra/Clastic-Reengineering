@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="find_your_name">Temukan namamu dalam leaderboard ini!</string>
+    <string name="number_transaction_made">%s transaksi dibuat</string>
+    <string name="gathered_plastic">%s kg</string>
+    <string name="current_rank">Rank saat ini: %s</string>
+</resources>

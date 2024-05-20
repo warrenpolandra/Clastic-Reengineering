@@ -21,6 +21,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.EmojiEvents
 import androidx.compose.material.icons.filled.FiberSmartRecord
 import androidx.compose.material.icons.filled.PowerSettingsNew
 import androidx.compose.material.icons.filled.Settings
@@ -51,6 +52,7 @@ import com.clastic.ui.theme.CyanPrimary
 fun ProfileScreen(
     onLogout: () -> Unit,
     navigateToPlasticTransactionHistory: () -> Unit,
+    navigateToLeaderboard: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -67,6 +69,7 @@ fun ProfileScreen(
                 onSignOutFailed = { showToast(context, it) }
             )
         },
+        navigateToLeaderboard = navigateToLeaderboard,
         navigateToPlasticTransactionHistory = navigateToPlasticTransactionHistory,
         modifier = modifier
     )
@@ -77,6 +80,7 @@ private fun ProfileScreenContent(
     isLoading: Boolean,
     user: User,
     onLogoutClick: () -> Unit,
+    navigateToLeaderboard: () -> Unit,
     navigateToPlasticTransactionHistory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -122,6 +126,11 @@ private fun ProfileScreenContent(
                     title = stringResource(R.string.plastic_transaction_history),
                     icon = Icons.AutoMirrored.Filled.List,
                     onClick = navigateToPlasticTransactionHistory
+                )
+                ProfileMenu(
+                    title = stringResource(R.string.leaderboard),
+                    icon = Icons.Default.EmojiEvents,
+                    onClick = navigateToLeaderboard
                 )
                 ProfileMenu(
                     title = stringResource(R.string.points_transaction_history),
@@ -220,6 +229,7 @@ private fun ProfileScreenPreview() {
             isLoading = true,
             user = User(),
             onLogoutClick = {},
+            navigateToLeaderboard = {},
             navigateToPlasticTransactionHistory = {}
         )
     }

@@ -288,6 +288,18 @@ class UserRepositoryImpl @Inject constructor(
             }
     }
 
+    override fun fetchAllUsers(
+        onFetchSuccess: (List<User>) -> Unit,
+        onFetchFailed: (String) -> Unit
+    ) {
+        db.collection("user").get()
+            .addOnSuccessListener { result ->
+                val users = result.map { document -> getUserFromSnapshot(document) }
+                onFetchSuccess(users)
+            }
+            .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
+    }
+
     private fun getUserFromSnapshot(document: DocumentSnapshot): User {
         @Suppress("UNCHECKED_CAST")
         return User(

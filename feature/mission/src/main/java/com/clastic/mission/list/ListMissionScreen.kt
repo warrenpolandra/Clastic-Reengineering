@@ -84,20 +84,16 @@ private fun ListMissionScreenContent(
             }
         }
         Box(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
             if (isLoading) {
                 CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(64.dp)
+                    modifier = Modifier.size(64.dp)
                 )
             }
             if (error.isNotEmpty()) {
-                Text(
-                    text = error,
-                )
+                Text(text = error)
             }
         }
     }
