@@ -41,6 +41,7 @@ class RewardRepositoryImpl @Inject constructor(
             name = document.getString("name") ?: "",
             imagePath = document.getString("imagePath") ?: "",
             value = document.getLong("value")?.toInt() ?: 0,
+            description = document.getString("description") ?: "",
             termsAndConditions = document.get("termsAndConditions") as List<String>
         )
     }

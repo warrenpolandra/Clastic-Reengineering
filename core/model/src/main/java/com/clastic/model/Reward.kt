@@ -4,11 +4,12 @@ import androidx.annotation.Keep
 
 @Keep
 data class Reward(
-    val id: String,
-    val name: String,
-    val imagePath: String,
-    val value: Int,
-    val termsAndConditions: List<String>
+    val id: String = "",
+    val name: String = "",
+    val description: String = "",
+    val imagePath: String = "",
+    val value: Int = 0,
+    val termsAndConditions: List<String> = emptyList()
 )
 
 @Keep

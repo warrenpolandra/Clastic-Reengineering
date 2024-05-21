@@ -32,6 +32,7 @@ import com.clastic.profile.ProfileScreen
 import com.clastic.qrcode.MyQrCodeScreen
 import com.clastic.qrcode.scanner.QrScannerScreen
 import com.clastic.reward.RewardStoreScreen
+import com.clastic.reward.detail.RewardDetailScreen
 import com.clastic.splashscreen.ClasticSplashScreen
 import com.clastic.transaction.plastic.PlasticTransactionScreen
 import com.clastic.transaction.plastic.detail.PlasticTransactionDetailScreen
@@ -222,8 +223,20 @@ fun MainNavigation(
             composable(Screen.Rewards.route) {
                 bottomBarVisible = true
                 RewardStoreScreen(
-                    onRewardClick = {/*TODO*/},
+                    onRewardClick = { rewardId ->
+                        navHostController.navigate(Screen.RewardDetail.createRoute(rewardId))
+                    },
                     navigateToCart = {/*TODO*/}
+                )
+            }
+            composable(
+                route = Screen.RewardDetail.route,
+                arguments = listOf(navArgument("rewardId") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                bottomBarVisible = false
+                RewardDetailScreen(
+                    rewardId = navBackStackEntry.arguments?.getString("rewardId") ?: "",
+                    navigateToStore = { navHostController.popBackStack() }
                 )
             }
         }

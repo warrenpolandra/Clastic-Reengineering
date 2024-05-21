@@ -23,11 +23,16 @@ internal class RewardStoreViewModel @Inject constructor(
     }
 
     private fun fetchRewardList() {
+        _isLoading.value = true
         rewardRepository.fetchRewardList(
             onFetchSuccess = { rewardList ->
+                _isLoading.value = false
                 _rewardList.value = rewardList
             },
-            onFetchFailed = { _rewardList.value = emptyList() }
+            onFetchFailed = {
+                _isLoading.value = false
+                _rewardList.value = emptyList()
+            }
         )
     }
 }

@@ -1,6 +1,7 @@
 package com.clastic.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimary
 import com.clastic.ui.theme.CyanPrimaryVariant2
+import com.clastic.utils.NumberUtil
 
 @Composable
 fun PointTag(modifier: Modifier = Modifier, point: Int) {
@@ -31,6 +33,7 @@ fun PointTag(modifier: Modifier = Modifier, point: Int) {
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .clip(RoundedCornerShape(20.dp))
+                .border(1.dp, CyanPrimary, RoundedCornerShape(20.dp))
                 .background(color = Color.White)
                 .padding(horizontal = 12.dp, vertical = 4.dp)
         ) {
@@ -43,7 +46,7 @@ fun PointTag(modifier: Modifier = Modifier, point: Int) {
                 )
                 Spacer(modifier = Modifier.width(2.dp))
                 Text(
-                    text = point.toString(),
+                    text = NumberUtil.formatNumberToGrouped(point),
                     modifier = Modifier,
                     fontWeight = FontWeight.Bold,
                     color = CyanPrimary
@@ -53,7 +56,7 @@ fun PointTag(modifier: Modifier = Modifier, point: Int) {
     }
 }
 
-@Preview(showBackground = true)
+@Preview()
 @Composable
 fun PointTagPreview() {
     ClasticTheme {
