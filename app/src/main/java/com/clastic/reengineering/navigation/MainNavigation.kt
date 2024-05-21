@@ -31,6 +31,7 @@ import com.clastic.plastic_knowledge.PlasticKnowledgeScreen
 import com.clastic.profile.ProfileScreen
 import com.clastic.qrcode.MyQrCodeScreen
 import com.clastic.qrcode.scanner.QrScannerScreen
+import com.clastic.reward.RewardStoreScreen
 import com.clastic.splashscreen.ClasticSplashScreen
 import com.clastic.transaction.plastic.PlasticTransactionScreen
 import com.clastic.transaction.plastic.detail.PlasticTransactionDetailScreen
@@ -218,11 +219,18 @@ fun MainNavigation(
                 bottomBarVisible = false
                 LeaderboardScreen(navigateToProfile = { navHostController.popBackStack() })
             }
+            composable(Screen.Rewards.route) {
+                bottomBarVisible = true
+                RewardStoreScreen(
+                    onRewardClick = {/*TODO*/},
+                    navigateToCart = {/*TODO*/}
+                )
+            }
         }
     }
 }
 
-fun navigateWithPopBack(
+private fun navigateWithPopBack(
     navHostController: NavHostController,
     screen: String
 ) {

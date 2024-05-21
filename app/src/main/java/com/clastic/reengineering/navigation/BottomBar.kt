@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -31,27 +32,27 @@ fun BottomBar(
 
         val navigationItems = listOf(
             BottomBarItem(
-                title = "Home",
+                title = stringResource(R.string.home),
                 icon = ImageVector.vectorResource(R.drawable.ic_home),
                 screen = Screen.Home
             ),
             BottomBarItem(
-                title = "Article",
+                title = stringResource(R.string.article),
                 icon = ImageVector.vectorResource(R.drawable.ic_article),
                 screen = Screen.Article
             ),
             BottomBarItem(
-                title = "Point Shop",
+                title = stringResource(R.string.rewards),
                 icon = ImageVector.vectorResource(R.drawable.ic_shopping_cart),
-                screen = Screen.Store
+                screen = Screen.Rewards
             ),
             BottomBarItem(
-                title = "Mission",
+                title = stringResource(R.string.mission),
                 icon = ImageVector.vectorResource(R.drawable.ic_campaign),
                 screen = Screen.Mission
             ),
             BottomBarItem(
-                title = "Profile",
+                title = stringResource(R.string.profile),
                 icon = ImageVector.vectorResource(R.drawable.ic_person),
                 screen = Screen.Profile
             )
@@ -60,13 +61,15 @@ fun BottomBar(
             BottomNavigationItem(
                 selected = currentRoute == item.screen.route,
                 onClick = {
-                    navController.popBackStack()
-                    navController.navigate(item.screen.route) {
-                        popUpTo(navController.graph.findStartDestination().id) {
-                            saveState = true
+                    if (currentRoute != item.screen.route) {
+                        navController.popBackStack()
+                        navController.navigate(item.screen.route) {
+                            popUpTo(navController.graph.findStartDestination().id) {
+                                saveState = true
+                            }
+                            restoreState = true
+                            launchSingleTop = true
                         }
-                        restoreState = true
-                        launchSingleTop = true
                     }
                 },
                 icon = {
