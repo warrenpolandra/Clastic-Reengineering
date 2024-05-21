@@ -77,6 +77,7 @@ dependencies {
     implementation(project(":feature:qrcode"))
     implementation(project(":feature:plastic_knowledge"))
     implementation(project(":feature:leaderboard"))
+    implementation(project(":feature:reward"))
     implementation(project(":feature:transaction:plastic"))
 
     // Firebase
