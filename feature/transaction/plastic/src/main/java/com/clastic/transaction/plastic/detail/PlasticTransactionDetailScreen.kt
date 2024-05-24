@@ -52,7 +52,7 @@ import com.clastic.utils.TimeUtil
 @Composable
 fun PlasticTransactionDetailScreen(
     plasticTransactionId: String,
-    navigateToHome: () -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val viewModel: PlasticTransactionDetailViewModel = hiltViewModel<PlasticTransactionDetailViewModel>()
@@ -74,7 +74,7 @@ fun PlasticTransactionDetailScreen(
         isLoading = isLoading,
         username = user.username ?: "",
         dropPointName = dropPoint.name,
-        navigateToHome = navigateToHome,
+        onBackPressed = onBackPressed,
         modifier = modifier
     )
 }
@@ -85,14 +85,14 @@ private fun PlasticTransactionDetailScreenContent(
     isLoading: Boolean,
     username: String,
     dropPointName: String,
-    navigateToHome: () -> Unit,
+    onBackPressed: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
         topBar = {
             ClasticTopAppBar(
                 title = stringResource(R.string.plastic_transaction_detail),
-                onBackPressed = navigateToHome
+                onBackPressed = onBackPressed
             )
         },
         modifier = modifier
@@ -192,7 +192,7 @@ private fun PlasticTransactionDetailScreenContent(
                                 modifier = Modifier.padding(vertical = 20.dp)
                             )
                             Button(
-                                onClick = navigateToHome,
+                                onClick = onBackPressed,
                                 shape = RoundedCornerShape(10.dp),
                                 colors = ButtonDefaults.buttonColors(backgroundColor = CyanPrimary),
                                 modifier = Modifier.heightIn(min = 48.dp)
@@ -245,7 +245,7 @@ private fun PlasticTransactionDetailScreenPreview() {
             isLoading = true,
             username = "Warren",
             dropPointName = "RPTRA Dahlia",
-            navigateToHome = {}
+            onBackPressed = {}
         )
     }
 }

@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.IntentSender
 import com.clastic.data.R
 import com.clastic.domain.repository.UserRepository
+import com.clastic.model.OwnedReward
 import com.clastic.model.authentication.AuthenticationResult
 import com.clastic.model.User
 import com.clastic.model.authentication.AuthUser
@@ -162,6 +163,7 @@ class UserRepositoryImpl @Inject constructor(
             .build()
     }
 
+    @Suppress("UNCHECKED_CAST")
     private fun createLoginResultSuccess(
         user: FirebaseUser?,
         onResultSuccess: (AuthenticationResult) -> Unit,
@@ -175,7 +177,6 @@ class UserRepositoryImpl @Inject constructor(
                     if (document.exists()) {
                         val result = AuthenticationResult(
                             data = user.run {
-                                @Suppress("UNCHECKED_CAST")
                                 User(
                                     userId = uid,
                                     username = document.getString("username"),
@@ -188,7 +189,9 @@ class UserRepositoryImpl @Inject constructor(
                                     role = document.getString("role") ?: "user",
                                     totalPlastic = document.getDouble("totalPlastic") ?: 0.0,
                                     totalTransaction = document.getLong("totalTransaction")?.toInt() ?: 0,
-                                    plasticTransactionList = document.get("plasticTransactionList") as List<String>
+                                    plasticTransactionList = document.get("plasticTransactionList") as List<String>,
+                                    rewardList = getRewardListFromSnapShot(document),
+                                    rewardTransactionList = document.get("rewardTransactionList") as List<String>
                                 )
                             },
                             errorMessage = null
@@ -213,15 +216,15 @@ class UserRepositoryImpl @Inject constructor(
                 "email" to email,
                 "userPhoto" to photoUrl?.toString(),
                 "points" to 0,
-                // Todo: change Any to Prize
-                "prizes" to emptyList<Map<Long, Any>>(),
                 "createdAt" to TimeUtil.getTimestamp(),
                 "level" to 1,
                 "exp" to 0,
                 "role" to "user",
                 "totalPlastic" to 0.0,
                 "totalTransaction" to 0,
-                "plasticTransactionList" to emptyList<String>()
+                "plasticTransactionList" to emptyList<String>(),
+                "rewardList" to emptyList<Map<String, Any>>(),
+                "rewardTransactionList" to emptyList<String>()
             )
             db.collection("user")
                 .document(email ?: "")
@@ -242,7 +245,9 @@ class UserRepositoryImpl @Inject constructor(
                                     role = "user",
                                     totalPlastic = 0.0,
                                     totalTransaction = 0,
-                                    plasticTransactionList = emptyList()
+                                    plasticTransactionList = emptyList(),
+                                    rewardList = emptyList(),
+                                    rewardTransactionList = emptyList()
                                 )
                             },
                             errorMessage = null
@@ -300,21 +305,40 @@ class UserRepositoryImpl @Inject constructor(
             .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
     }
 
+    @Suppress("UNCHECKED_CAST")
+    private fun getRewardListFromSnapShot(document: DocumentSnapshot): List<OwnedReward> {
+        val rewardList = mutableListOf<OwnedReward>()
+        val rewardListData = document.get("rewardList") as List<Map<String, *>>
+        rewardListData.forEach { data ->
+            val id = data["id"] as String
+            val count = data["count"] as Long
+            rewardList.add(
+                OwnedReward(
+                    rewardId = id,
+                    count = count.toInt()
+                )
+            )
+        }
+        return rewardList
+    }
+
     private fun getUserFromSnapshot(document: DocumentSnapshot): User {
         @Suppress("UNCHECKED_CAST")
         return User(
-           userId = document.getString("userId") ?: "",
-           username = document.getString("username"),
-           email = document.getString("email") ?: "",
-           points = document.getLong("points")?.toInt() ?: 0,
-           userPhoto = document.getString("userPhoto"),
-           level = document.getLong("level")?.toInt() ?: 0,
-           exp = document.getLong("exp")?.toInt() ?: 0,
-           createdAt = document.getTimestamp("createdAt")?.seconds ?: 0,
-           role = document.getString("role") ?: "user",
-           totalPlastic = document.getDouble("totalPlastic") ?: 0.0,
-           totalTransaction = document.getLong("totalTransaction")?.toInt() ?: 0,
-           plasticTransactionList = document.get("plasticTransactionList") as List<String>
+            userId = document.getString("userId") ?: "",
+            username = document.getString("username"),
+            email = document.getString("email") ?: "",
+            points = document.getLong("points")?.toInt() ?: 0,
+            userPhoto = document.getString("userPhoto"),
+            level = document.getLong("level")?.toInt() ?: 0,
+            exp = document.getLong("exp")?.toInt() ?: 0,
+            createdAt = document.getTimestamp("createdAt")?.seconds ?: 0,
+            role = document.getString("role") ?: "user",
+            totalPlastic = document.getDouble("totalPlastic") ?: 0.0,
+            totalTransaction = document.getLong("totalTransaction")?.toInt() ?: 0,
+            plasticTransactionList = document.get("plasticTransactionList") as List<String>,
+            rewardList = getRewardListFromSnapShot(document),
+            rewardTransactionList = document.get("rewardTransactionList") as List<String>
        )
     }
 }

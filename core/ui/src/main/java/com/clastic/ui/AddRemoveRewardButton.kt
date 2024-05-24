@@ -1,4 +1,4 @@
-package com.clastic.reward.component
+package com.clastic.ui
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -27,14 +27,15 @@ import com.clastic.ui.theme.ClasticTheme
 import com.clastic.ui.theme.CyanPrimary
 
 @Composable
-internal fun AddRemoveRewardButton(
+fun AddRemoveRewardButton(
+    size: Int,
     itemCount: Int,
     onRemove: () -> Unit,
     onAdd: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
-        horizontalArrangement = Arrangement.spacedBy(20.dp),
+        horizontalArrangement = Arrangement.spacedBy((size/2).dp),
         modifier = modifier
     ) {
         Button(
@@ -45,7 +46,7 @@ internal fun AddRemoveRewardButton(
                 contentColor = Color.White
             ),
             modifier = Modifier
-                .size(40.dp)
+                .size(size.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .shadow(elevation = 10.dp)
         ) {
@@ -57,7 +58,7 @@ internal fun AddRemoveRewardButton(
 
         Box(
             modifier = Modifier
-                .size(40.dp)
+                .size(size.dp)
                 .border(2.dp, CyanPrimary, RoundedCornerShape(8.dp))
                 .clip(RoundedCornerShape(8.dp)),
             contentAlignment = Alignment.Center
@@ -77,7 +78,7 @@ internal fun AddRemoveRewardButton(
                 contentColor = Color.White
             ),
             modifier = Modifier
-                .size(40.dp)
+                .size(size.dp)
                 .clip(RoundedCornerShape(8.dp))
                 .shadow(elevation = 10.dp)
         ) {
@@ -95,6 +96,7 @@ private fun AddRemoveRewardButtonPreview() {
     ClasticTheme {
         AddRemoveRewardButton(
             itemCount = 1,
+            size = 40,
             onRemove = {},
             onAdd = {}
         )

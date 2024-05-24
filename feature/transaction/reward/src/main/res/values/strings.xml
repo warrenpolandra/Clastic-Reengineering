@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="reward_transaction">Transaksi Reward</string>
+    <string name="points_value">%s pts</string>
+    <string name="points_subtotal">Subtotal: %s pts</string>
+    <string name="add_error">Maximum item is 99</string>
+    <string name="total_transaction">Total Transaksi</string>
+    <string name="buy">Beli</string>
+    <string name="your_points">Poin dimiliki: %s</string>
+    <string name="your_points_not_enough">Poin dimiliki: %s (tidak cukup)</string>
+    <string name="reward_transaction_instruction">Pastikan data transaksi sudah benar!</string>
+    <string name="no_reward">Belum ada reward yang ditambahkan</string>
+    <string name="transaction_created">Transaksi Dibuat</string>
+    <string name="transaction_info">Informasi Transaksi</string>
+    <string name="transaction_code">Kode Transaksi</string>
+    <string name="time">Waktu</string>
+    <string name="reward_transaction_detail">Detail Transaksi Reward</string>
+    <string name="reward_count">Jumlah: %s</string>
+    <string name="reward_transaction_history">Riwayat Transaksi Reward</string>
+    <string name="reward_transaction_id">ID: %s</string>
+    <string name="detail">Detail</string>
+</resources>

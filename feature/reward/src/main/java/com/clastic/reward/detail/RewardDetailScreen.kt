@@ -11,16 +11,16 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
-import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -35,9 +35,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import com.clastic.model.Reward
 import com.clastic.reward.R
-import com.clastic.reward.component.AddRemoveRewardButton
+import com.clastic.ui.AddRemoveRewardButton
 import com.clastic.ui.ClasticTopAppBar
+import com.clastic.ui.LoadingIndicator
 import com.clastic.ui.PointTag
+import com.clastic.ui.UiState
 import com.clastic.ui.theme.ClasticTheme
 import com.clastic.utils.NumberUtil
 
@@ -45,44 +47,47 @@ import com.clastic.utils.NumberUtil
 fun RewardDetailScreen(
     rewardId: String,
     navigateToStore: () -> Unit,
+    navigateToCart: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
     val viewModel: RewardDetailViewModel = hiltViewModel<RewardDetailViewModel>()
-    val isLoading by viewModel.isLoading.collectAsState()
-    val reward by viewModel.reward.collectAsState()
-    val itemCount by viewModel.itemCount.collectAsState()
-
-    LaunchedEffect(true) {
-        viewModel.fetchRewardById(
-            rewardId = rewardId,
-            onFetchFailed = { error -> showToast(context, error) }
-        )
+    viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
+        when (uiState) {
+            is UiState.Loading -> {
+                LoadingIndicator()
+                viewModel.getRewardById(rewardId)
+            }
+            is UiState.Success -> {
+                val data = uiState.data
+                RewardDetailScreenContent(
+                    reward = data.reward,
+                    rewardCount = data.count,
+                    navigateToStore = navigateToStore,
+                    onAddError = { showToast(context, context.getString(R.string.add_error)) },
+                    onUpdateRewardCount = {
+                        viewModel.addToCart(rewardId, it)
+                        navigateToCart()
+                    },
+                    modifier = modifier
+                )
+            }
+            is UiState.Error -> { showToast(context, uiState.errorMessage) }
+        }
     }
-
-    RewardDetailScreenContent(
-        isLoading = isLoading,
-        reward = reward,
-        itemCount = itemCount,
-        navigateToStore = navigateToStore,
-        onAddItem = { viewModel.increaseItemCount(onIncreaseFailed = { showToast(context, it) }) },
-        onRemoveItem = { viewModel.reduceItemCount(onReduceFailed = { showToast(context, it) }) },
-        onAddToCart = { viewModel.addToCart(onAddFailed = { showToast(context, it) }) },
-        modifier = modifier
-    )
 }
 
 @Composable
 private fun RewardDetailScreenContent(
-    isLoading: Boolean,
     reward: Reward,
-    itemCount: Int,
-    onAddItem: () -> Unit,
-    onRemoveItem: () -> Unit,
-    onAddToCart: () -> Unit,
+    rewardCount: Int,
+    onAddError: () -> Unit,
+    onUpdateRewardCount: (count: Int) -> Unit,
     navigateToStore: () -> Unit,
     modifier: Modifier = Modifier
 ) {
+    var itemCount by rememberSaveable { mutableIntStateOf(rewardCount) }
+
     Scaffold(
         topBar = {
             ClasticTopAppBar(
@@ -97,13 +102,16 @@ private fun RewardDetailScreenContent(
             ) {
                 AddRemoveRewardButton(
                     itemCount = itemCount,
-                    onRemove = onRemoveItem,
-                    onAdd = onAddItem,
-                    modifier = Modifier
-                        .padding(vertical = 16.dp)
+                    onRemove = { if (itemCount > 0) itemCount-- },
+                    onAdd = {
+                        if (itemCount < 100) itemCount++
+                        else onAddError()
+                    },
+                    size = 40,
+                    modifier = Modifier.padding(vertical = 16.dp)
                 )
                 Button(
-                    onClick = onAddToCart,
+                    onClick = { onUpdateRewardCount(itemCount) },
                     enabled = itemCount > 0,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -178,14 +186,6 @@ private fun RewardDetailScreenContent(
                 }
             }
         }
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            if (isLoading) {
-                CircularProgressIndicator(modifier = Modifier.size(64.dp))
-            }
-        }
     }
 }
 
@@ -198,7 +198,6 @@ private fun showToast(context: Context, message: String) {
 private fun RewardDetailScreenPreview() {
     ClasticTheme {
         RewardDetailScreenContent(
-            isLoading = true,
             reward = Reward(
                 description = "Dapatkan potongan harga sebesar 10% tanpa minimum belanja di semua gerai Starbucks Indonesia! Syarat dan ketentuan berlaku.",
                 termsAndConditions = listOf(
@@ -208,11 +207,10 @@ private fun RewardDetailScreenPreview() {
                     "Berlaku untuk semua produk Starbucks"
                 )
             ),
-            itemCount = 10,
+            rewardCount = 10,
             navigateToStore = {},
-            onRemoveItem = {},
-            onAddItem = {},
-            onAddToCart = {}
+            onUpdateRewardCount = {},
+            onAddError = {}
         )
     }
 }

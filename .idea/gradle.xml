@@ -43,6 +43,7 @@
             <option value="$PROJECT_DIR$/feature/splashscreen" />
             <option value="$PROJECT_DIR$/feature/transaction" />
             <option value="$PROJECT_DIR$/feature/transaction/plastic" />
+            <option value="$PROJECT_DIR$/feature/transaction/reward" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

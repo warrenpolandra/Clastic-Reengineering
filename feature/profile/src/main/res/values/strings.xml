@@ -6,7 +6,7 @@
     <string name="total_plastic_kg">%s kg</string>
     <string name="collected_plastic">Plastik Terkumpul</string>
     <string name="plastic_transaction_history">Riwayat Transaksi Plastik</string>
-    <string name="points_transaction_history">Riwayat Penukaran Points</string>
+    <string name="reward_transaction_history">Riwayat Penukaran Reward</string>
     <string name="share_clastic_to_friends">Bagikan Clastic ke Temanmu</string>
     <string name="settings">Pengaturan</string>
     <string name="logout">Keluar</string>

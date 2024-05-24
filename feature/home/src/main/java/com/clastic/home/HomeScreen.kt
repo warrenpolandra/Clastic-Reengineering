@@ -300,7 +300,10 @@ private fun HomeScreenContent(
 private fun HomeScreenPreview() {
     ClasticTheme {
         HomeScreenContent(
-            user = User(),
+            user = User(
+                rewardList = emptyList(),
+                rewardTransactionList = emptyList(),
+            ),
             listPlasticKnowledge = emptyList(),
             onPlasticTypeClicked = {},
             navigateToDropPointMap = {},

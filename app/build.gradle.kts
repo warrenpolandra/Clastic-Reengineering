@@ -79,6 +79,7 @@ dependencies {
     implementation(project(":feature:leaderboard"))
     implementation(project(":feature:reward"))
     implementation(project(":feature:transaction:plastic"))
+    implementation(project(":feature:transaction:reward"))
 
     // Firebase
     implementation("com.google.firebase:firebase-auth:22.3.1")

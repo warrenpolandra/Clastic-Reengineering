@@ -37,6 +37,9 @@ import com.clastic.splashscreen.ClasticSplashScreen
 import com.clastic.transaction.plastic.PlasticTransactionScreen
 import com.clastic.transaction.plastic.detail.PlasticTransactionDetailScreen
 import com.clastic.transaction.plastic.history.PlasticTransactionHistoryScreen
+import com.clastic.transaction.reward.RewardTransactionScreen
+import com.clastic.transaction.reward.history.detail.RewardTransactionDetailScreen
+import com.clastic.transaction.reward.history.list.RewardTransactionHistoryScreen
 import java.net.URLDecoder
 
 @Composable
@@ -146,7 +149,7 @@ fun MainNavigation(
                 val plasticTransactionId = navBackStackEntry.arguments?.getString("plasticTransactionId")
                 PlasticTransactionDetailScreen(
                     plasticTransactionId = plasticTransactionId ?: "",
-                    navigateToHome = { navigateWithPopBack(navHostController, Screen.Home.route) }
+                    onBackPressed = { navHostController.popBackStack() }
                 )
             }
             composable(
@@ -202,9 +205,8 @@ fun MainNavigation(
                     navigateToPlasticTransactionHistory = {
                         navHostController.navigate(Screen.PlasticTransactionHistory.route)
                     },
-                    navigateToLeaderboard = {
-                        navHostController.navigate(Screen.Leaderboard.route)
-                    }
+                    navigateToLeaderboard = { navHostController.navigate(Screen.Leaderboard.route) },
+                    navigateToRewardTransactionHistory = { navHostController.navigate(Screen.RewardTransactionHistory.route) }
                 )
             }
             composable(Screen.PlasticTransactionHistory.route) {
@@ -226,7 +228,7 @@ fun MainNavigation(
                     onRewardClick = { rewardId ->
                         navHostController.navigate(Screen.RewardDetail.createRoute(rewardId))
                     },
-                    navigateToCart = {/*TODO*/}
+                    navigateToCart = { navHostController.navigate(Screen.RewardCart.route) }
                 )
             }
             composable(
@@ -236,7 +238,39 @@ fun MainNavigation(
                 bottomBarVisible = false
                 RewardDetailScreen(
                     rewardId = navBackStackEntry.arguments?.getString("rewardId") ?: "",
-                    navigateToStore = { navHostController.popBackStack() }
+                    navigateToStore = { navHostController.popBackStack() },
+                    navigateToCart = { navHostController.navigate(Screen.RewardCart.route) }
+                )
+            }
+            composable(Screen.RewardCart.route) {
+                bottomBarVisible = false
+                RewardTransactionScreen(
+                    navigateToStore = { navigateWithPopBack(navHostController, Screen.Rewards.route) },
+                    navigateToRewardTransactionDetail = { transactionId ->
+                        navHostController.popBackStack()
+                        navigateWithPopBack(navHostController, Screen.RewardTransactionDetail.createRoute(transactionId))
+                    }
+                )
+            }
+            composable(
+                route = Screen.RewardTransactionDetail.route,
+                arguments = listOf(navArgument("rewardTransactionId") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                bottomBarVisible = false
+                RewardTransactionDetailScreen(
+                    transactionId = navBackStackEntry.arguments?.getString("rewardTransactionId") ?: "",
+                    onBackPressed = {
+                        navHostController.popBackStack()
+                    }
+                )
+            }
+            composable(Screen.RewardTransactionHistory.route) {
+                bottomBarVisible = false
+                RewardTransactionHistoryScreen(
+                    navigateToProfile = { navHostController.popBackStack() },
+                    navigateToRewardTransactionDetail = { transactionId ->
+                        navHostController.navigate(Screen.RewardTransactionDetail.createRoute(transactionId))
+                    }
                 )
             }
         }
