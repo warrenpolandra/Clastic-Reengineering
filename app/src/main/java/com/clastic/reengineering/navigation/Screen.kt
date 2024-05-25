@@ -18,6 +18,7 @@ sealed class Screen(val route: String) {
         fun createRoute(rewardTransactionId: String) = "rewardTransactionDetail/$rewardTransactionId"
     }
     data object RewardTransactionHistory: Screen("rewardTransactionHistory")
+    data object RewardInventory: Screen("rewardInventory")
     data object Mission: Screen("mission")
     data object MissionDetail: Screen("missionDetail/{missionId}") {
         fun createRoute(missionId: String) = "missionDetail/${missionId}"

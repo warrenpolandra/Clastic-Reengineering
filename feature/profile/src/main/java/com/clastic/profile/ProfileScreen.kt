@@ -22,7 +22,7 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.EmojiEvents
-import androidx.compose.material.icons.filled.FiberSmartRecord
+import androidx.compose.material.icons.filled.Inventory
 import androidx.compose.material.icons.filled.PowerSettingsNew
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
@@ -55,6 +55,7 @@ fun ProfileScreen(
     navigateToPlasticTransactionHistory: () -> Unit,
     navigateToLeaderboard: () -> Unit,
     navigateToRewardTransactionHistory: () -> Unit,
+    navigateToRewardInventory: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -74,6 +75,7 @@ fun ProfileScreen(
         navigateToLeaderboard = navigateToLeaderboard,
         navigateToPlasticTransactionHistory = navigateToPlasticTransactionHistory,
         navigateToRewardTransactionHistory = navigateToRewardTransactionHistory,
+        navigateToRewardInventory = navigateToRewardInventory,
         modifier = modifier
     )
 }
@@ -86,6 +88,7 @@ private fun ProfileScreenContent(
     navigateToLeaderboard: () -> Unit,
     navigateToPlasticTransactionHistory: () -> Unit,
     navigateToRewardTransactionHistory: () -> Unit,
+    navigateToRewardInventory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -140,6 +143,11 @@ private fun ProfileScreenContent(
                     title = stringResource(R.string.reward_transaction_history),
                     icon = Icons.Default.WorkspacePremium,
                     onClick = navigateToRewardTransactionHistory
+                )
+                ProfileMenu(
+                    title = stringResource(R.string.reward_inventory),
+                    icon = Icons.Default.Inventory,
+                    onClick = navigateToRewardInventory
                 )
                 ProfileMenu(
                     title = stringResource(R.string.share_clastic_to_friends),
@@ -232,7 +240,8 @@ private fun ProfileScreenPreview() {
             onLogoutClick = {},
             navigateToLeaderboard = {},
             navigateToPlasticTransactionHistory = {},
-            navigateToRewardTransactionHistory = {}
+            navigateToRewardTransactionHistory = {},
+            navigateToRewardInventory = {}
         )
     }
 }

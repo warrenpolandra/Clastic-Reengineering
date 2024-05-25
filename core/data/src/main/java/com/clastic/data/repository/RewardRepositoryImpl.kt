@@ -141,7 +141,7 @@ class RewardRepositoryImpl @Inject constructor(
                 if (rewardTransactionListId.isEmpty()) {
                     onFetchSuccess(emptyList())
                 } else {
-                    rewardTransactionListId.forEachIndexed() { index, transactionId ->
+                    rewardTransactionListId.forEachIndexed { index, transactionId ->
                         fetchRewardTransactionById(
                             transactionId = transactionId,
                             onFetchSuccess = { rewardTransaction -> rewardTransactionList.add(rewardTransaction) },
@@ -150,6 +150,43 @@ class RewardRepositoryImpl @Inject constructor(
                         if (index == rewardTransactionListId.size-1) { onFetchSuccess(rewardTransactionList) }
                     }
                 }
+            }
+            .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun fetchOwnedRewardByUserId(
+        userId: String,
+        onFetchSuccess: (List<OrderedReward>) -> Unit,
+        onFetchFailed: (error: String) -> Unit
+    ) {
+        db.collection("user").document(userId).get()
+            .addOnSuccessListener { document ->
+                val orderedRewardList = mutableListOf<OrderedReward>()
+                val rewardList = document.get("rewardList") as List<Map<String, Any>>
+                rewardList.forEachIndexed { index, rewardMap ->
+                    fetchRewardById(
+                        rewardId = rewardMap["id"] as String,
+                        onFetchSuccess = { reward ->
+                            orderedRewardList.add(OrderedReward(reward, (rewardMap["count"] as Long).toInt()))
+                        },
+                        onFetchFailed = onFetchFailed
+                    )
+                    if (index == rewardList.size-1) { onFetchSuccess(orderedRewardList) }
+                }
+            }
+            .addOnFailureListener{ error -> onFetchFailed(error.message.toString()) }
+    }
+
+    override fun fetchRewardById(
+        rewardId: String,
+        onFetchSuccess: (Reward) -> Unit,
+        onFetchFailed: (error: String) -> Unit
+    ) {
+        db.collection("reward").document(rewardId).get()
+            .addOnSuccessListener { document ->
+                val reward = createRewardFromDocument(document)
+                onFetchSuccess(reward)
             }
             .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
     }

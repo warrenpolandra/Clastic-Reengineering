@@ -1,6 +1,7 @@
 package com.clastic.domain.repository
 
 import com.clastic.model.OrderedReward
+import com.clastic.model.OwnedReward
 import com.clastic.model.Reward
 import com.clastic.model.RewardTransaction
 import kotlinx.coroutines.flow.Flow
@@ -37,6 +38,18 @@ interface RewardRepository {
     fun fetchRewardTransactionByUserId(
         userId: String,
         onFetchSuccess: (List<RewardTransaction>) -> Unit,
+        onFetchFailed: (error: String) -> Unit
+    )
+
+    fun fetchOwnedRewardByUserId(
+        userId: String,
+        onFetchSuccess: (List<OrderedReward>) -> Unit,
+        onFetchFailed: (error: String) -> Unit
+    )
+
+    fun fetchRewardById(
+        rewardId: String,
+        onFetchSuccess: (Reward) -> Unit,
         onFetchFailed: (error: String) -> Unit
     )
 }

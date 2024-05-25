@@ -33,6 +33,7 @@ import com.clastic.qrcode.MyQrCodeScreen
 import com.clastic.qrcode.scanner.QrScannerScreen
 import com.clastic.reward.RewardStoreScreen
 import com.clastic.reward.detail.RewardDetailScreen
+import com.clastic.reward.inventory.RewardInventoryScreen
 import com.clastic.splashscreen.ClasticSplashScreen
 import com.clastic.transaction.plastic.PlasticTransactionScreen
 import com.clastic.transaction.plastic.detail.PlasticTransactionDetailScreen
@@ -206,7 +207,8 @@ fun MainNavigation(
                         navHostController.navigate(Screen.PlasticTransactionHistory.route)
                     },
                     navigateToLeaderboard = { navHostController.navigate(Screen.Leaderboard.route) },
-                    navigateToRewardTransactionHistory = { navHostController.navigate(Screen.RewardTransactionHistory.route) }
+                    navigateToRewardTransactionHistory = { navHostController.navigate(Screen.RewardTransactionHistory.route) },
+                    navigateToRewardInventory = { navHostController.navigate(Screen.RewardInventory.route) }
                 )
             }
             composable(Screen.PlasticTransactionHistory.route) {
@@ -272,6 +274,10 @@ fun MainNavigation(
                         navHostController.navigate(Screen.RewardTransactionDetail.createRoute(transactionId))
                     }
                 )
+            }
+            composable(Screen.RewardInventory.route) {
+                bottomBarVisible = false
+                RewardInventoryScreen(navigateToProfile = { navHostController.popBackStack() })
             }
         }
     }
