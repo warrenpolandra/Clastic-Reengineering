@@ -29,24 +29,35 @@ internal class LeaderboardViewModel @Inject constructor(
         fetchSortedUserList()
     }
     private fun fetchCurrentUser() {
+        _isLoading.value = true
         userRepository.getUserInfo(
-            onFetchSuccess = { user -> _currentUser.value = user },
-            onFetchFailed = { _currentUser.value = User() }
+            onFetchSuccess = {
+                user -> _currentUser.value = user
+                _isLoading.value = false
+            },
+            onFetchFailed = {
+                _isLoading.value = false
+                _currentUser.value = User()
+            }
         )
     }
 
     private fun fetchSortedUserList() {
+        _isLoading.value = true
         userRepository.fetchAllUsers(
-            onFetchSuccess = {
-                userList -> _userList.value = userList.sortedByDescending { it.totalPlastic }
+            onFetchSuccess = { userList ->
+                _isLoading.value = false
+                _userList.value = userList.sortedByDescending { it.totalPlastic }
                 _userList.value.forEachIndexed { index, user ->
                     if (user.userId == _currentUser.value.userId) {
                         _currentUserPosition.value = index+1
                     }
                 }
             },
-            onFetchFailed = { _userList.value = emptyList() }
+            onFetchFailed = {
+                _userList.value = emptyList()
+                _isLoading.value = false
+            }
         )
     }
-
 }

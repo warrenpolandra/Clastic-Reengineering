@@ -22,10 +22,11 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.EmojiEvents
-import androidx.compose.material.icons.filled.FiberSmartRecord
+import androidx.compose.material.icons.filled.Inventory
 import androidx.compose.material.icons.filled.PowerSettingsNew
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material.icons.filled.WorkspacePremium
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -53,6 +54,8 @@ fun ProfileScreen(
     onLogout: () -> Unit,
     navigateToPlasticTransactionHistory: () -> Unit,
     navigateToLeaderboard: () -> Unit,
+    navigateToRewardTransactionHistory: () -> Unit,
+    navigateToRewardInventory: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -71,6 +74,8 @@ fun ProfileScreen(
         },
         navigateToLeaderboard = navigateToLeaderboard,
         navigateToPlasticTransactionHistory = navigateToPlasticTransactionHistory,
+        navigateToRewardTransactionHistory = navigateToRewardTransactionHistory,
+        navigateToRewardInventory = navigateToRewardInventory,
         modifier = modifier
     )
 }
@@ -82,6 +87,8 @@ private fun ProfileScreenContent(
     onLogoutClick: () -> Unit,
     navigateToLeaderboard: () -> Unit,
     navigateToPlasticTransactionHistory: () -> Unit,
+    navigateToRewardTransactionHistory: () -> Unit,
+    navigateToRewardInventory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
@@ -123,22 +130,24 @@ private fun ProfileScreenContent(
                     modifier = Modifier.padding(bottom = 20.dp)
                 )
                 ProfileMenu(
-                    title = stringResource(R.string.plastic_transaction_history),
-                    icon = Icons.AutoMirrored.Filled.List,
-                    onClick = navigateToPlasticTransactionHistory
-                )
-                ProfileMenu(
                     title = stringResource(R.string.leaderboard),
                     icon = Icons.Default.EmojiEvents,
                     onClick = navigateToLeaderboard
                 )
                 ProfileMenu(
-                    title = stringResource(R.string.points_transaction_history),
-                    icon = Icons.Default.FiberSmartRecord,
-                    onClick = {
-                        // TODO
-                        print("")
-                    }
+                    title = stringResource(R.string.plastic_transaction_history),
+                    icon = Icons.AutoMirrored.Filled.List,
+                    onClick = navigateToPlasticTransactionHistory
+                )
+                ProfileMenu(
+                    title = stringResource(R.string.reward_transaction_history),
+                    icon = Icons.Default.WorkspacePremium,
+                    onClick = navigateToRewardTransactionHistory
+                )
+                ProfileMenu(
+                    title = stringResource(R.string.reward_inventory),
+                    icon = Icons.Default.Inventory,
+                    onClick = navigateToRewardInventory
                 )
                 ProfileMenu(
                     title = stringResource(R.string.share_clastic_to_friends),
@@ -230,7 +239,9 @@ private fun ProfileScreenPreview() {
             user = User(),
             onLogoutClick = {},
             navigateToLeaderboard = {},
-            navigateToPlasticTransactionHistory = {}
+            navigateToPlasticTransactionHistory = {},
+            navigateToRewardTransactionHistory = {},
+            navigateToRewardInventory = {}
         )
     }
 }

@@ -2,4 +2,11 @@
 <resources>
     <string name="store">Store</string>
     <string name="points_value">%s pts</string>
+    <string name="reward_detail">Detail Reward</string>
+    <string name="description">Deskripsi</string>
+    <string name="reward_terms_and_condition">Syarat dan Ketentuan</string>
+    <string name="add_to_cart">Tambahkan ke Keranjang: %s pts</string>
+    <string name="add_error">Maximum item is 99</string>
+    <string name="reward_inventory">Reward yang Dimiliki</string>
+    <string name="reward_count">%sx</string>
 </resources>
