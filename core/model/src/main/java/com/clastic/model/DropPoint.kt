@@ -1,6 +1,6 @@
 package com.clastic.model
 
-import com.google.errorprone.annotations.Keep
+import androidx.annotation.Keep
 
 @Keep
 data class DropPoint(

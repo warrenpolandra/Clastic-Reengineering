@@ -35,6 +35,8 @@ import com.clastic.reward.RewardStoreScreen
 import com.clastic.reward.detail.RewardDetailScreen
 import com.clastic.reward.inventory.RewardInventoryScreen
 import com.clastic.splashscreen.ClasticSplashScreen
+import com.clastic.transaction.detail.MissionTransactionDetailScreen
+import com.clastic.transaction.mission.MissionTransactionScreen
 import com.clastic.transaction.plastic.PlasticTransactionScreen
 import com.clastic.transaction.plastic.detail.PlasticTransactionDetailScreen
 import com.clastic.transaction.plastic.history.PlasticTransactionHistoryScreen
@@ -196,7 +198,31 @@ fun MainNavigation(
                 bottomBarVisible = false
                 MissionDetailScreen(
                     missionId = navBackStackEntry.arguments?.getString("missionId") ?: "",
-                    navigateToMissionList = { navHostController.popBackStack() }
+                    navigateToMissionList = { navHostController.popBackStack() },
+                    onMissionSubmitClick = { missionId -> navHostController.navigate(Screen.MissionSubmitDetail.createRoute(missionId)) }
+                )
+            }
+            composable(
+                route = Screen.MissionSubmitDetail.route,
+                arguments = listOf(navArgument("missionId") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                bottomBarVisible = false
+                MissionTransactionScreen(
+                    onBackPressed = { navHostController.popBackStack() },
+                    navigateToMissionTransactionDetail = { transactionId ->
+                        navHostController.popBackStack()
+                        navHostController.navigate(Screen.MissionTransactionDetail.createRoute(transactionId))
+                    },
+                    missionId = navBackStackEntry.arguments?.getString("missionId") ?: "",
+                )
+            }
+            composable(
+                route = Screen.MissionTransactionDetail.route,
+                arguments = listOf(navArgument("missionTransactionId") { type = NavType.StringType })
+            ) { navBackStackEntry ->
+                MissionTransactionDetailScreen(
+                    onBackPressed = { navHostController.popBackStack() },
+                    transactionId = navBackStackEntry.arguments?.getString("missionTransactionId") ?: ""
                 )
             }
             composable(Screen.Profile.route) {

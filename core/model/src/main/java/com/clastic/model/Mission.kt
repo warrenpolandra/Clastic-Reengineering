@@ -1,6 +1,7 @@
 package com.clastic.model
 
 import androidx.annotation.Keep
+import com.google.firebase.Timestamp
 
 @Keep
 data class Mission(
@@ -13,4 +14,14 @@ data class Mission(
     val reward: Int = 0,
     val impacts: List<Impact> = emptyList(),
     val endDate: Long = 0L
+)
+
+@Keep
+data class MissionTransaction(
+    val id: String,
+    val missionId: String,
+    val submissionUrl: String,
+    val time: Timestamp,
+    val totalPoints: Int,
+    val userId: String
 )

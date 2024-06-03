@@ -1,7 +1,7 @@
 package com.clastic.reengineering.navigation
 
 import androidx.compose.ui.graphics.vector.ImageVector
-import com.google.errorprone.annotations.Keep
+import androidx.annotation.Keep
 
 @Keep
 data class BottomBarItem(

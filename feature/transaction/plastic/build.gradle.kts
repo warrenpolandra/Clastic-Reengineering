@@ -23,10 +23,10 @@ dependencies {
     implementation(project(":core:utils"))
 
     // Material Icons Extended
-    implementation("androidx.compose.material:material-icons-extended:1.6.5")
+    implementation("androidx.compose.material:material-icons-extended:1.6.7")
 
     // Firebase
-    implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
 
     implementation("androidx.core:core-ktx:1.13.0")
     implementation("androidx.appcompat:appcompat:1.6.1")

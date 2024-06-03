@@ -80,10 +80,12 @@ dependencies {
     implementation(project(":feature:reward"))
     implementation(project(":feature:transaction:plastic"))
     implementation(project(":feature:transaction:reward"))
+    implementation(project(":feature:transaction:mission"))
 
     // Firebase
-    implementation("com.google.firebase:firebase-auth:22.3.1")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
+    implementation("com.google.firebase:firebase-auth:23.0.0")
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
+    implementation("com.google.firebase:firebase-storage:21.0.0")
 
     // Compose Navigation
     implementation("androidx.navigation:navigation-compose:2.7.7")

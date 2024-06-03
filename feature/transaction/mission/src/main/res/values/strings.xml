@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="mission_submission">Submit Mission</string>
+    <string name="description">Deskripsi</string>
+    <string name="mission_title">Judul Misi:</string>
+    <string name="mission_description">Deskripsi Misi:</string>
+    <string name="mission_points">Jumlah Points:</string>
+    <string name="mission_objective">Lakukan hal-hal berikut untuk dapat menyelesaikan misi:</string>
+    <string name="submit_instruction">Instruksi Submit Mission</string>
+    <string name="mission_instruction_1">1. Masukkan bukti penyelesaian misi sesuai dengan instruksi misi di atas</string>
+    <string name="mission_instruction_2">2. Bukti dapat berupa link postingan media sosial atau berupa gambar yang dapat dimasukkan di bawah</string>
+    <string name="mission_instruction_3">Pastikan bukti yang dimasukkan sudah sesuai dengan instruksi misi</string>
+    <string name="mission_instruction_4">4. Baca dan centang syarat dan ketentuan yang berlaku</string>
+    <string name="mission_instruction_5">5. Klik tombol submit untuk menyelesaikan misi</string>
+    <string name="link_submission_placeholder">Masukkan link upload bukti misi di sini</string>
+    <string name="mission_or">Atau</string>
+    <string name="submit">Submit</string>
+    <string name="agree_terms_and_condition"><![CDATA[Saya menyetujui S&K yang berlaku]]></string>
+    <string name="delete_image">Hapus Gambar</string>
+    <string name="choose_image">Pilih Gambar</string>
+    <string name="mission_submission_detail">Detail Submission Misi</string>
+    <string name="mission_finished">Misi Diselesaikan</string>
+    <string name="mission_detail">Detail Misi</string>
+    <string name="transaction_code">Kode Transaksi</string>
+    <string name="mission_points_total">Jumlah Points</string>
+    <string name="mission_submission_proof">Bukti Submission</string>
+    <string name="time">Waktu</string>
+    <string name="points_value">%s pts</string>
+    <string name="yearly_impact">Aktivitas yang Setara</string>
+    <string name="equivalent_mission_activities">Misi ini setara dengan melakukan aktivitas berikut dalam setahun</string>
+</resources>
