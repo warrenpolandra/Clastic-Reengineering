@@ -28,4 +28,8 @@
     <string name="points_value">%s pts</string>
     <string name="yearly_impact">Aktivitas yang Setara</string>
     <string name="equivalent_mission_activities">Misi ini setara dengan melakukan aktivitas berikut dalam setahun</string>
+    <string name="mission_submission_history">Riwayat Submission Misi</string>
+    <string name="added_points">+ %s pts</string>
+    <string name="detail">Detail</string>
+    <string name="transaction_code_id">Kode: %s</string>
 </resources>

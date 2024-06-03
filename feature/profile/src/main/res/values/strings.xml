@@ -12,4 +12,5 @@
     <string name="logout">Keluar</string>
     <string name="leaderboard">Leaderboard</string>
     <string name="reward_inventory">Reward yang Dimiliki</string>
+    <string name="mission_submission_history">Riwayat Submission Misi</string>
 </resources>

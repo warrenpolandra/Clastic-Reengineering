@@ -29,6 +29,7 @@ sealed class Screen(val route: String) {
     data object MissionTransactionDetail: Screen("missionTransactionDetail/{missionTransactionId}") {
         fun createRoute(missionTransactionId: String) = "missionTransactionDetail/$missionTransactionId"
     }
+    data object MissionTransactionHistory: Screen("missionTransactionHistory")
     data object Profile: Screen("profile")
     data object DropPointMap: Screen("dropPointMap")
     data object QrCode: Screen("qrCode/{userId}") {

@@ -40,4 +40,10 @@ interface MissionRepository {
         onFetchSuccess: (mission: Mission, missionTransaction: MissionTransaction) -> Unit,
         onFetchFailed: (String) -> Unit
     )
+
+    fun fetchMissionTransactionListByUserId(
+        userId: String,
+        onFetchSuccess: (List<MissionTransaction>) -> Unit,
+        onFetchFailed: (String) -> Unit
+    )
 }

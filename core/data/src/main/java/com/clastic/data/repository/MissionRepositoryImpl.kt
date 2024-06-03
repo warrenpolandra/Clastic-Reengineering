@@ -6,7 +6,6 @@ import com.clastic.domain.repository.MissionRepository
 import com.clastic.model.Impact
 import com.clastic.model.Mission
 import com.clastic.model.MissionTransaction
-import com.clastic.model.User
 import com.clastic.utils.TimeUtil
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentSnapshot
@@ -160,6 +159,32 @@ class MissionRepositoryImpl @Inject constructor(
                         onFetchSuccess(mission, missionTransaction)
                     }
                     .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
+            }
+            .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    override fun fetchMissionTransactionListByUserId(
+        userId: String,
+        onFetchSuccess: (List<MissionTransaction>) -> Unit,
+        onFetchFailed: (String) -> Unit
+    ) {
+        db.collection("user").document(userId).get()
+            .addOnSuccessListener { document ->
+                val missionTransactionList = mutableListOf<MissionTransaction>()
+                val missionTransactionListId = document.get("missionSubmissionList") as List<String>
+                if (missionTransactionListId.isEmpty()) { onFetchSuccess(emptyList()) } else {
+                    missionTransactionListId.forEachIndexed { index, missionTransactionId ->
+                        fetchMissionTransactionById(
+                            transactionId = missionTransactionId,
+                            onFetchSuccess = { _, missionTransaction ->
+                                missionTransactionList.add(missionTransaction)
+                                if (index == missionTransactionListId.size-1) { onFetchSuccess(missionTransactionList) }
+                            },
+                            onFetchFailed = onFetchFailed
+                        )
+                    }
+                }
             }
             .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
     }
