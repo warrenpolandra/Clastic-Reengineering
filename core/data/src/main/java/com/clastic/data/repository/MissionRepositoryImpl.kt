@@ -12,6 +12,9 @@ import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import java.util.UUID
 import javax.inject.Inject
 
@@ -21,8 +24,21 @@ class MissionRepositoryImpl @Inject constructor(
     private val storage: FirebaseStorage
 ): MissionRepository {
 
+    private val _missionTransactionList = MutableStateFlow<List<MissionTransaction>>(emptyList())
+    private val missionTransactionList = _missionTransactionList.asStateFlow()
+
+    private val _missionList = MutableStateFlow<List<Mission>>(emptyList())
+    private val missionList = _missionList.asStateFlow()
+
+    init {
+        fetchMissions(
+            onFetchSuccess = { missionList -> _missionList.value = missionList },
+            onFetchFailed = { _missionList.value = emptyList() }
+        )
+    }
+
     @Suppress("UNCHECKED_CAST")
-    override fun fetchMissions(
+    private fun fetchMissions(
         onFetchSuccess: (List<Mission>) -> Unit,
         onFetchFailed: (String) -> Unit
     ) {
@@ -61,36 +77,16 @@ class MissionRepositoryImpl @Inject constructor(
             }
     }
 
-    @Suppress("UNCHECKED_CAST")
+    override fun getMissionList(): Flow<List<Mission>> = missionList
+
     override fun fetchMissionById(
         missionId: String,
         onFetchSuccess: (Mission) -> Unit,
         onFetchFailed: (String) -> Unit
     ) {
-        db.collection("mission").document(missionId).get()
-            .addOnSuccessListener { document ->
-                val mission = Mission(
-                    id = document.id,
-                    title = document.getString("title") ?: "",
-                    description = document.getString("description") ?: "",
-                    objectives = document.get("objectives") as List<String>,
-                    imageUrl = document.getString("imageUrl") ?: "",
-                    tags = document.get("tags") as List<String>,
-                    reward = document.getLong("reward")?.toInt() ?: 0,
-                    impacts = (document.get("impacts") as List<Map<String, Any>>).map { impact ->
-                        Impact(
-                            description = impact["description"] as String,
-                            imageUrl = impact["imageUrl"] as String,
-                            numberValue = (impact["numberValue"] as Long).toInt()
-                        )
-                    },
-                    endDate = document.getTimestamp("endDate")?.seconds ?: 0
-                )
-                onFetchSuccess(mission)
-            }
-            .addOnFailureListener { e ->
-                onFetchFailed(e.message.toString())
-            }
+        val findMission = _missionList.value.firstOrNull { mission -> mission.id == missionId }
+        if (findMission != null) onFetchSuccess(findMission)
+        else onFetchFailed("No such mission")
     }
 
     override fun postSubmitMission(
@@ -113,6 +109,7 @@ class MissionRepositoryImpl @Inject constructor(
                 .addOnSuccessListener {
                     spaceRef.downloadUrl.addOnSuccessListener { uri ->
                         createMissionSubmissionDocument(
+                            isPicture = true,
                             userId = userId,
                             missionId = missionId,
                             totalPoints = totalPoints,
@@ -135,6 +132,7 @@ class MissionRepositoryImpl @Inject constructor(
         onPostFailed: (error: String) -> Unit
     ) {
         createMissionSubmissionDocument(
+            isPicture = false,
             userId = userId,
             missionId = missionId,
             totalPoints = totalPoints,
@@ -166,27 +164,31 @@ class MissionRepositoryImpl @Inject constructor(
     @Suppress("UNCHECKED_CAST")
     override fun fetchMissionTransactionListByUserId(
         userId: String,
-        onFetchSuccess: (List<MissionTransaction>) -> Unit,
         onFetchFailed: (String) -> Unit
-    ) {
-        db.collection("user").document(userId).get()
-            .addOnSuccessListener { document ->
-                val missionTransactionList = mutableListOf<MissionTransaction>()
-                val missionTransactionListId = document.get("missionSubmissionList") as List<String>
-                if (missionTransactionListId.isEmpty()) { onFetchSuccess(emptyList()) } else {
-                    missionTransactionListId.forEachIndexed { index, missionTransactionId ->
-                        fetchMissionTransactionById(
-                            transactionId = missionTransactionId,
-                            onFetchSuccess = { _, missionTransaction ->
-                                missionTransactionList.add(missionTransaction)
-                                if (index == missionTransactionListId.size-1) { onFetchSuccess(missionTransactionList) }
-                            },
-                            onFetchFailed = onFetchFailed
-                        )
+    ): Flow<List<MissionTransaction>> {
+        if (_missionTransactionList.value.isEmpty()) {
+            db.collection("user").document(userId).get()
+                .addOnSuccessListener { document ->
+                    val findMissionTransactionList = mutableListOf<MissionTransaction>()
+                    val missionTransactionListId = document.get("missionSubmissionList") as List<String>
+                    if (missionTransactionListId.isEmpty()) { _missionTransactionList.value = emptyList() } else {
+                        missionTransactionListId.forEachIndexed { index, missionTransactionId ->
+                            fetchMissionTransactionById(
+                                transactionId = missionTransactionId,
+                                onFetchSuccess = { _, missionTransaction ->
+                                    findMissionTransactionList.add(missionTransaction)
+                                    if (index == missionTransactionListId.size-1) {
+                                        _missionTransactionList.value = findMissionTransactionList
+                                    }
+                                },
+                                onFetchFailed = onFetchFailed
+                            )
+                        }
                     }
                 }
-            }
-            .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
+                .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
+        }
+        return missionTransactionList
     }
 
     private fun getMissionTransactionFromDocument(document: DocumentSnapshot): MissionTransaction {
@@ -196,7 +198,8 @@ class MissionRepositoryImpl @Inject constructor(
             submissionUrl = document.getString("submissionUrl") ?: "",
             time = document.getTimestamp("time") ?: Timestamp.now(),
             totalPoints = document.getLong("totalPoints")?.toInt() ?: 0,
-            userId = document.getString("userId") ?: ""
+            userId = document.getString("userId") ?: "",
+            isPicture = document.getBoolean("isPicture") ?: false
         )
     }
 
@@ -222,6 +225,7 @@ class MissionRepositoryImpl @Inject constructor(
     }
 
     private fun createMissionSubmissionDocument(
+        isPicture: Boolean,
         userId: String,
         missionId: String,
         totalPoints: Int,
@@ -234,6 +238,7 @@ class MissionRepositoryImpl @Inject constructor(
         val transactionRef = db.collection("missionSubmission").document()
 
         val newTransaction = hashMapOf(
+            "isPicture" to isPicture,
             "id" to transactionRef.id,
             "missionId" to missionId,
             "submissionUrl" to linkSubmission,
@@ -247,7 +252,10 @@ class MissionRepositoryImpl @Inject constructor(
         batch.update(userRef, "missionSubmissionList", FieldValue.arrayUnion(transactionRef.id))
 
         batch.commit()
-            .addOnSuccessListener { onPostSuccess(transactionRef.id) }
+            .addOnSuccessListener {
+                _missionTransactionList.value = emptyList()
+                onPostSuccess(transactionRef.id)
+            }
             .addOnFailureListener { error -> onPostFailed(error.message.toString()) }
     }
 }

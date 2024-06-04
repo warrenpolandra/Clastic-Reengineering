@@ -23,5 +23,6 @@ data class MissionTransaction(
     val submissionUrl: String,
     val time: Timestamp,
     val totalPoints: Int,
-    val userId: String
+    val userId: String,
+    val isPicture: Boolean
 )

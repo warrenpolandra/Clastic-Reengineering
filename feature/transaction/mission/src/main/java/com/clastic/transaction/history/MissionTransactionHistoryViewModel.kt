@@ -1,6 +1,7 @@
 package com.clastic.transaction.history
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.clastic.domain.repository.MissionRepository
 import com.clastic.domain.repository.UserRepository
 import com.clastic.model.MissionTransaction
@@ -8,6 +9,8 @@ import com.clastic.ui.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,13 +24,20 @@ internal class MissionTransactionHistoryViewModel @Inject constructor(
     fun fetchMissionTransactionHistory() {
         userRepository.getUserInfo(
             onFetchSuccess = { user ->
-                missionRepository.fetchMissionTransactionListByUserId(
-                    userId = user.email,
-                    onFetchSuccess = { missionTransactionList ->
-                        _uiState.value = UiState.Success(missionTransactionList)
-                    },
-                    onFetchFailed = { error -> _uiState.value = UiState.Error(error) }
-                )
+                viewModelScope.launch {
+                    missionRepository.fetchMissionTransactionListByUserId(
+                        userId = user.email,
+                        onFetchFailed = { error ->
+                            _uiState.value = UiState.Error(error)
+                        }
+                    )
+                        .catch { error ->
+                            _uiState.value = UiState.Error(error.message.toString())
+                        }
+                        .collect { missionTransactionList ->
+                            _uiState.value = UiState.Success(missionTransactionList)
+                        }
+                }
             },
             onFetchFailed = { error -> _uiState.value = UiState.Error(error) }
         )

@@ -39,7 +39,7 @@ fun MissionTransactionHistoryScreen(
                 Scaffold(
                     topBar = {
                         ClasticTopAppBar(
-                            title = stringResource(R.string.mission_submission_detail),
+                            title = stringResource(R.string.mission_submission_history),
                             onBackPressed = onBackPressed
                         )
                     },
