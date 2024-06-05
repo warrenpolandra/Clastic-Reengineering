@@ -24,9 +24,6 @@ class MissionRepositoryImpl @Inject constructor(
     private val storage: FirebaseStorage
 ): MissionRepository {
 
-    private val _missionTransactionList = MutableStateFlow<List<MissionTransaction>>(emptyList())
-    private val missionTransactionList = _missionTransactionList.asStateFlow()
-
     private val _missionList = MutableStateFlow<List<Mission>>(emptyList())
     private val missionList = _missionList.asStateFlow()
 
@@ -164,31 +161,29 @@ class MissionRepositoryImpl @Inject constructor(
     @Suppress("UNCHECKED_CAST")
     override fun fetchMissionTransactionListByUserId(
         userId: String,
+        onFetchSuccess: (List<MissionTransaction>) -> Unit,
         onFetchFailed: (String) -> Unit
-    ): Flow<List<MissionTransaction>> {
-        if (_missionTransactionList.value.isEmpty()) {
-            db.collection("user").document(userId).get()
-                .addOnSuccessListener { document ->
-                    val findMissionTransactionList = mutableListOf<MissionTransaction>()
-                    val missionTransactionListId = document.get("missionSubmissionList") as List<String>
-                    if (missionTransactionListId.isEmpty()) { _missionTransactionList.value = emptyList() } else {
-                        missionTransactionListId.forEachIndexed { index, missionTransactionId ->
-                            fetchMissionTransactionById(
-                                transactionId = missionTransactionId,
-                                onFetchSuccess = { _, missionTransaction ->
-                                    findMissionTransactionList.add(missionTransaction)
-                                    if (index == missionTransactionListId.size-1) {
-                                        _missionTransactionList.value = findMissionTransactionList
-                                    }
-                                },
-                                onFetchFailed = onFetchFailed
-                            )
-                        }
+    ) {
+        db.collection("user").document(userId).get()
+            .addOnSuccessListener { document ->
+                val findMissionTransaction = mutableListOf<MissionTransaction>()
+                val missionTransactionListId = document.get("missionSubmissionList") as List<String>
+                if (missionTransactionListId.isEmpty()) { onFetchSuccess(emptyList()) } else {
+                    missionTransactionListId.forEach { missionTransactionId ->
+                        fetchMissionTransactionById(
+                            transactionId = missionTransactionId,
+                            onFetchSuccess = { _, missionTransaction ->
+                                findMissionTransaction.add(missionTransaction)
+                                if (findMissionTransaction.size == missionTransactionListId.size) {
+                                    onFetchSuccess(findMissionTransaction)
+                                }
+                            },
+                            onFetchFailed = onFetchFailed
+                        )
                     }
                 }
-                .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
-        }
-        return missionTransactionList
+            }
+            .addOnFailureListener { error -> onFetchFailed(error.message.toString()) }
     }
 
     private fun getMissionTransactionFromDocument(document: DocumentSnapshot): MissionTransaction {
@@ -252,10 +247,7 @@ class MissionRepositoryImpl @Inject constructor(
         batch.update(userRef, "missionSubmissionList", FieldValue.arrayUnion(transactionRef.id))
 
         batch.commit()
-            .addOnSuccessListener {
-                _missionTransactionList.value = emptyList()
-                onPostSuccess(transactionRef.id)
-            }
+            .addOnSuccessListener { onPostSuccess(transactionRef.id) }
             .addOnFailureListener { error -> onPostFailed(error.message.toString()) }
     }
 }

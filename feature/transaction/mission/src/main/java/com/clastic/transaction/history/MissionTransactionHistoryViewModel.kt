@@ -27,16 +27,13 @@ internal class MissionTransactionHistoryViewModel @Inject constructor(
                 viewModelScope.launch {
                     missionRepository.fetchMissionTransactionListByUserId(
                         userId = user.email,
+                        onFetchSuccess = { missionTransactions ->
+                            _uiState.value = UiState.Success(missionTransactions.sortedByDescending { it.time })
+                        },
                         onFetchFailed = { error ->
                             _uiState.value = UiState.Error(error)
                         }
                     )
-                        .catch { error ->
-                            _uiState.value = UiState.Error(error.message.toString())
-                        }
-                        .collect { missionTransactionList ->
-                            _uiState.value = UiState.Success(missionTransactionList)
-                        }
                 }
             },
             onFetchFailed = { error -> _uiState.value = UiState.Error(error) }
