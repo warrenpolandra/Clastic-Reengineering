@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="terms_and_condition">Terms and conditions applies</string>
+    <string name="terms_and_condition">Syarat dan Ketentuan Berlaku</string>
     <string name="submit">Submit</string>
-    <string name="mission_detail">Mission Detail</string>
-    <string name="description">Description</string>
-    <string name="yearly_impact">Same Yearly Impact</string>
-    <string name="equivalent_mission_activities">Doing this mission is equivalent as doing these activities</string>
-    <string name="mission_objective">Do these objectives to complete this mission:</string>
-    <string name="finish_mission">Let\'s finish this mission!</string>
+    <string name="mission_detail">Detail Mission</string>
+    <string name="description">Deskripsi</string>
+    <string name="yearly_impact">Aktivitas yang Setara</string>
+    <string name="equivalent_mission_activities">Misi ini setara dengan melakukan aktivitas berikut dalam setahun</string>
+    <string name="mission_objective">Lakukan hal-hal berikut untuk dapat menyelesaikan misi:</string>
+    <string name="finish_mission">Ayo selesaikan misi ini!</string>
 </resources>

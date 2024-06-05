@@ -1,6 +1,6 @@
 package com.clastic.model.transaction.plastic
 
-import com.google.errorprone.annotations.Keep
+import androidx.annotation.Keep
 import com.google.firebase.Timestamp
 
 @Keep

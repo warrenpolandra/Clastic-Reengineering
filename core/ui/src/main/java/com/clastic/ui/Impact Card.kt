@@ -1,4 +1,4 @@
-package com.clastic.mission.component
+package com.clastic.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,7 +25,7 @@ import coil.compose.AsyncImage
 import com.clastic.model.Impact
 
 @Composable
-internal fun ImpactCard(
+fun ImpactCard(
     impact: Impact,
     modifier: Modifier = Modifier
 ) {

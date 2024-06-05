@@ -29,7 +29,7 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.5.0")
 
     // Firebase
-    implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.6.1")

@@ -14,7 +14,7 @@ dependencies {
     hilt()
 
     // Firebase
-    implementation("com.google.firebase:firebase-firestore-ktx:24.11.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
 
     // Zxing
     implementation("com.google.zxing:core:3.5.1")

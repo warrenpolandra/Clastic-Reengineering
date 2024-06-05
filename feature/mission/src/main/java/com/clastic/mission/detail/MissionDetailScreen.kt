@@ -34,11 +34,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.clastic.mission.R
-import com.clastic.mission.component.ImpactCard
 import com.clastic.mission.component.MissionBottomBar
 import com.clastic.model.Mission
 import com.clastic.ui.BannerWithGradient
 import com.clastic.ui.ClasticTopAppBar
+import com.clastic.ui.ImpactCard
 import com.clastic.ui.PointTag
 import com.clastic.ui.RecycleTag
 import com.clastic.ui.theme.ClasticTheme
@@ -47,6 +47,7 @@ import com.clastic.ui.theme.ClasticTheme
 fun MissionDetailScreen(
     missionId: String,
     navigateToMissionList: () -> Unit,
+    onMissionSubmitClick: (missionId: String) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val context = LocalContext.current
@@ -65,6 +66,7 @@ fun MissionDetailScreen(
     MissionDetailScreenContent(
         mission = mission,
         navigateToMissionList = navigateToMissionList,
+        onMissionSubmitClick = onMissionSubmitClick,
         modifier = modifier
     )
 }
@@ -73,10 +75,11 @@ fun MissionDetailScreen(
 private fun MissionDetailScreenContent(
     mission: Mission,
     navigateToMissionList: () -> Unit,
+    onMissionSubmitClick: (missionId: String) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Scaffold(
-        bottomBar = { MissionBottomBar(onJoinButtonClick = { mission.id }) },
+        bottomBar = { MissionBottomBar(onJoinButtonClick = { onMissionSubmitClick(mission.id) }) },
         topBar = {
             ClasticTopAppBar(
                 title = stringResource(R.string.mission_detail),
@@ -241,7 +244,8 @@ private fun MissionDetailScreenPreview() {
                 impacts = emptyList(),
                 endDate = 0L
             ),
-            navigateToMissionList = {}
+            navigateToMissionList = {},
+            onMissionSubmitClick = {}
         )
     }
 }

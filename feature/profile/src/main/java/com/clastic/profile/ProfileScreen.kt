@@ -22,9 +22,9 @@ import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.EmojiEvents
+import androidx.compose.material.icons.filled.FolderSpecial
 import androidx.compose.material.icons.filled.Inventory
 import androidx.compose.material.icons.filled.PowerSettingsNew
-import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.WorkspacePremium
 import androidx.compose.runtime.Composable
@@ -55,6 +55,7 @@ fun ProfileScreen(
     navigateToPlasticTransactionHistory: () -> Unit,
     navigateToLeaderboard: () -> Unit,
     navigateToRewardTransactionHistory: () -> Unit,
+    navigateToMissionSubmissionHistory: () -> Unit,
     navigateToRewardInventory: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -75,6 +76,7 @@ fun ProfileScreen(
         navigateToLeaderboard = navigateToLeaderboard,
         navigateToPlasticTransactionHistory = navigateToPlasticTransactionHistory,
         navigateToRewardTransactionHistory = navigateToRewardTransactionHistory,
+        navigateToMissionSubmissionHistory = navigateToMissionSubmissionHistory,
         navigateToRewardInventory = navigateToRewardInventory,
         modifier = modifier
     )
@@ -88,6 +90,7 @@ private fun ProfileScreenContent(
     navigateToLeaderboard: () -> Unit,
     navigateToPlasticTransactionHistory: () -> Unit,
     navigateToRewardTransactionHistory: () -> Unit,
+    navigateToMissionSubmissionHistory: () -> Unit,
     navigateToRewardInventory: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -145,6 +148,11 @@ private fun ProfileScreenContent(
                     onClick = navigateToRewardTransactionHistory
                 )
                 ProfileMenu(
+                    title = stringResource(R.string.mission_submission_history),
+                    icon = Icons.Default.FolderSpecial,
+                    onClick = navigateToMissionSubmissionHistory
+                )
+                ProfileMenu(
                     title = stringResource(R.string.reward_inventory),
                     icon = Icons.Default.Inventory,
                     onClick = navigateToRewardInventory
@@ -152,18 +160,7 @@ private fun ProfileScreenContent(
                 ProfileMenu(
                     title = stringResource(R.string.share_clastic_to_friends),
                     icon = Icons.Default.Share,
-                    onClick = {
-                        // TODO
-                        print("")
-                    }
-                )
-                ProfileMenu(
-                    title = stringResource(R.string.settings),
-                    icon = Icons.Default.Settings,
-                    onClick = {
-                        // TODO
-                        print("")
-                    },
+                    onClick = { /*TODO*/ },
                     modifier = Modifier
                         .drawBehind {
                             drawLine(
@@ -241,7 +238,8 @@ private fun ProfileScreenPreview() {
             navigateToLeaderboard = {},
             navigateToPlasticTransactionHistory = {},
             navigateToRewardTransactionHistory = {},
-            navigateToRewardInventory = {}
+            navigateToRewardInventory = {},
+            navigateToMissionSubmissionHistory = {}
         )
     }
 }
