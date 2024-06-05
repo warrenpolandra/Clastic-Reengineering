@@ -10,6 +10,7 @@ import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -34,8 +35,23 @@ fun RewardTransactionHistoryScreen(
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
         when (uiState) {
             is UiState.Loading -> {
-                LoadingIndicator()
-            }
+                Scaffold(
+                    topBar = {
+                        ClasticTopAppBar(
+                            title = stringResource(R.string.reward_transaction_history),
+                            onBackPressed = navigateToProfile
+                        )
+                    },
+                    modifier = modifier
+                ) { innerPadding ->
+                    Box(
+                        contentAlignment = Alignment.Center,
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color.White)
+                            .padding(innerPadding)
+                    ) { LoadingIndicator() }
+                }            }
             is UiState.Success -> {
                 RewardTransactionListScreenContent(
                     rewardTransactionList = uiState.data,

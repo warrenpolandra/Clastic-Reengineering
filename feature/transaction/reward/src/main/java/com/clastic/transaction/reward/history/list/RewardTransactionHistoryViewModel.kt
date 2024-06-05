@@ -31,7 +31,7 @@ internal class RewardTransactionHistoryViewModel @Inject constructor(
         rewardRepository.fetchRewardTransactionByUserId(
             userId = userId,
             onFetchSuccess = { rewardTransactionList ->
-                _uiState.value = UiState.Success(rewardTransactionList)
+                _uiState.value = UiState.Success(rewardTransactionList.sortedByDescending { it.time })
             },
             onFetchFailed = { error -> _uiState.value = UiState.Error(error) }
         )

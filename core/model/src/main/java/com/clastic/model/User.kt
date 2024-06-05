@@ -17,5 +17,6 @@ data class User(
     val totalTransaction: Int = 0,
     val plasticTransactionList: List<String> = emptyList(),
     val rewardList: List<OwnedReward> = emptyList(),
-    val rewardTransactionList: List<String> = emptyList()
+    val rewardTransactionList: List<String> = emptyList(),
+    val missionSubmissionList: List<String> = emptyList()
 )

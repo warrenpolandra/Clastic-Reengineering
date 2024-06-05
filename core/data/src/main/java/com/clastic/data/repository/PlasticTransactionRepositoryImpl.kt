@@ -113,12 +113,14 @@ class PlasticTransactionRepositoryImpl @Inject constructor(
                 if (plasticTransactionListId.isEmpty()) {
                     onFetchSuccess(emptyList())
                 } else {
-                    plasticTransactionListId.forEachIndexed { index, plasticTransactionId ->
+                    plasticTransactionListId.forEach { plasticTransactionId ->
                         getPlasticTransactionById(
                             plasticTransactionId = plasticTransactionId,
-                            onFetchSuccess = {
-                                plasticTransaction -> plasticTransactionList.add(plasticTransaction)
-                                if (index == plasticTransactionListId.size-1) { onFetchSuccess(plasticTransactionList) }
+                            onFetchSuccess = { plasticTransaction ->
+                                plasticTransactionList.add(plasticTransaction)
+                                if (plasticTransactionList.size == plasticTransactionListId.size) {
+                                    onFetchSuccess(plasticTransactionList)
+                                }
                             },
                             onFetchFailed = onFetchFailed
                         )

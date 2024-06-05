@@ -141,13 +141,17 @@ class RewardRepositoryImpl @Inject constructor(
                 if (rewardTransactionListId.isEmpty()) {
                     onFetchSuccess(emptyList())
                 } else {
-                    rewardTransactionListId.forEachIndexed { index, transactionId ->
+                    rewardTransactionListId.forEach { transactionId ->
                         fetchRewardTransactionById(
                             transactionId = transactionId,
-                            onFetchSuccess = { rewardTransaction -> rewardTransactionList.add(rewardTransaction) },
+                            onFetchSuccess = { rewardTransaction ->
+                                rewardTransactionList.add(rewardTransaction)
+                                if (rewardTransactionList.size == rewardTransactionListId.size) {
+                                    onFetchSuccess(rewardTransactionList)
+                                }
+                            },
                             onFetchFailed = onFetchFailed
                         )
-                        if (index == rewardTransactionListId.size-1) { onFetchSuccess(rewardTransactionList) }
                     }
                 }
             }

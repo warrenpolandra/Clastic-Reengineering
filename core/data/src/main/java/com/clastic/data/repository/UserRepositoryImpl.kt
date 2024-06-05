@@ -191,7 +191,8 @@ class UserRepositoryImpl @Inject constructor(
                                     totalTransaction = document.getLong("totalTransaction")?.toInt() ?: 0,
                                     plasticTransactionList = document.get("plasticTransactionList") as List<String>,
                                     rewardList = getRewardListFromSnapShot(document),
-                                    rewardTransactionList = document.get("rewardTransactionList") as List<String>
+                                    rewardTransactionList = document.get("rewardTransactionList") as List<String>,
+                                    missionSubmissionList = document.get("missionSubmissionList") as List<String>
                                 )
                             },
                             errorMessage = null
@@ -247,7 +248,8 @@ class UserRepositoryImpl @Inject constructor(
                                     totalTransaction = 0,
                                     plasticTransactionList = emptyList(),
                                     rewardList = emptyList(),
-                                    rewardTransactionList = emptyList()
+                                    rewardTransactionList = emptyList(),
+                                    missionSubmissionList = emptyList()
                                 )
                             },
                             errorMessage = null
@@ -338,7 +340,8 @@ class UserRepositoryImpl @Inject constructor(
             totalTransaction = document.getLong("totalTransaction")?.toInt() ?: 0,
             plasticTransactionList = document.get("plasticTransactionList") as List<String>,
             rewardList = getRewardListFromSnapShot(document),
-            rewardTransactionList = document.get("rewardTransactionList") as List<String>
+            rewardTransactionList = document.get("rewardTransactionList") as List<String>,
+            missionSubmissionList = document.get("missionSubmissionList") as List<String>
        )
     }
 }

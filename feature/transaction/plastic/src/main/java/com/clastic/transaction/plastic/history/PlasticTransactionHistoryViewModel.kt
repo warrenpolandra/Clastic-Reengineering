@@ -26,8 +26,8 @@ internal class PlasticTransactionHistoryViewModel @Inject constructor(
             onFetchSuccess = { user ->
                 plasticTransactionRepository.getPlasticTransactionByUserId(
                     userId = user.email,
-                    onFetchSuccess = {
-                        plasticTransactions -> _plasticTransactionList.value = plasticTransactions
+                    onFetchSuccess = { plasticTransactions ->
+                        _plasticTransactionList.value = plasticTransactions.sortedByDescending { it.date }
                         _isLoading.value = false
                     },
                     onFetchFailed = {
