@@ -1,10 +1,13 @@
 package com.clastic.home.component
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
@@ -17,14 +20,21 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.clastic.home.R
+import com.clastic.model.Mission
 import com.clastic.ui.MissionCard
 import com.clastic.ui.theme.ClasticTheme
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 internal fun PlasticMission(
+    missionList: List<Mission>,
     onMissionClick: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val pagerState = rememberPagerState(
+        pageCount = { missionList.size }
+    )
+
     Column(
         modifier = modifier
             .fillMaxWidth()
@@ -49,11 +59,17 @@ internal fun PlasticMission(
             text = stringResource(R.string.exchange_your_plastic_to_points),
             style = MaterialTheme.typography.subtitle1.copy(Color.Gray)
         )
-        // TODO: make missionCard
-//        MissionCard(
-//            mission = ,
-//            onMissionCLick = onMissionClick
-//        )
+
+        HorizontalPager(
+            state = pagerState,
+            key = { missionList[it].id }
+        ) { index ->
+            MissionCard(
+                mission = missionList[index],
+                onMissionCLick = onMissionClick,
+                modifier = Modifier.padding(horizontal = 4.dp)
+            )
+        }
     }
 }
 
@@ -61,6 +77,9 @@ internal fun PlasticMission(
 @Composable
 private fun PlasticMissionPreview() {
     ClasticTheme {
-        PlasticMission(onMissionClick = {})
+        PlasticMission(
+            missionList = emptyList(),
+            onMissionClick = {}
+        )
     }
 }

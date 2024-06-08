@@ -46,6 +46,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import com.clastic.home.component.PlasticExchange
 import com.clastic.home.component.PlasticKnowledgeComponent
 import com.clastic.home.component.PlasticMission
+import com.clastic.model.Mission
 import com.clastic.model.PlasticKnowledge
 import com.clastic.model.User
 import com.clastic.ui.theme.ClasticTheme
@@ -67,12 +68,14 @@ fun HomeScreen(
     val viewModel: HomeViewModel = hiltViewModel<HomeViewModel>()
     val user by viewModel.user.collectAsState()
     val listPlasticKnowledge by viewModel.listPlasticKnowledge.collectAsState()
+    val missionList by viewModel.missionList.collectAsState()
     val isLoading by viewModel.isLoading.collectAsState()
 
     HomeScreenContent(
         user = user,
         isLoading = isLoading,
         listPlasticKnowledge = listPlasticKnowledge,
+        missionList = missionList,
         onPlasticTypeClicked = onPlasticTypeClicked,
         navigateToDropPointMap = navigateToDropPointMap,
         navigateToQrCode = navigateToQrCode,
@@ -88,6 +91,7 @@ private fun HomeScreenContent(
     user: User,
     isLoading: Boolean,
     listPlasticKnowledge: List<PlasticKnowledge>,
+    missionList: List<Mission>,
     onPlasticTypeClicked: (String) -> Unit,
     navigateToDropPointMap: () -> Unit,
     navigateToQrCode: (String) -> Unit,
@@ -180,7 +184,7 @@ private fun HomeScreenContent(
                             verticalAlignment = Alignment.CenterVertically,
                             modifier = Modifier
                                 .align(Alignment.Center)
-                                .clickable{ navigateToTutorial() }
+                                .clickable { navigateToTutorial() }
                         ) {
                             Text(
                                 text = stringResource(R.string.want_more_points),
@@ -230,7 +234,11 @@ private fun HomeScreenContent(
                             .alpha(0.6f)
                     )
 
-                    PlasticMission(modifier = modifier, onMissionClick = onMissionClick)
+                    PlasticMission(
+                        modifier = modifier,
+                        missionList = missionList,
+                        onMissionClick = onMissionClick
+                    )
 
                     Spacer(
                         modifier = Modifier
@@ -305,6 +313,7 @@ private fun HomeScreenPreview() {
                 rewardTransactionList = emptyList(),
             ),
             listPlasticKnowledge = emptyList(),
+            missionList = emptyList(),
             onPlasticTypeClicked = {},
             navigateToDropPointMap = {},
             navigateToQrCode = {},
