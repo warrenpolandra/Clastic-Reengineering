@@ -1,6 +1,5 @@
 package com.clastic.transaction.reward.history.list
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.clastic.domain.repository.RewardRepository
 import com.clastic.domain.repository.UserRepository

@@ -17,6 +17,7 @@ internal class RegisterViewModel @Inject constructor(
     private val userRepository: UserRepository
 ): ViewModel() {
     private val _authState = MutableStateFlow(AuthenticationState())
+    val authState = _authState.asStateFlow()
 
     private val _nameInput = MutableStateFlow("")
     val nameInput = _nameInput.asStateFlow()

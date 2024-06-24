@@ -1,7 +1,6 @@
 package com.clastic.domain.repository
 
 import com.clastic.model.OrderedReward
-import com.clastic.model.OwnedReward
 import com.clastic.model.Reward
 import com.clastic.model.RewardTransaction
 import kotlinx.coroutines.flow.Flow

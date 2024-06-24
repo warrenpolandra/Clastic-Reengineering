@@ -6,6 +6,7 @@ import com.clastic.domain.repository.MissionRepository
 import com.clastic.domain.repository.UserRepository
 import com.clastic.model.Mission
 import com.clastic.ui.UiState
+import com.clastic.utils.TextUtils.isValidURL
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -123,8 +124,12 @@ internal class MissionTransactionViewModel @Inject constructor(
         }
     }
 
-
     private fun setButtonEnabled() {
-        _buttonEnabled.value = (_imageUri.value != null && _isTnCChecked.value) || (_linkSubmission.value.isNotEmpty() && _isTnCChecked.value)
+        _buttonEnabled.value =
+            (_imageUri.value != null && _isTnCChecked.value) ||
+            (_linkSubmission.value.isNotEmpty()
+                    && isValidURL(_linkSubmission.value)
+                    && _isTnCChecked.value
+            )
     }
 }

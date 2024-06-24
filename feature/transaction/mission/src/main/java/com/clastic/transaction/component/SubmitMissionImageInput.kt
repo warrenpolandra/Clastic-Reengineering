@@ -38,9 +38,7 @@ internal fun SubmitMissionImageInput(
     ) {
         Box(
             contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .fillMaxWidth()
-                .border(4.dp, CyanPrimary, RoundedCornerShape(16.dp))
+            modifier = Modifier.border(4.dp, CyanPrimary, RoundedCornerShape(16.dp))
         ) {
             if (imageSubmission != null) {
                 AsyncImage(

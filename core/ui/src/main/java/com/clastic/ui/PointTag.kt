@@ -56,7 +56,7 @@ fun PointTag(modifier: Modifier = Modifier, point: Int) {
     }
 }
 
-@Preview()
+@Preview
 @Composable
 fun PointTagPreview() {
     ClasticTheme {

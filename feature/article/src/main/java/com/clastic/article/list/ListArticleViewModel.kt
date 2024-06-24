@@ -25,7 +25,7 @@ internal class ListArticleViewModel @Inject constructor(
         fetchListArticle()
     }
 
-    private fun fetchListArticle() {
+    fun fetchListArticle() {
         _errorMessage.value = ""
         _isLoading.value = true
         articleRepository.fetchArticles(
